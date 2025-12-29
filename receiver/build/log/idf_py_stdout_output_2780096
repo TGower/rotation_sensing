@@ -1,0 +1,459 @@
+[0;32mI (124) esp_image: segment 1: paddr=00032b3c vaddr=3fc9bdESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403cd65e
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 24 2025 10:51:17[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=22b14h (142100) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=00032b3c vaddr=3fc9bd00 size=04ca8h ( 19624) load[0m
+[0;32mI (129) esp_image: segment 2: paddr=000377ec vaddr=40374000 size=0882ch ( 34860) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=85474h (545908) map[0m
+[0;32mI (237) esp_image: segment 4: paddr=000c549c vaddr=4037c82c size=0f458h ( 62552) load[0m
+[0;32mI (261) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (261) boot: Disabling RNG early entropy source...[0m
+[0;32mI (272) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (273) esp_psram: Speed: 80MHz[0m
+[0;32mI (273) cpu_start: Multicore app[0m
+[0;32mI (503) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (513) cpu_start: Pro cpu start user code[0m
+[0;32mI (513) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (513) app_init: Application information:[0m
+[0;32mI (516) app_init: Project name:     espnow_example[0m
+[0;32mI (521) app_init: App version:      1[0m
+[0;32mI (526) app_init: Compile time:     Dec 24 2025 10:51:15[0m
+[0;32mI (532) app_init: ELF file SHA256:  e988c5347...[0m
+[0;32mI (537) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (542) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (546) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (551) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (556) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (563) heap_init: At 3FCA4860 len 00044EB0 (275 KiB): RAM[0m
+[0;32mI (569) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (576) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (582) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (588) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (596) spi_flash: detected chip: generic[0m
+[0;32mI (600) spi_flash: flash io: dio[0m
+[0;33mW (604) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (617) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (628) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (635) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (642) main_task: Started on CPU0[0m
+[0;32mI (652) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (652) main_task: Calling app_main()[0m
+[0;32mI (662) receiver: Starting Receiver App...[0m
+[0;32mI (672) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (672) receiver: Free SPIRAM before alloc: 2093828 bytes[0m
+[0;32mI (682) receiver: Allocated 524000 bytes in SPIRAM for burst buffer[0m
+[0;32mI (682) receiver: Initializing I2C SDA=11 SCL=12[0m
+[0;32mI (692) receiver: Scanning I2C...[0m
+[0;32mI (692) receiver: Found I2C device at: 0x00[0m
+[0;32mI (702) receiver: Found I2C device at: 0x22[0m
+[0;32mI (712) receiver: Sensor configured for Continuous Mode + XYZ[0m
+[0;32mI (712) receiver: TMAG Manufacturer ID: 0x5449[0m
+[0;32mI (722) pp: pp rom version: e7ae62f[0m
+[0;32mI (722) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (742) wifi:wifi driver task: 3fcb88d4, prio:23, stack:6656, core=0[0m
+[0;32mI (742) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (742) wifi:wifi certification version: v7.0[0m
+[0;32mI (742) wifi:config NVS flash: enabled[0m
+[0;32mI (742) wifi:config nano formating: disabled[0m
+[0;32mI (752) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (752) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (762) wifi:Init management short buffer num: 32[0m
+[0;32mI (762) wifi:Init static tx buffer num: 16[0m
+[0;32mI (772) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (772) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (772) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (782) wifi:Init static rx buffer num: 10[0m
+[0;32mI (782) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (792) wifi_init: rx ba win: 6[0m
+[0;32mI (792) wifi_init: accept mbox: 6[0m
+[0;32mI (792) wifi_init: tcpip mbox: 32[0m
+[0;32mI (802) wifi_init: udp mbox: 6[0m
+[0;32mI (802) wifi_init: tcp mbox: 6[0m
+[0;32mI (802) wifi_init: tcp tx win: 5760[0m
+[0;32mI (812) wifi_init: tcp rx win: 5760[0m
+[0;32mI (812) wifi_init: tcp mss: 1440[0m
+[0;32mI (822) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (822) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (832) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (872) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (902) wifi:mode : sta (98:3d:ae:f1:ee:50)[0m
+[0;32mI (902) wifi:enable tsf[0m
+[0;32mI (902) wifi:ic_enable_sniffer[0m
+[0;32mI (912) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (912) main_task: Returned from app_main()[0m
+[0;32mI (912) receiver: Discovered Target MAC: 98:3d:ae:f1:ec:b0[0m
+[0;32mI (912) receiver: Added Target as Peer[0m
+[0;32mI (2962) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (6942) receiver: Burst flush complete.[0m
+[0;32mI (8922) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (12752) receiver: Burst flush complete.[0m
+[0;32mI (14812) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (18782) receiver: Burst flush complete.[0m
+[0;32mI (20772) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (24742) receiver: Burst flush complete.[0m
+[0;32mI (26792) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (30562) receiver: Burst flush complete.[0m
+[0;32mI (32972) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (37692) receiver: Burst flush complete.[0m
+[0;32mI (39722) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (44452) receiver: Burst flush complete.[0m
+[0;32mI (46552) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (50592) receiver: Burst flush complete.[0m
+[0;32mI (52672) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (56632) receiver: Burst flush complete.[0m
+[0;32mI (58672) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (62732) receiver: Burst flush complete.[0m
+[0;32mI (64772) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (68552) receiver: Burst flush complete.[0m
+[0;32mI (70752) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (75442) receiver: Burst flush complete.[0m
+[0;32mI (77562) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (81822) receiver: Burst flush complete.[0m
+[0;32mI (83862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (87822) receiver: Burst flush complete.[0m
+[0;32mI (89852) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (93812) receiver: Burst flush complete.[0m
+[0;32mI (95852) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (99912) receiver: Burst flush complete.[0m
+[0;32mI (101942) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (106542) receiver: Burst flush complete.[0m
+[0;32mI (108582) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (112742) receiver: Burst flush complete.[0m
+[0;32mI (114802) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (118732) receiver: Burst flush complete.[0m
+[0;32mI (120772) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (125042) receiver: Burst flush complete.[0m
+[0;32mI (127102) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (130142) receiver: Burst flush complete.[0m
+[0;32mI (132142) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (136192) receiver: Burst flush complete.[0m
+[0;32mI (138192) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (142422) receiver: Burst flush complete.[0m
+[0;32mI (144422) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (148942) receiver: Burst flush complete.[0m
+[0;32mI (150982) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (155392) receiver: Burst flush complete.[0m
+[0;32mI (157472) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (161882) receiver: Burst flush complete.[0m
+[0;32mI (163922) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (167992) receiver: Burst flush complete.[0m
+[0;32mI (170072) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (174272) receiver: Burst flush complete.[0m
+[0;32mI (176292) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (179712) receiver: Burst flush complete.[0m
+[0;32mI (181722) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (185572) receiver: Burst flush complete.[0m
+[0;32mI (187592) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (191652) receiver: Burst flush complete.[0m
+[0;32mI (193662) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (197592) receiver: Burst flush complete.[0m
+[0;32mI (199582) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (203382) receiver: Burst flush complete.[0m
+[0;32mI (205522) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (209272) receiver: Burst flush complete.[0m
+[0;32mI (211302) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (215152) receiver: Burst flush complete.[0m
+[0;32mI (217182) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (221222) receiver: Burst flush complete.[0m
+[0;32mI (223262) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (227462) receiver: Burst flush complete.[0m
+[0;32mI (229562) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (233602) receiver: Burst flush complete.[0m
+[0;32mI (235632) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (239882) receiver: Burst flush complete.[0m
+[0;32mI (241892) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (245812) receiver: Burst flush complete.[0m
+[0;32mI (247952) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (251882) receiver: Burst flush complete.[0m
+[0;32mI (253882) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (257992) receiver: Burst flush complete.[0m
+[0;32mI (259992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (264332) receiver: Burst flush complete.[0m
+[0;32mI (266362) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (270562) receiver: Burst flush complete.[0m
+[0;32mI (272572) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (276972) receiver: Burst flush complete.[0m
+[0;32mI (279062) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (283082) receiver: Burst flush complete.[0m
+[0;32mI (285182) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (289022) receiver: Burst flush complete.[0m
+[0;32mI (291062) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (295852) receiver: Burst flush complete.[0m
+[0;32mI (297862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (302232) receiver: Burst flush complete.[0m
+[0;32mI (304282) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (308652) receiver: Burst flush complete.[0m
+[0;32mI (310702) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (315292) receiver: Burst flush complete.[0m
+[0;32mI (317302) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (321842) receiver: Burst flush complete.[0m
+[0;32mI (323842) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (327942) receiver: Burst flush complete.[0m
+[0;32mI (330092) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (333542) receiver: Burst flush complete.[0m
+[0;32mI (335742) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (340092) receiver: Burst flush complete.[0m
+[0;32mI (342382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (346392) receiver: Burst flush complete.[0m
+[0;32mI (348582) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (351922) receiver: Burst flush complete.[0m
+[0;32mI (354092) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (357802) receiver: Burst flush complete.[0m
+[0;32mI (359832) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (363652) receiver: Burst flush complete.[0m
+[0;32mI (365702) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (369802) receiver: Burst flush complete.[0m
+[0;32mI (371892) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (375632) receiver: Burst flush complete.[0m
+[0;32mI (377722) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (382292) receiver: Burst flush complete.[0m
+[0;32mI (384292) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (387832) receiver: Burst flush complete.[0m
+[0;32mI (389842) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (393902) receiver: Burst flush complete.[0m
+[0;32mI (395992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (399572) receiver: Burst flush complete.[0m
+[0;32mI (401642) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (405842) receiver: Burst flush complete.[0m
+[0;32mI (407862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (411712) receiver: Burst flush complete.[0m
+[0;32mI (413732) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (417902) receiver: Burst flush complete.[0m
+[0;32mI (419932) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (424162) receiver: Burst flush complete.[0m
+[0;32mI (426222) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (430352) receiver: Burst flush complete.[0m
+[0;32mI (432382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (437562) receiver: Burst flush complete.[0m
+[0;32mI (439612) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (444752) receiver: Burst flush complete.[0m
+[0;32mI (446832) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (450802) receiver: Burst flush complete.[0m
+[0;32mI (452872) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (457392) receiver: Burst flush complete.[0m
+[0;32mI (459542) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (465392) receiver: Burst flush complete.[0m
+[0;32mI (467622) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (472442) receiver: Burst flush complete.[0m
+[0;32mI (474622) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (479072) receiver: Burst flush complete.[0m
+[0;32mI (481112) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (486012) receiver: Burst flush complete.[0m
+[0;32mI (488062) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;31mE (491002) receiver: Failed to send packet 1786 after 50 retries. Continuing...[0m
+[0;31mE (492062) receiver: Failed to send packet 1787 after 50 retries. Continuing...[0m
+[0;31mE (493192) receiver: Failed to send packet 1788 after 50 retries. Continuing...[0m
+[0;31mE (494282) receiver: Failed to send packet 1789 after 50 retries. Continuing...[0m
+[0;31mE (495432) receiver: Failed to send packet 1790 after 50 retries. Continuing...[0m
+[0;31mE (496282) receiver: Failed to send packet 1791 after 50 retries. Continuing...[0m
+[0;31mE (496982) receiver: Failed to send packet 1792 after 50 retries. Continuing...[0m
+[0;31mE (497982) receiver: Failed to send packet 1793 after 50 retries. Continuing...[0m
+[0;31mE (498872) receiver: Failed to send packet 1794 after 50 retries. Continuing...[0m
+[0;32mI (502162) receiver: Burst flush complete.[0m
+[0;32mI (503862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (508642) receiver: Burst flush complete.[0m
+[0;32mI (510652) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (515062) receiver: Burst flush complete.[0m
+[0;32mI (516912) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (521622) receiver: Burst flush complete.[0m
+[0;32mI (523312) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (529332) receiver: Burst flush complete.[0m
+[0;32mI (531382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (537412) receiver: Burst flush complete.[0m
+[0;32mI (539392) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (544812) receiver: Burst flush complete.[0m
+[0;32mI (546832) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (552442) receiver: Burst flush complete.[0m
+[0;32mI (553732) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (558452) receiver: Burst flush complete.[0m
+[0;32mI (559702) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (563512) receiver: Burst flush complete.[0m
+[0;32mI (565132) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (569212) receiver: Burst flush complete.[0m
+[0;32mI (570262) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (574552) receiver: Burst flush complete.[0m
+[0;32mI (575862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (580112) receiver: Burst flush complete.[0m
+[0;32mI (581462) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (585952) receiver: Burst flush complete.[0m
+[0;32mI (587032) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (591582) receiver: Burst flush complete.[0m
+[0;32mI (592782) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (597182) receiver: Burst flush complete.[0m
+[0;32mI (598402) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (602462) receiver: Burst flush complete.[0m
+[0;32mI (603442) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (607962) receiver: Burst flush complete.[0m
+[0;32mI (609062) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (613512) receiver: Burst flush complete.[0m
+[0;32mI (614832) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (619172) receiver: Burst flush complete.[0m
+[0;32mI (620252) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (624432) receiver: Burst flush complete.[0m
+[0;32mI (625642) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (629732) receiver: Burst flush complete.[0m
+[0;32mI (630902) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (634912) receiver: Burst flush complete.[0m
+[0;32mI (635952) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (639902) receiver: Burst flush complete.[0m
+[0;32mI (640842) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (645012) receiver: Burst flush complete.[0m
+[0;32mI (646172) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (649952) receiver: Burst flush complete.[0m
+[0;32mI (650902) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (654762) receiver: Burst flush complete.[0m
+[0;32mI (655892) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (659882) receiver: Burst flush complete.[0m
+[0;32mI (661072) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (665062) receiver: Burst flush complete.[0m
+[0;32mI (666322) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (670972) receiver: Burst flush complete.[0m
+[0;32mI (672612) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (676672) receiver: Burst flush complete.[0m
+[0;32mI (679422) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (684072) receiver: Burst flush complete.[0m
+[0;32mI (685412) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (689482) receiver: Burst flush complete.[0m
+[0;32mI (691042) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (695022) receiver: Burst flush complete.[0m
+[0;32mI (696412) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (700042) receiver: Burst flush complete.[0m
+[0;32mI (701752) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (705162) receiver: Burst flush complete.[0m
+[0;32mI (706682) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (710142) receiver: Burst flush complete.[0m
+[0;32mI (711602) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (715342) receiver: Burst flush complete.[0m
+[0;32mI (716832) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (720372) receiver: Burst flush complete.[0m
+[0;32mI (721822) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (725752) receiver: Burst flush complete.[0m
+[0;32mI (727172) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (731592) receiver: Burst flush complete.[0m
+[0;32mI (732912) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (737212) receiver: Burst flush complete.[0m
+[0;32mI (738612) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (742182) receiver: Burst flush complete.[0m
+[0;32mI (743192) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (746412) receiver: Burst flush complete.[0m
+[0;32mI (747992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (751252) receiver: Burst flush complete.[0m
+[0;32mI (752672) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (756412) receiver: Burst flush complete.[0m
+[0;32mI (757902) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (762192) receiver: Burst flush complete.[0m
+[0;32mI (763582) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (767602) receiver: Burst flush complete.[0m
+[0;32mI (768622) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (772612) receiver: Burst flush complete.[0m
+[0;32mI (773582) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (778192) receiver: Burst flush complete.[0m
+[0;32mI (779272) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (783282) receiver: Burst flush complete.[0m
+[0;32mI (784682) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (788742) receiver: Burst flush complete.[0m
+[0;32mI (790082) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (794242) receiver: Burst flush complete.[0m
+[0;32mI (795482) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (799372) receiver: Burst flush complete.[0m
+[0;32mI (800432) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (804632) receiver: Burst flush complete.[0m
+[0;32mI (805702) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (809492) receiver: Burst flush complete.[0m
+[0;32mI (810442) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (814542) receiver: Burst flush complete.[0m
+[0;32mI (815682) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (819552) receiver: Burst flush complete.[0m
+[0;32mI (820392) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (824322) receiver: Burst flush complete.[0m
+[0;32mI (825342) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (829362) receiver: Burst flush complete.[0m
+[0;32mI (830342) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (834472) receiver: Burst flush complete.[0m
+[0;32mI (835672) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (839512) receiver: Burst flush complete.[0m
+[0;32mI (840342) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (844382) receiver: Burst flush complete.[0m
+[0;32mI (845562) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (849862) receiver: Burst flush complete.[0m
+[0;32mI (851382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (856452) receiver: Burst flush complete.[0m
+[0;32mI (857902) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (862472) receiver: Burst flush complete.[0m
+[0;32mI (863682) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (868002) receiver: Burst flush complete.[0m
+[0;32mI (868992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (873712) receiver: Burst flush complete.[0m
+[0;32mI (875242) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (879332) receiver: Burst flush complete.[0m
+[0;32mI (880542) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (884642) receiver: Burst flush complete.[0m
+[0;32mI (886362) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (890502) receiver: Burst flush complete.[0m
+[0;32mI (891632) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (895882) receiver: Burst flush complete.[0m
+[0;32mI (896862) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (900992) receiver: Burst flush complete.[0m
+[0;32mI (902252) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (906592) receiver: Burst flush complete.[0m
+[0;32mI (907992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (912212) receiver: Burst flush complete.[0m
+[0;32mI (913322) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (917422) receiver: Burst flush complete.[0m
+[0;32mI (918952) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (923222) receiver: Burst flush complete.[0m
+[0;32mI (924802) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (929072) receiver: Burst flush complete.[0m
+[0;32mI (930372) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (934952) receiver: Burst flush complete.[0m
+[0;32mI (936292) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (940902) receiver: Burst flush complete.[0m
+[0;32mI (942052) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (946082) receiver: Burst flush complete.[0m
+[0;32mI (947382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (951812) receiver: Burst flush complete.[0m
+[0;32mI (953242) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (957692) receiver: Burst flush complete.[0m
+[0;32mI (958982) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (963312) receiver: Burst flush complete.[0m
+[0;32mI (964822) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (969042) receiver: Burst flush complete.[0m
+[0;32mI (970382) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (974562) receiver: Burst flush complete.[0m
+[0;32mI (975992) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (980062) receiver: Burst flush complete.[0m
+[0;32mI (981212) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (985372) receiver: Burst flush complete.[0m
+[0;32mI (986772) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (990582) receiver: Burst flush complete.[0m
+[0;32mI (992092) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (996092) receiver: Burst flush complete.[0m
+[0;32mI (997622) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (1001422) receiver: Burst flush complete.[0m
+[0;32mI (1002882) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (1007052) receiver: Burst flush complete.[0m
+[0;32mI (1008172) receiver: Starting burst flush of 4000 packets to 98:3d:ae:f1:ec:b0...[0m
+[0;32mI (1011892) receiver: Burst flush complete.[0m
+[0;32mI (1013182) receiver: Sta

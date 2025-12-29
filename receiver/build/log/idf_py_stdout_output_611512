@@ -1,0 +1,234 @@
+[0;32mI (124) esp_image: segment 1: paddr=0003283c vaddr=3fc9bdESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40045128
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 24 2025 10:51:17[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=22814h (141332) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=0003283c vaddr=3fc9bd00 size=04ca8h ( 19624) load[0m
+[0;32mI (129) esp_image: segment 2: paddr=000374ec vaddr=40374000 size=08b2ch ( 35628) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84fe4h (544740) map[0m
+[0;32mI (237) esp_image: segment 4: paddr=000c500c vaddr=4037cb2c size=0f158h ( 61784) load[0m
+[0;32mI (260) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (261) boot: Disabling RNG early entropy source...[0m
+[0;32mI (273) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (273) esp_psram: Speed: 80MHz[0m
+[0;32mI (274) cpu_start: Multicore app[0m
+[0;32mI (504) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (513) cpu_start: Pro cpu start user code[0m
+[0;32mI (513) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (514) app_init: Application information:[0m
+[0;32mI (516) app_init: Project name:     espnow_example[0m
+[0;32mI (522) app_init: App version:      1[0m
+[0;32mI (526) app_init: Compile time:     Dec 24 2025 10:51:15[0m
+[0;32mI (532) app_init: ELF file SHA256:  7e19f947a...[0m
+[0;32mI (537) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (542) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (547) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (552) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (557) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (564) heap_init: At 3FCC4A08 len 00024D08 (147 KiB): RAM[0m
+[0;32mI (570) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (576) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (582) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (589) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (597) spi_flash: detected chip: generic[0m
+[0;32mI (601) spi_flash: flash io: dio[0m
+[0;33mW (604) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;33mW (618) i2c: This driver is an old driver, please migrate your application code to adapt `driver/i2c_master.h`[0m
+[0;32mI (629) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (635) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (643) main_task: Started on CPU0[0m
+[0;32mI (653) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (653) main_task: Calling app_main()[0m
+[0;32mI (663) receiver: Starting Receiver App...[0m
+[0;32mI (673) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (673) receiver: Initializing I2C SDA=11 SCL=12[0m
+[0;31mE (683) receiver: Failed to write SENSOR_CONFIG_1[0m
+[0;31mE (683) receiver: Failed to write DEVICE_CONFIG_2[0m
+[0;32mI (693) receiver: Sensor configured for Continuous Mode + XYZ[0m
+[0;32mI (693) receiver: TMAG Manufacturer ID: 0x5449[0m
+[0;32mI (703) pp: pp rom version: e7ae62f[0m
+[0;32mI (703) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (723) wifi:wifi driver task: 3fcd86e4, prio:23, stack:6656, core=0[0m
+[0;32mI (723) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (723) wifi:wifi certification version: v7.0[0m
+[0;32mI (723) wifi:config NVS flash: enabled[0m
+[0;32mI (733) wifi:config nano formating: disabled[0m
+[0;32mI (733) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (733) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (743) wifi:Init management short buffer num: 32[0m
+[0;32mI (743) wifi:Init static tx buffer num: 16[0m
+[0;32mI (753) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (753) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (753) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (763) wifi:Init static rx buffer num: 10[0m
+[0;32mI (763) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (773) wifi_init: rx ba win: 6[0m
+[0;32mI (773) wifi_init: accept mbox: 6[0m
+[0;32mI (773) wifi_init: tcpip mbox: 32[0m
+[0;32mI (783) wifi_init: udp mbox: 6[0m
+[0;32mI (783) wifi_init: tcp mbox: 6[0m
+[0;32mI (793) wifi_init: tcp tx win: 5760[0m
+[0;32mI (793) wifi_init: tcp rx win: 5760[0m
+[0;32mI (793) wifi_init: tcp mss: 1440[0m
+[0;32mI (803) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (803) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (813) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (863) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (923) wifi:mode : sta (98:3d:ae:f1:ee:50)[0m
+[0;32mI (923) wifi:enable tsf[0m
+[0;32mI (923) wifi:ic_enable_sniffer[0m
+[0;32mI (923) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (933) main_task: Returned from app_main()[0m
+[0;32mI (1443) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (1943) receiver: Burst flush complete.[0m
+[0;32mI (2473) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (2993) receiver: Burst flush complete.[0m
+[0;32mI (3483) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (3993) receiver: Burst flush complete.[0m
+[0;32mI (4503) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (5003) receiver: Burst flush complete.[0m
+[0;32mI (5513) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (6023) receiver: Burst flush complete.[0m
+[0;32mI (6523) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (7033) receiver: Burst flush complete.[0m
+[0;32mI (7523) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (8033) receiver: Burst flush complete.[0m
+[0;32mI (8543) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (9053) receiver: Burst flush complete.[0m
+[0;32mI (9543) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (10043) receiver: Burst flush complete.[0m
+[0;32mI (10533) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (11043) receiver: Burst flush complete.[0m
+[0;32mI (11533) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (12033) receiver: Burst flush complete.[0m
+[0;32mI (12533) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (13033) receiver: Burst flush complete.[0m
+[0;32mI (13523) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (14023) receiver: Burst flush complete.[0m
+[0;32mI (14523) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (15023) receiver: Burst flush complete.[0m
+[0;32mI (15513) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (16013) receiver: Burst flush complete.[0m
+[0;32mI (16513) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (17023) receiver: Burst flush complete.[0m
+[0;32mI (17513) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (18013) receiver: Burst flush complete.[0m
+[0;32mI (18523) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (19093) receiver: Burst flush complete.[0m
+[0;32mI (19613) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (20113) receiver: Burst flush complete.[0m
+[0;32mI (20623) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (21123) receiver: Burst flush complete.[0m
+[0;32mI (21623) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (22123) receiver: Burst flush complete.[0m
+[0;32mI (22613) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (23113) receiver: Burst flush complete.[0m
+[0;32mI (23633) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (24133) receiver: Burst flush complete.[0m
+[0;32mI (24633) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (25143) receiver: Burst flush complete.[0m
+[0;32mI (25633) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (26133) receiver: Burst flush complete.[0m
+[0;32mI (26633) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (27133) receiver: Burst flush complete.[0m
+[0;32mI (27623) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (28143) receiver: Burst flush complete.[0m
+[0;32mI (28663) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (29173) receiver: Burst flush complete.[0m
+[0;32mI (29673) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (30173) receiver: Burst flush complete.[0m
+[0;32mI (30673) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (31203) receiver: Burst flush complete.[0m
+[0;32mI (31693) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (32193) receiver: Burst flush complete.[0m
+[0;32mI (32683) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (33183) receiver: Burst flush complete.[0m
+[0;32mI (33673) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (34173) receiver: Burst flush complete.[0m
+[0;32mI (34663) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (35163) receiver: Burst flush complete.[0m
+[0;32mI (35653) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (36153) receiver: Burst flush complete.[0m
+[0;32mI (36653) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (37153) receiver: Burst flush complete.[0m
+[0;32mI (37653) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (38153) receiver: Burst flush complete.[0m
+[0;32mI (38673) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (39183) receiver: Burst flush complete.[0m
+[0;32mI (39703) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (40213) receiver: Burst flush complete.[0m
+[0;32mI (40713) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (41213) receiver: Burst flush complete.[0m
+[0;32mI (41723) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (42233) receiver: Burst flush complete.[0m
+[0;32mI (42723) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (43223) receiver: Burst flush complete.[0m
+[0;32mI (43733) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (44233) receiver: Burst flush complete.[0m
+[0;32mI (44743) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (45243) receiver: Burst flush complete.[0m
+[0;32mI (45733) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (46233) receiver: Burst flush complete.[0m
+[0;32mI (46733) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (47233) receiver: Burst flush complete.[0m
+[0;32mI (47723) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (48243) receiver: Burst flush complete.[0m
+[0;32mI (48773) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (49273) receiver: Burst flush complete.[0m
+[0;32mI (49783) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (50283) receiver: Burst flush complete.[0m
+[0;32mI (50793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (51293) receiver: Burst flush complete.[0m
+[0;32mI (51803) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (52313) receiver: Burst flush complete.[0m
+[0;32mI (52813) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (53313) receiver: Burst flush complete.[0m
+[0;32mI (53793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (54303) receiver: Burst flush complete.[0m
+[0;32mI (54793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (55293) receiver: Burst flush complete.[0m
+[0;32mI (55803) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (56303) receiver: Burst flush complete.[0m
+[0;32mI (56813) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (57313) receiver: Burst flush complete.[0m
+[0;32mI (57803) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (58303) receiver: Burst flush complete.[0m
+[0;32mI (58803) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (59303) receiver: Burst flush complete.[0m
+[0;32mI (59813) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (60313) receiver: Burst flush complete.[0m
+[0;32mI (60813) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (61313) receiver: Burst flush complete.[0m
+[0;32mI (61823) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (62323) receiver: Burst flush complete.[0m
+[0;32mI (62813) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (63313) receiver: Burst flush complete.[0m
+[0;32mI (63803) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (64303) receiver: Burst flush complete.[0m
+[0;32mI (64793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (65293) receiver: Burst flush complete.[0m
+[0;32mI (65793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (66293) receiver: Burst flush complete.[0m
+[0;32mI (66793) receiver: Starting burst flush of 1000 packets...[0m
+[0;32mI (67293) receiver: Burst flush complete.[0m
