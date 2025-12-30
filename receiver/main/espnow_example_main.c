@@ -5,6 +5,8 @@
 
 #include "driver/i2c.h"
 // #include "driver/usb_serial_jtag.h"
+#include "driver/rmt_tx.h"
+#include "dshot_esc_encoder.h"
 #include "esp_crc.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -18,6 +20,7 @@
 #include "freertos/semphr.h"
 #include "freertos/timers.h"
 #include "led_strip.h"
+#include "math.h"
 #include "nvs_flash.h"
 #include <inttypes.h>
 #include <stdio.h>
@@ -28,6 +31,14 @@
 
 #define LEDC_IO 48
 #define ESPNOW_MAXDELAY 512
+
+#define DSHOT_ESC_RESOLUTION_HZ 40000000 // 40MHz
+#define DSHOT_ESC_GPIO_NUM_A 13
+#define DSHOT_ESC_GPIO_NUM_B 14
+
+#define RSSI_BUF_SIZE 6000
+#define INTERPOLATION_INTERVAL_US 100
+#define CORRELATION_WINDOW 1000
 
 static const char *TAG = "receiver";
 
@@ -56,40 +67,44 @@ static volatile bool g_send_status = false;
 #define TMAG_REG_MAN_ID_MSB 0x0F
 #define TMAG_REG_RESULT_X 0x12 // X_MSB_RESULT
 
-// Global Data Storage
 typedef struct {
-  int16_t x;
-  int16_t y;
-  int16_t z;
-} tmag_data_t;
-
-typedef struct __attribute__((packed)) {
-  uint32_t magic;
-  int64_t local_timestamp;
-  int64_t sender_timestamp;
-  int16_t tmag_x;
-  int16_t tmag_y;
-  int16_t tmag_z;
   int8_t rssi;
-  uint16_t csi_len;
-  int64_t csi_timestamp;
-  uint8_t csi_data[512];
-} csi_log_packet_t;
+  int64_t timestamp;
+} rssi_sample_t;
 
 typedef struct {
-  tmag_data_t tmag;
-  int64_t sender_timestamp;
-} shared_state_t;
+  rssi_sample_t buffer[RSSI_BUF_SIZE];
+  int head;
+  int tail;
+  int64_t last_timestamp;
+} rssi_circular_buffer_t;
 
-static shared_state_t g_shared_state = {0};
+typedef struct {
+  uint16_t throttle;
+  float vector_x;
+  float vector_y;
+} control_input_t;
+
+typedef struct {
+  float rotation_rate; // Radians per second? Or generic units? Let's say Hz for
+                       // now or normalized.
+  float phase_offset;
+  int64_t last_peak_timestamp;
+  float estimated_period_us;
+} rotation_state_t;
+
+static rssi_circular_buffer_t g_rssi_buf = {0};
+static control_input_t g_control_input = {0};
+static rotation_state_t g_rotation_state = {0};
+
 static SemaphoreHandle_t g_data_mutex;
 
-#define BURST_SIZE 4000
-#define PACKET_PAYLOAD_SIZE 131
-static uint8_t (*g_burst_buffer)[PACKET_PAYLOAD_SIZE]; // Pointer to array
-static int g_burst_idx = 0;
-static bool g_is_flushing = false;
-static SemaphoreHandle_t g_flush_sem;
+// DShot Handles
+static rmt_channel_handle_t esc_chan_a = NULL;
+static rmt_channel_handle_t esc_chan_b = NULL;
+static rmt_encoder_handle_t dshot_encoder_a = NULL;
+static rmt_encoder_handle_t dshot_encoder_b = NULL;
+static led_strip_handle_t g_led_strip = NULL;
 
 // Function to init I2C with specific pins
 static esp_err_t i2c_master_init(int sda, int scl) {
@@ -124,119 +139,178 @@ static esp_err_t tmag_read_bytes(uint8_t reg_addr, uint8_t *data, size_t len) {
                                       1, data, len, 1000 / portTICK_PERIOD_MS);
 }
 
-// Task to read TMAG continuously
-static void tmag_task(void *pvParameter) {
-  uint8_t raw_data[6];
-
-  // Configuration
-  // 1. Enable X, Y, Z channels
-  // Reg: SENSOR_CONFIG_1 (0x02) -> 0x70
-  esp_err_t ret = tmag_write_byte(TMAG_REG_SENSOR_CONFIG_1, 0x70);
-  if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "Failed to write SENSOR_CONFIG_1");
+// Helper: Interpolate and Add to Circular Buffer
+static void interpolate_rssi(int64_t timestamp, int8_t rssi) {
+  // If buffer is empty, just add the first point
+  if (g_rssi_buf.last_timestamp == 0) {
+    g_rssi_buf.buffer[g_rssi_buf.head].rssi = rssi;
+    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = timestamp;
+    g_rssi_buf.last_timestamp = timestamp;
+    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+    // Tail stays 0 until full? Or just 0.
+    return;
   }
 
-  // 2. Set to Continuous Measure Mode
-  // Reg: DEVICE_CONFIG_2 (0x01) -> 0x02
-  ret = tmag_write_byte(TMAG_REG_DEVICE_CONFIG_2, 0x02);
-  if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "Failed to write DEVICE_CONFIG_2");
-  }
+  int64_t target_ts = g_rssi_buf.last_timestamp + INTERPOLATION_INTERVAL_US;
 
-  ESP_LOGI(TAG, "Sensor configured for Continuous Mode + XYZ");
-
-  // Verify Manufacturer ID
-  uint8_t id_lsb = 0, id_msb = 0;
-  tmag_read_bytes(TMAG_REG_MAN_ID_LSB, &id_lsb, 1);
-  tmag_read_bytes(TMAG_REG_MAN_ID_MSB, &id_msb, 1);
-  ESP_LOGI(TAG, "TMAG Manufacturer ID: 0x%02X%02X", id_msb, id_lsb);
-
-  while (1) {
-    // Read 6 bytes starting from X_MSB (0x12)
-    esp_err_t ret = tmag_read_bytes(TMAG_REG_RESULT_X, raw_data, 6);
-
-    if (ret == ESP_OK) {
-      if (xSemaphoreTake(g_data_mutex, portMAX_DELAY) == pdTRUE) {
-        g_shared_state.tmag.x = (int16_t)((raw_data[0] << 8) | raw_data[1]);
-        g_shared_state.tmag.y = (int16_t)((raw_data[2] << 8) | raw_data[3]);
-        g_shared_state.tmag.z = (int16_t)((raw_data[4] << 8) | raw_data[5]);
-        xSemaphoreGive(g_data_mutex);
-      }
+  // Safety: If gap is too large (> 100ms), reset
+  if (timestamp - g_rssi_buf.last_timestamp > 100000) {
+    g_rssi_buf.last_timestamp = timestamp;
+    g_rssi_buf.buffer[g_rssi_buf.head].rssi = rssi;
+    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = timestamp;
+    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+    if (g_rssi_buf.head == g_rssi_buf.tail) {
+      g_rssi_buf.tail = (g_rssi_buf.tail + 1) % RSSI_BUF_SIZE;
     }
-    vTaskDelay(pdMS_TO_TICKS(1)); // Fast poll
+    return;
+  }
+
+  // Nearest Neighbor Interpolation for all uniform points between last_ts and
+  // current ts
+  while (target_ts <= timestamp) {
+    // Nearest neighbor
+    int8_t val;
+
+    val = rssi;
+
+    g_rssi_buf.buffer[g_rssi_buf.head].rssi = val;
+    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = target_ts;
+    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+    if (g_rssi_buf.head == g_rssi_buf.tail) {
+      g_rssi_buf.tail = (g_rssi_buf.tail + 1) % RSSI_BUF_SIZE;
+    }
+
+    g_rssi_buf.last_timestamp = target_ts;
+    target_ts += INTERPOLATION_INTERVAL_US;
   }
 }
 
-// CSI Callback - Now the MAIN TRIGGER for logging
-#define CSI_LOG_MAGIC 0xDEADBEEF
+// Motor Control Task - Pinned to Core 1
+static void motor_task(void *pvParameter) {
+
+  TickType_t last_wake_time = xTaskGetTickCount();
+  const TickType_t period = pdMS_TO_TICKS(1); // 1000Hz
+
+  while (1) {
+    vTaskDelayUntil(&last_wake_time, period);
+
+    // --- Update Motor Mixing ---
+    // Throttle + Vector
+    // Meltybrain math:
+    // Motor Power = Throttle + Translation_Mag * cos(angle + Translation_Phase)
+
+    int throttle = g_control_input.throttle;
+    // Apply motor command
+    // Note: Dshot RMT encoder usage needs to be correct.
+
+    rmt_transmit(esc_chan_a, dshot_encoder_a, &throttle, sizeof(throttle),
+                 &((rmt_transmit_config_t){.loop_count = 0}));
+    rmt_transmit(esc_chan_b, dshot_encoder_b, &throttle, sizeof(throttle),
+                 &((rmt_transmit_config_t){.loop_count = 0}));
+
+    // --- Update LED ---
+    // Green in 45 deg arc opposite peak.
+    // Needs current 'angle' estimation based on timestamp.
+    int64_t now = esp_timer_get_time();
+    int64_t time_since_peak = now - g_rotation_state.last_peak_timestamp;
+    float phase = 2.0f * M_PI * (float)time_since_peak /
+                  g_rotation_state.estimated_period_us;
+    // Normalize phase 0..2PI
+    phase = fmod(phase, 2.0f * M_PI);
+
+    // Check if in arc (e.g. PI +/- PI/8)
+    if (phase > (M_PI - M_PI / 4.0) && phase < (M_PI + M_PI / 4.0)) {
+      led_strip_set_pixel(g_led_strip, 0, 0, 20, 0); // Green
+    } else {
+      led_strip_set_pixel(g_led_strip, 0, 20, 0, 0); // Red
+    }
+    led_strip_refresh(g_led_strip);
+  }
+}
+
+// Rotation Estimation Task
+static void rotation_task(void *pvParameter) {
+
+  while (1) {
+    // Yield to other tasks
+    vTaskDelay(pdMS_TO_TICKS(1));
+
+    int head = g_rssi_buf.head;
+    int count = (head - g_rssi_buf.tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+
+    if (count < CORRELATION_WINDOW * 2)
+      continue; // Need enough data
+
+    // --- 1. Autocorrelation (Difference Function) ---
+    // We want to find best lag L in range [MIN_PERIOD, MAX_PERIOD]
+
+    int32_t best_lag = 0;
+    int64_t min_diff = INT64_MAX;
+
+    // Optimization: Only search around predicted period if we have one?
+    int start_lag = 100; // 10ms
+    int end_lag = 3000;  // 300ms
+
+    if (g_rotation_state.estimated_period_us > 0) {
+      int predicted_lag =
+          g_rotation_state.estimated_period_us / INTERPOLATION_INTERVAL_US;
+      start_lag = predicted_lag - 200;
+      end_lag = predicted_lag + 200;
+      if (start_lag < 100)
+        start_lag = 100;
+      if (end_lag > 5000)
+        end_lag = 5000;
+    }
+
+    // Subsample for speed
+    int step_lag = 5;
+    int step_win = 5;
+
+    for (int lag = start_lag; lag <= end_lag; lag += step_lag) {
+      int64_t diff_sum = 0;
+      for (int i = 0; i < CORRELATION_WINDOW; i += step_win) {
+        int idx1 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        int idx2 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        int8_t v1 = g_rssi_buf.buffer[idx1].rssi;
+        int8_t v2 = g_rssi_buf.buffer[idx2].rssi;
+        diff_sum += abs(v1 - v2);
+      }
+      if (diff_sum < min_diff) {
+        min_diff = diff_sum;
+        best_lag = lag;
+      }
+    }
+
+    if (best_lag > 0) {
+      g_rotation_state.estimated_period_us =
+          best_lag * INTERPOLATION_INTERVAL_US;
+      g_rotation_state.rotation_rate =
+          1000000.0f / g_rotation_state.estimated_period_us;
+
+      // Find Phase Peak in the last period
+      int peak_idx = -1;
+      int8_t max_rssi = -128;
+      for (int i = 0; i < best_lag; i++) {
+        int idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        if (g_rssi_buf.buffer[idx].rssi > max_rssi) {
+          max_rssi = g_rssi_buf.buffer[idx].rssi;
+          peak_idx = idx;
+        }
+      }
+      if (peak_idx >= 0) {
+        g_rotation_state.last_peak_timestamp =
+            g_rssi_buf.buffer[peak_idx].timestamp;
+      }
+    }
+  }
+}
 
 static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
   if (!info || !info->buf || !info->len) {
     return;
   }
 
-  if (g_is_flushing) {
-    return;
-  }
-
-  // 1. Prepare Packet
-  static csi_log_packet_t packet;
-  packet.magic = CSI_LOG_MAGIC;
-  packet.local_timestamp = esp_timer_get_time();
-
-  // 2. Grab Shared State (TMAG + Sender TS)
-  if (xSemaphoreTakeFromISR(g_data_mutex, NULL) == pdTRUE) {
-    packet.sender_timestamp = g_shared_state.sender_timestamp;
-    packet.tmag_x = g_shared_state.tmag.x;
-    packet.tmag_y = g_shared_state.tmag.y;
-    packet.tmag_z = g_shared_state.tmag.z;
-    xSemaphoreGiveFromISR(g_data_mutex, NULL);
-  } else {
-    // Should generally succeed, but if not we proceed with partial data?
-    // Or drop? Let's drop to ensure integrity.
-    return;
-  }
-
-  packet.rssi = info->rx_ctrl.rssi;
-  packet.csi_timestamp = packet.local_timestamp; // Use same TS for now
-
-  // Compact CSI Data: Keep only subcarriers 1-28 and 45-63 (Total 47)
-  int out_idx = 0;
-  // Ensure we don't read out of bounds if info->len is weird
-  // CSI data is int8_t pairs (I,Q). info->len is bytes.
-  // We expect 128 bytes (64 SCs) usually for 20MHz HT.
-
-  const uint8_t *csi_raw = (const uint8_t *)info->buf;
-
-  if (info->len >= 128) {
-    for (int i = 1; i <= 28; i++) {
-      packet.csi_data[out_idx++] = csi_raw[i * 2];
-      packet.csi_data[out_idx++] = csi_raw[i * 2 + 1];
-    }
-    for (int i = 45; i <= 63; i++) {
-      packet.csi_data[out_idx++] = csi_raw[i * 2];
-      packet.csi_data[out_idx++] = csi_raw[i * 2 + 1];
-    }
-    packet.csi_len = out_idx; // 94 bytes
-  } else {
-    // Unexpected len, skip
-    return;
-  }
-
-  // Header(37) + CSI(94) = 131 bytes
-  // size_t write_len = 37 + packet.csi_len;
-
-  // 3. Buffer Packet
-  if (g_burst_idx < BURST_SIZE) {
-    memcpy(g_burst_buffer[g_burst_idx], &packet, PACKET_PAYLOAD_SIZE);
-    g_burst_idx++;
-
-    if (g_burst_idx == BURST_SIZE) {
-      // ESP_LOGI(TAG, "Burst full, starting flush");
-      g_is_flushing = true;
-      xSemaphoreGiveFromISR(g_flush_sem, NULL);
-    }
-  }
+  interpolate_rssi(esp_timer_get_time(), info->rx_ctrl.rssi);
 }
 
 // Send Callback
@@ -247,85 +321,16 @@ static void espnow_send_cb(const uint8_t *mac_addr,
 }
 
 // Task to flush the buffer
-static void flush_task(void *pvParameter) {
-  while (1) {
-    if (xSemaphoreTake(g_flush_sem, portMAX_DELAY) == pdTRUE) {
-      if (!g_target_mac_set) {
-        ESP_LOGW(TAG, "Cannot flush: Target MAC not set yet!");
-        // We have to drop this burst or just wait. Dropping to avoid deadlock
-        // logic for now, but ideally we should wait. However, if we wait here,
-        // we block. Let's just reset index and continue to allow new fresh
-        // data? Or maybe just busy wait a bit? Let's drop and log error, user
-        // needs to ensure collector is running.
-        g_burst_idx = 0;
-        g_is_flushing = false;
-        continue;
-      }
-
-      ESP_LOGI(TAG, "Starting burst flush of %d packets to " MACSTR "...",
-               BURST_SIZE, MAC2STR(g_target_mac));
-
-      for (int i = 0; i < BURST_SIZE; i++) {
-        esp_err_t err;
-        int retries = 0;
-        const int MAX_RETRIES = 50; // 50 retries * delay
-        bool sent_successfully = false;
-
-        while (!sent_successfully && retries < MAX_RETRIES) {
-          // Reset status
-          g_send_status = false;
-          // Clear sem just in case
-          xSemaphoreTake(g_send_cb_sem, 0);
-
-          err = esp_now_send(g_target_mac, g_burst_buffer[i],
-                             PACKET_PAYLOAD_SIZE);
-
-          if (err == ESP_OK) {
-            // Wait for ACK
-            if (xSemaphoreTake(g_send_cb_sem, pdMS_TO_TICKS(100)) == pdTRUE) {
-              if (g_send_status) {
-                sent_successfully = true;
-              } else {
-                // Send callback indicated failure (no ACK)
-                retries++;
-                vTaskDelay(1);
-              }
-            } else {
-              // TImeout waiting for callback
-              ESP_LOGW(TAG, "Send callback timeout");
-              retries++;
-            }
-          } else {
-            // Immediate send error (e.g. buffers full)
-            if (err == ESP_ERR_ESPNOW_NO_MEM) {
-              vTaskDelay(1); // Wait for buffers to clear
-            } else {
-              // Other error
-              ESP_LOGE(TAG, "esp_now_send error: %d", err);
-            }
-            retries++;
-          }
-        }
-
-        if (!sent_successfully) {
-          ESP_LOGE(TAG,
-                   "Failed to send packet %d after %d retries. Continuing...",
-                   i, retries);
-        }
-
-        // Optional: reduce CPU usage
-        // vTaskDelay(1); // Removed to go as fast as ACKs allow
-      }
-      ESP_LOGI(TAG, "Burst flush complete.");
-      g_burst_idx = 0;
-      g_is_flushing = false;
-    }
-  }
-}
+// Removed flush_task
 
 // ESP-NOW Receive Callback - PASSIVE, just updates timestamp
 static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
                                    const uint8_t *data, int len) {
+  // Extract RSSI
+  if (recv_info->rx_ctrl) {
+    interpolate_rssi(esp_timer_get_time(), recv_info->rx_ctrl->rssi);
+  }
+
   // Capture Target MAC
   if (!g_target_mac_set && recv_info->src_addr) {
     memcpy(g_target_mac, recv_info->src_addr, ESP_NOW_ETH_ALEN);
@@ -352,14 +357,16 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
     }
   }
 
-  int64_t sender_timestamp = 0;
-  if (len >= sizeof(int64_t)) {
-    memcpy(&sender_timestamp, data, sizeof(int64_t));
-  }
+  // Parse Control Packet
+  // Format: [Throttle (2 bytes)] [VectorX (4 bytes)] [VectorY (4 bytes)] ?
+  // User said: "The control state will have a desired throttle, and a
+  // desired translation vector." Let's assume binary format for now.
 
-  if (xSemaphoreTake(g_data_mutex, 0) == pdTRUE) {
-    g_shared_state.sender_timestamp = sender_timestamp;
-    xSemaphoreGive(g_data_mutex);
+  if (len >= sizeof(uint16_t)) {
+    uint16_t throttle;
+    memcpy(&throttle, data, sizeof(uint16_t));
+    g_control_input.throttle = throttle;
+    // Pending: Vector parsing if we define the struct better.
   }
 }
 
@@ -408,7 +415,8 @@ static void example_wifi_init(void) {
 }
 
 static esp_err_t example_espnow_init(void) {
-  /* Initialize ESPNOW and register sending and receiving callback function. */
+  /* Initialize ESPNOW and register sending and receiving callback function.
+   */
   ESP_ERROR_CHECK(esp_now_init());
   ESP_ERROR_CHECK(esp_now_register_recv_cb(example_espnow_recv_cb));
   ESP_ERROR_CHECK(esp_now_register_send_cb(espnow_send_cb));
@@ -469,50 +477,52 @@ void app_main(void) {
   led_strip_set_pixel(led_strip, 0, 8, 8, 8); // ~3% brightness (very dim)
   led_strip_refresh(led_strip);
 
-  // Allocate large buffer in PSRAM
-  size_t free_spiram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
-  ESP_LOGI(TAG, "Free SPIRAM before alloc: %d bytes", free_spiram);
+  // DShot Init
+  ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", DSHOT_ESC_GPIO_NUM_A,
+           DSHOT_ESC_GPIO_NUM_B);
 
-  g_burst_buffer =
-      heap_caps_malloc(BURST_SIZE * PACKET_PAYLOAD_SIZE, MALLOC_CAP_SPIRAM);
-  if (g_burst_buffer == NULL) {
-    ESP_LOGE(TAG, "Failed to allocate burst buffer in SPIRAM! Requested: %d",
-             BURST_SIZE * PACKET_PAYLOAD_SIZE);
-    return;
-  }
-  ESP_LOGI(TAG, "Allocated %d bytes in SPIRAM for burst buffer",
-           BURST_SIZE * PACKET_PAYLOAD_SIZE);
+  dshot_esc_encoder_config_t encoder_config = {
+      .resolution = DSHOT_ESC_RESOLUTION_HZ,
+      .baud_rate = 300000,
+      .post_delay_us = 50,
+  };
+  ESP_ERROR_CHECK(rmt_new_dshot_esc_encoder(&encoder_config, &dshot_encoder_a));
+  ESP_ERROR_CHECK(rmt_new_dshot_esc_encoder(&encoder_config, &dshot_encoder_b));
+
+  rmt_tx_channel_config_t tx_chan_config_a = {
+      .gpio_num = DSHOT_ESC_GPIO_NUM_A,
+      .clk_src = RMT_CLK_SRC_DEFAULT,
+      .resolution_hz = DSHOT_ESC_RESOLUTION_HZ,
+      .mem_block_symbols = 64,
+      .trans_queue_depth = 10,
+  };
+  ESP_ERROR_CHECK(rmt_new_tx_channel(&tx_chan_config_a, &esc_chan_a));
+
+  rmt_tx_channel_config_t tx_chan_config_b = {
+      .gpio_num = DSHOT_ESC_GPIO_NUM_B,
+      .clk_src = RMT_CLK_SRC_DEFAULT,
+      .resolution_hz = DSHOT_ESC_RESOLUTION_HZ,
+      .mem_block_symbols = 64,
+      .trans_queue_depth = 10,
+  };
+  ESP_ERROR_CHECK(rmt_new_tx_channel(&tx_chan_config_b, &esc_chan_b));
+
+  ESP_ERROR_CHECK(rmt_enable(esc_chan_a));
+  ESP_ERROR_CHECK(rmt_enable(esc_chan_b));
+
+  // Start DShot logic
+  dshot_esc_throttle_t throttle_val = {.throttle = 0, .telemetry_req = false};
+  ESP_ERROR_CHECK(rmt_transmit(esc_chan_a, dshot_encoder_a, &throttle_val,
+                               sizeof(throttle_val),
+                               &((rmt_transmit_config_t){.loop_count = 0})));
+  ESP_ERROR_CHECK(rmt_transmit(esc_chan_b, dshot_encoder_b, &throttle_val,
+                               sizeof(throttle_val),
+                               &((rmt_transmit_config_t){.loop_count = 0})));
 
   g_data_mutex = xSemaphoreCreateMutex();
-  g_flush_sem = xSemaphoreCreateBinary();
-  g_send_cb_sem = xSemaphoreCreateBinary();
 
-  // Init I2C Fixed
-  ESP_LOGI(TAG, "Initializing I2C SDA=11 SCL=12");
-  ESP_ERROR_CHECK(i2c_master_init(11, 12));
-
-  // I2C Scan
-  ESP_LOGI(TAG, "Scanning I2C...");
-  for (int i = 0; i < 128; i++) {
-    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-    i2c_master_start(cmd);
-    i2c_master_write_byte(cmd, (i << 1) | I2C_MASTER_WRITE, true);
-    i2c_master_stop(cmd);
-    esp_err_t ret =
-        i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, 50 / portTICK_PERIOD_MS);
-    i2c_cmd_link_delete(cmd);
-    if (ret == ESP_OK) {
-      ESP_LOGI(TAG, "Found I2C device at: 0x%02x", i);
-    }
-  }
-
-  xTaskCreate(tmag_task, "tmag_task", 4096, NULL, 5, NULL);
-  xTaskCreate(flush_task, "flush_task", 4096, NULL, 10, NULL);
-
-  // Initialize USB Serial/JTAG driver for high-speed logging
-  // usb_serial_jtag_driver_config_t cfg =
-  // USB_SERIAL_JTAG_DRIVER_CONFIG_DEFAULT();
-  // usb_serial_jtag_driver_install(&cfg);
+  xTaskCreate(rotation_task, "rotation_task", 4096, NULL, 10, NULL);
+  xTaskCreatePinnedToCore(motor_task, "motor_task", 4096, NULL, 10, NULL, 1);
 
   example_wifi_init();
   example_espnow_init();
