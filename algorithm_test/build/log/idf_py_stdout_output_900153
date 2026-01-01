@@ -1,0 +1,477 @@
+[0;32mI (123) esp_image: segment 1: paddr=00030500 vaddr=3fc99aESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40056f5c
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=204d8h (132312) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00030500 vaddr=3fc99a00 size=04bc0h ( 19392) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=000350c8 vaddr=40374000 size=0af50h ( 44880) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=7f044h (520260) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000bf06c vaddr=4037ef50 size=0a9e4h ( 43492) load[0m
+[0;32mI (251) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (252) boot: Disabling RNG early entropy source...[0m
+[0;32mI (264) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (264) esp_psram: Speed: 80MHz[0m
+[0;32mI (265) cpu_start: Multicore app[0m
+[0;32mI (495) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (504) cpu_start: Pro cpu start user code[0m
+[0;32mI (504) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (505) app_init: Application information:[0m
+[0;32mI (507) app_init: Project name:     espnow_example[0m
+[0;32mI (513) app_init: App version:      b85be72-dirty[0m
+[0;32mI (518) app_init: Compile time:     Jan  1 2026 12:09:57[0m
+[0;32mI (524) app_init: ELF file SHA256:  33326a7c2...[0m
+[0;32mI (529) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (534) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (539) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (544) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (548) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (556) heap_init: At 3FCD1058 len 000186B8 (97 KiB): RAM[0m
+[0;32mI (562) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (568) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (574) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (580) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (589) spi_flash: detected chip: generic[0m
+[0;32mI (592) spi_flash: flash io: dio[0m
+[0;33mW (596) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (610) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (616) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (624) main_task: Started on CPU0[0m
+[0;32mI (628) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (637) main_task: Calling app_main()[0m
+[0;31mE (642) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (642) pp: pp rom version: e7ae62f[0m
+[0;31mE (646) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (651) net80211: net80211 rom version: e7ae62f[0m
+[0;31mE (656) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;33mW (661) wifi:[0;31mE (668) led_strip: led_strip_refresh(80): invalid argument[0m[0m
+wifi osi_nvs_open fail ret=4353
+[0;31mE (676) rmt: rmt_transmit(530): invalid argument[0m
+
+[0;31mE (683) rmt: rmt_transmit(530): invalid argument[0m
+[0;33mW (683) wifi_init: Failed to unregister Rx callbacks[0m
+[0;31mE (688) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;31mE (694) wifi_init: Failed to deinit Wi-Fi driver (0x3001)[0m
+[0;31mE (701) led_strip: led_strip_refresh(80): invalid argument[0m
+[0;31mE (707) wifi_init: Failed to deinit Wi-Fi (0x3001)[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x4200aa09
+file: "./main/espnow_example_main.c" line 667
+func: example_wifi_init
+expression: esp_wifi_init(&cfg)
+
+abort() was called at PC 0x4037cb8b on core 0
+
+
+Backtrace: 0x40375c72:0x3fcd45a0 0x4037cb95:0x3fcd45c0 0x40384d79:0x3fcd45e0 0x4037cb8b:0x3fcd4650 0x4200aa09:0x3fcd4680 0x4200af36:0x3fcd4790 0x4207dfc3:0x3fcd47c0 0x4037d6b1:0x3fcd47f0
+
+
+
+
+ELF file SHA256: 33326a7c2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=204d8h (132312) map[0m
+[0;32mI (122) esp_image: segment 1: paddr=00030500 vaddr=3fc99a00 size=04bc0h ( 19392) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=000350c8 vaddr=40374000 size=0af50h ( 44880) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=7f044h (520260) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000bf06c vaddr=4037ef50 size=0a9e4h ( 43492) load[0m
+[0;32mI (251) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (252) boot: Disabling RNG early entropy source...[0m
+[0;32mI (264) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (264) esp_psram: Speed: 80MHz[0m
+[0;32mI (265) cpu_start: Multicore app[0m
+[0;32mI (495) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (504) cpu_start: Pro cpu start user code[0m
+[0;32mI (504) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (504) app_init: Application information:[0m
+[0;32mI (507) app_init: Project name:     espnow_example[0m
+[0;32mI (512) app_init: App version:      b85be72-dirty[0m
+[0;32mI (518) app_init: Compile time:     Jan  1 2026 12:09:57[0m
+[0;32mI (524) app_init: ELF file SHA256:  33326a7c2...[0m
+[0;32mI (529) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (534) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (538) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (543) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (548) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (555) heap_init: At 3FCD1058 len 000186B8 (97 KiB): RAM[0m
+[0;32mI (561) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (574) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (580) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (588) spi_flash: detected chip: generic[0m
+[0;32mI (592) spi_flash: flash io: dio[0m
+[0;33mW (596) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (609) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (616) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (623) main_task: Started on CPU0[0m
+[0;32mI (627) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (636) main_task: Calling app_main()[0m
+[0;31mE (641) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (641) pp: pp rom version: e7ae62f[0m
+[0;31mE (645) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (650) net80211: net80211 rom version: e7ae62f[0m
+[0;31mE (655) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;33mW (660) wifi:[0;31mE (667) led_strip: led_strip_refresh(80): invalid argument[0m[0m
+wifi osi_nvs_open fail ret=4353
+[0;31mE (675) rmt: rmt_transmit(530): invalid argument[0m
+
+[0;31mE (682) rmt: rmt_transmit(530): invalid argument[0m
+[0;33mW (682) wifi_init: Failed to unregister Rx callbacks[0m
+[0;31mE (687) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;31mE (693) wifi_init: Failed to deinit Wi-Fi driver (0x3001)[0m
+[0;31mE (699) led_strip: led_strip_refresh(80): invalid argument[0m
+[0;31mE (706) wifi_init: Failed to deinit Wi-Fi (0x3001)[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x4200aa09
+file: "./main/espnow_example_main.c" line 667
+func: example_wifi_init
+expression: esp_wifi_init(&cfg)
+
+abort() was called at PC 0x4037cb8b on core 0
+
+
+Backtrace: 0x40375c72:0x3fcd45a0 0x4037cb95:0x3fcd45c0 0x40384d79:0x3fcd45e0 0x4037cb8b:0x3fcd4650 0x4200aa09:0x3fcd4680 0x4200af36:0x3fcd4790 0x4207dfc3:0x3fcd47c0 0x4037d6b1:0x3fcd47f0
+
+
+
+
+ELF file SHA256: 33326a7c2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=204d8h (132312) map[0m
+[0;32mI (122) esp_image: segment 1: paddr=00030500 vaddr=3fc99a00 size=04bc0h ( 19392) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=000350c8 vaddr=40374000 size=0af50h ( 44880) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=7f044h (520260) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000bf06c vaddr=4037ef50 size=0a9e4h ( 43492) load[0m
+[0;32mI (251) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (252) boot: Disabling RNG early entropy source...[0m
+[0;32mI (264) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (264) esp_psram: Speed: 80MHz[0m
+[0;32mI (265) cpu_start: Multicore app[0m
+[0;32mI (495) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (504) cpu_start: Pro cpu start user code[0m
+[0;32mI (504) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (504) app_init: Application information:[0m
+[0;32mI (507) app_init: Project name:     espnow_example[0m
+[0;32mI (512) app_init: App version:      b85be72-dirty[0m
+[0;32mI (518) app_init: Compile time:     Jan  1 2026 12:09:57[0m
+[0;32mI (524) app_init: ELF file SHA256:  33326a7c2...[0m
+[0;32mI (529) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (534) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (538) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (543) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (548) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (555) heap_init: At 3FCD1058 len 000186B8 (97 KiB): RAM[0m
+[0;32mI (561) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (568) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (574) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (580) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (588) spi_flash: detected chip: generic[0m
+[0;32mI (592) spi_flash: flash io: dio[0m
+[0;33mW (596) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (609) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (616) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (623) main_task: Started on CPU0[0m
+[0;32mI (627) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (636) main_task: Calling app_main()[0m
+[0;31mE (641) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (641) pp: pp rom version: e7ae62f[0m
+[0;31mE (645) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (650) net80211: net80211 rom version: e7ae62f[0m
+[0;31mE (655) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;33mW (660) wifi:[0;31mE (667) led_strip: led_strip_refresh(80): invalid argument[0m[0m
+wifi osi_nvs_open fail ret=4353
+[0;31mE (675) rmt: rmt_transmit(530): invalid argument[0m
+
+[0;31mE (682) rmt: rmt_transmit(530): invalid argument[0m
+[0;33mW (682) wifi_init: Failed to unregister Rx callbacks[0m
+[0;31mE (687) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;31mE (693) wifi_init: Failed to deinit Wi-Fi driver (0x3001)[0m
+[0;31mE (700) led_strip: led_strip_refresh(80): invalid argument[0m
+[0;31mE (706) wifi_init: Failed to deinit Wi-Fi (0x3001)[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x4200aa09
+file: "./main/espnow_example_main.c" line 667
+func: example_wifi_init
+expression: esp_wifi_init(&cfg)
+
+abort() was called at PC 0x4037cb8b on core 0
+
+
+Backtrace: 0x40375c72:0x3fcd45a0 0x4037cb95:0x3fcd45c0 0x40384d79:0x3fcd45e0 0x4037cb8b:0x3fcd4650 0x4200aa09:0x3fcd4680 0x4200af36:0x3fcd4790 0x4207dfc3:0x3fcd47c0 0x4037d6b1:0x3fcd47f0
+
+
+
+
+ELF file SHA256: 33326a7c2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=204d8h (132312) map[0m
+[0;32mI (122) esp_image: segment 1: paddr=00030500 vaddr=3fc99a00 size=04bc0h ( 19392) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=000350c8 vaddr=40374000 size=0af50h ( 44880) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=7f044h (520260) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000bf06c vaddr=4037ef50 size=0a9e4h ( 43492) load[0m
+[0;32mI (251) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (252) boot: Disabling RNG early entropy source...[0m
+[0;32mI (264) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (264) esp_psram: Speed: 80MHz[0m
+[0;32mI (265) cpu_start: Multicore app[0m
+[0;32mI (495) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (504) cpu_start: Pro cpu start user code[0m
+[0;32mI (504) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (504) app_init: Application information:[0m
+[0;32mI (507) app_init: Project name:     espnow_example[0m
+[0;32mI (512) app_init: App version:      b85be72-dirty[0m
+[0;32mI (518) app_init: Compile time:     Jan  1 2026 12:09:57[0m
+[0;32mI (524) app_init: ELF file SHA256:  33326a7c2...[0m
+[0;32mI (529) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (534) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (538) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (543) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (548) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (555) heap_init: At 3FCD1058 len 000186B8 (97 KiB): RAM[0m
+[0;32mI (561) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (574) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (580) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (588) spi_flash: detected chip: generic[0m
+[0;32mI (592) spi_flash: flash io: dio[0m
+[0;33mW (596) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (609) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (616) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (623) main_task: Started on CPU0[0m
+[0;32mI (627) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (636) main_task: Calling app_main()[0m
+[0;31mE (641) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (641) pp: pp rom version: e7ae62f[0m
+[0;31mE (645) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (650) net80211: net80211 rom version: e7ae62f[0m
+[0;31mE (655) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;33mW (660) wifi:[0;31mE (667) led_strip: led_strip_refresh(80): invalid argument[0m[0m
+wifi osi_nvs_open fail ret=4353
+[0;31mE (675) rmt: rmt_transmit(530): invalid argument[0m
+
+[0;31mE (682) rmt: rmt_transmit(530): invalid argument[0m
+[0;33mW (682) wifi_init: Failed to unregister Rx callbacks[0m
+[0;31mE (687) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;31mE (693) wifi_init: Failed to deinit Wi-Fi driver (0x3001)[0m
+[0;31mE (699) led_strip: led_strip_refresh(80): invalid argument[0m
+[0;31mE (706) wifi_init: Failed to deinit Wi-Fi (0x3001)[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x4200aa09
+file: "./main/espnow_example_main.c" line 667
+func: example_wifi_init
+expression: esp_wifi_init(&cfg)
+
+abort() was called at PC 0x4037cb8b on core 0
+
+
+Backtrace: 0x40375c72:0x3fcd45a0 0x4037cb95:0x3fcd45c0 0x40384d79:0x3fcd45e0 0x4037cb8b:0x3fcd4650 0x4200aa09:0x3fcd4680 0x4200af36:0x3fcd4790 0x4207dfc3:0x3fcd47c0 0x4037d6b1:0x3fcd47f0
+
+
+
+
+ELF file SHA256: 33326a7c2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (26) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=204d8h (132312) map[0m
+[0;32mI (122) esp_image: segment 1: paddr=00030500 vaddr=3fc99a00 size=04bc0h ( 19392) load[0m
+[0;32mI (127) esp_image: segment 2: paddr=000350c8 vaddr=40374000 size=0af50h ( 44880) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=7f044h (520260) map[0m
+[0;32mI (232) esp_image: segment 4: paddr=000bf06c vaddr=4037ef50 size=0a9e4h ( 43492) load[0m
+[0;32mI (251) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (251) boot: Disabling RNG early entropy source...[0m
+[0;32mI (264) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (264) esp_psram: Speed: 80MHz[0m
+[0;32mI (264) cpu_start: Multicore app[0m
+[0;32mI (494) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (504) cpu_start: Pro cpu start user code[0m
+[0;32mI (504) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (504) app_init: Application information:[0m
+[0;32mI (507) app_init: Project name:     espnow_example[0m
+[0;32mI (512) app_init: App version:      b85be72-dirty[0m
+[0;32mI (517) app_init: Compile time:     Jan  1 2026 12:09:57[0m
+[0;32mI (523) app_init: ELF file SHA256:  33326a7c2...[0m
+[0;32mI (529) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (533) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (538) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (543) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (548) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (555) heap_init: At 3FCD1058 len 000186B8 (97 KiB): RAM[0m
+[0;32mI (561) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (573) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (580) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (588) spi_flash: detected chip: generic[0m
+[0;32mI (592) spi_flash: flash io: dio[0m
+[0;33mW (596) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (609) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (616) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (623) main_task: Started on CPU0[0m
+[0;32mI (627) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (636) main_task: Calling app_main()[0m
+[0;31mE (641) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (641) pp: pp rom version: e7ae62f[0m
+[0;31mE (645) rmt: rmt_transmit(530): invalid argument[0m
+[0;32mI (650) net80211: net80211 rom version: e7ae62f[0m
+[0;31mE (655) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;33mW (660) wifi:[0;31mE (667) led_strip: led_strip_refresh(80): invalid argument[0m[0m
+wifi osi_nvs_open fail ret=4353
+[0;31mE (675) rmt: rmt_transmit(530): invalid argument[0m
+
+[0;31mE (682) rmt: rmt_transmit(530): invalid argument[0m
+[0;33mW (682) wifi_init: Failed to unregister Rx callbacks[0m
+[0;31mE (687) led_strip: led_strip_set_pixel(15): invalid argument[0m
+[0;31mE (693) wifi_init: Failed to deinit Wi-Fi driver (0x3001)[0m
+[0;31mE (699) led_strip: led_strip_refresh(80): invalid argument[0m
+[0;31mE (706) wifi_init: Failed to deinit Wi-Fi (0x3001)[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x1101 (ESP_ERR_NVS_NOT_INITIALIZED) at 0x4200aa09
+file: "./main/espnow_example_main.c" line 667
+func: example_wifi_init
+expression: esp_wifi_init(&cfg)
+
+abort() was called at PC 0x4037cb8b on core 0
+
+
+Backtrace: 0x40375c72:0x3fcd45a0 0x4037cb95:0x3fcd45c0 0x40384d79:0x3fcd45e0 0x4037cb8b:0x3fcd4650 0x4200aa09:0x3fcd4680 0x4200af36:0x3fcd4790 0x4207dfc3:0x3fcd47c0 0x4037d6b1:0x3fcd47f0
+
+
+
+
+ELF file SHA256: 33326a7c2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Jan  1 2026 12:09:59[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m

@@ -1,0 +1,5 @@
+-- Building ESP-IDF components for target esp32s3
+NOTICE: Processing 2 dependencies:
+NOTICE: [1/2] espressif/led_strip (3.0.2)
+NOTICE: [2/2] idf (5.3.0)
+-- Configuring incomplete, errors occurred!

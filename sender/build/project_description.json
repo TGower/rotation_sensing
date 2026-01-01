@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "espnow_example",
-    "project_version":    "bd39f8f-dirty",
+    "project_version":    "b85be72-dirty",
     "project_path":       "/home/t/esp/rotation_sensing/sender",
     "idf_path":           "/home/t/esp/esp-idf",
     "build_dir":          "/home/t/esp/rotation_sensing/sender/build",

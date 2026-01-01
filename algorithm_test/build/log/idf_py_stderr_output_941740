@@ -1,0 +1,39 @@
+CMake Error at /home/t/esp/esp-idf/tools/cmake/component.cmake:225 (message):
+  CMake Warning (dev) at build_properties.temp.cmake:8:
+
+    Syntax Warning in cmake code at column 106
+
+
+
+    Argument not separated from preceding token by whitespace.
+
+  Call Stack (most recent call first):
+
+    /home/t/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:3 (include)
+
+  This warning is for project developers.  Use -Wno-dev to suppress it.
+
+  
+
+  CMake Error at
+  /home/t/esp/rotation_sensing/algorithm_test/main/CMakeLists.txt:1:
+
+    Parse error.  Expected "(", got quoted argument with text
+    "espnow_example_main.c".
+
+  Call Stack (most recent call first):
+
+    /home/t/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:107 (include)
+    /home/t/esp/esp-idf/tools/cmake/scripts/component_get_requirements.cmake:127 (__component_get_requirements)
+
+
+
+  
+
+Call Stack (most recent call first):
+  /home/t/esp/esp-idf/tools/cmake/build.cmake:586 (__component_get_requirements)
+  /home/t/esp/esp-idf/tools/cmake/project.cmake:710 (idf_build_process)
+  CMakeLists.txt:6 (project)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed

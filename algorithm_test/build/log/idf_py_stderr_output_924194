@@ -1,0 +1,24 @@
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM0 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x42008d19: [0;33ms_test_psram[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_psram/esp_psram.c[0m[0m:[1;31m470[0m
+[0m--- 0x403788ee: [0;33mesp_crosscore_isr[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m73[0m
+[0m--- 0x403772f5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/t/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42006449: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/t/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m390[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m170[0m
+[0m--- 0x4200731b: [0;33muart_write[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m223[0m
+[0m--- 0x420085ad: [0;33mesp_vfs_write[0m[0m at [0;32m/home/t/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m502[0m
+[0m--- 0x42010ace: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420080fc: [0;33mconsole_write[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m67[0m
+[0m--- 0x420085ad: [0;33mesp_vfs_write[0m[0m at [0;32m/home/t/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m502[0m
+[0m--- 0x4201050e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x4200fdd1: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x4200fe22: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42010415: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x42014447: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfiprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x42013e25: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42010497: [0;33mprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/printf.c[0m[0m:[1;31m56[0m
+[0m--- 0x420094b6: [0;33mcalculate_autocorr_error_instrumented[0m[0m at [0;32m/home/t/esp/rotation_sensing/algorithm_test/main/espnow_example_main.c[0m[0m:[1;31m760[0m
+[0m--- 0x4200960a: [0;33mbenchmark_task[0m[0m at [0;32m/home/t/esp/rotation_sensing/algorithm_test/main/espnow_example_main.c[0m[0m:[1;31m817[0m
+[0m--- 0x4037b119: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m134[0m
+[0m
