@@ -1,0 +1,15 @@
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM0 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40041a79: [0;33mets_delay_us[0m[0m in [0;32mROM[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 8ccd2f34ff4b98dcd64d574259f9b7d872cd73ce0f12c0a4b062245f03bf5360[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0m

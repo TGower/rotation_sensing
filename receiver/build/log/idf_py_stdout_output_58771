@@ -1,0 +1,632 @@
+[0;32mI (124) esp_image: segment 1: paddr=00031ce0 vaddr=3fc9aaESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40056f59
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21cb8h (138424) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=00031ce0 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036980 vaddr=40374000 size=09698h ( 38552) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=83f98h (540568) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c3fc0 vaddr=4037d698 size=0d298h ( 53912) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (511) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  c50945fe1...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (545) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (562) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (568) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=48[0m
+[0;32mI (663) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (668) receiver: Initializing DShot on GPIO 8 and 9[0m
+[0;32mI (673) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (682) gpio: GPIO[9]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (693) pp: pp rom version: e7ae62f[0m
+[0;32mI (695) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (701) wifi:wifi driver task: 3fce5f4c, prio:23, stack:6656, core=0[0m
+[0;32mI (713) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (713) wifi:wifi certification version: v7.0[0m
+[0;32mI (714) wifi:config NVS flash: enabled[0m
+[0;32mI (718) wifi:config nano formating: disabled[0m
+[0;32mI (722) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (727) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (731) wifi:Init management short buffer num: 32[0m
+[0;32mI (735) wifi:Init static tx buffer num: 16[0m
+[0;32mI (740) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (743) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (747) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (751) wifi:Init static rx buffer num: 10[0m
+[0;32mI (755) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (759) wifi_init: rx ba win: 6[0m
+[0;32mI (762) wifi_init: accept mbox: 6[0m
+[0;32mI (766) wifi_init: tcpip mbox: 32[0m
+[0;32mI (770) wifi_init: udp mbox: 6[0m
+[0;32mI (774) wifi_init: tcp mbox: 6[0m
+[0;32mI (778) wifi_init: tcp tx win: 5760[0m
+[0;32mI (782) wifi_init: tcp rx win: 5760[0m
+[0;32mI (786) wifi_init: tcp mss: 1440[0m
+[0;32mI (790) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (795) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (800) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;32mI (845) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (846) wifi:enable tsf[0m
+[0;32mI (848) wifi:ic_enable_sniffer[0m
+[0;32mI (853) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (853) main_task: Returned from app_main()[0m
+[0;32mI (854) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (859) receiver: Added Target as Peer[0m
+[0;32mI (1114) receiver: Stats: 2779 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (1115) receiver: CSI RSSI: Mean=-26.88, Median=-26.00, Var=47.63 (N=1000)[0m
+[0;32mI (1118) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (1598) receiver: Stats: 5090 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (1599) receiver: CSI RSSI: Mean=-29.69, Median=-26.00, Var=189.07 (N=1000)[0m
+[0;32mI (1603) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (2091) receiver: Stats: 5430 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (2092) receiver: CSI RSSI: Mean=-26.22, Median=-26.00, Var=12.05 (N=1000)[0m
+[0;32mI (2095) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (2574) receiver: Stats: 4966 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (2577) receiver: CSI RSSI: Mean=-28.92, Median=-26.00, Var=154.55 (N=1000)[0m
+[0;32mI (2580) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.01 (N=1000)[0m
+[0;32mI (3102) receiver: Stats: 5812 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (3103) receiver: CSI RSSI: Mean=-28.24, Median=-26.00, Var=114.94 (N=1000)[0m
+[0;32mI (3107) receiver: NOW RSSI: Mean=-26.08, Median=-26.00, Var=0.52 (N=1000)[0m
+[0;32mI (3954) receiver: Stats: 8939 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (3956) receiver: CSI RSSI: Mean=-26.17, Median=-26.00, Var=8.73 (N=1000)[0m
+[0;32mI (3959) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.01 (N=1000)[0m
+[0;32mI (4700) receiver: Stats: 7902 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (4701) receiver: CSI RSSI: Mean=-26.72, Median=-26.00, Var=38.38 (N=1000)[0m
+[0;32mI (4705) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.01 (N=1000)[0m
+[0;32mI (5323) receiver: Stats: 5977 pkts/sec | Last RSSI: -68 | Throttle: 0[0m
+[0;32mI (5324) receiver: CSI RSSI: Mean=-31.49, Median=-26.00, Var=266.98 (N=1000)[0m
+[0;32mI (5328) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.02 (N=1000)[0m
+[0;32mI (5761) receiver: Stats: 3217 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (5761) receiver: CSI RSSI: Mean=-27.70, Median=-26.00, Var=90.67 (N=1000)[0m
+[0;32mI (5766) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.02 (N=1000)[0m
+[0;32mI (6209) receiver: Stats: 4325 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (6211) receiver: CSI RSSI: Mean=-33.57, Median=-26.00, Var=360.71 (N=1000)[0m
+[0;32mI (6216) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (6751) receiver: Stats: 5762 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (6751) receiver: CSI RSSI: Mean=-26.74, Median=-26.00, Var=40.23 (N=1000)[0m
+[0;32mI (6755) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.01 (N=1000)[0m
+[0;32mI (7583) receiver: Stats: 9064 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (7585) receiver: CSI RSSI: Mean=-31.36, Median=-26.00, Var=264.75 (N=1000)[0m
+[0;32mI (7588) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.02 (N=1000)[0m
+[0;32mI (8447) receiver: Stats: 9075 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (8448) receiver: CSI RSSI: Mean=-28.10, Median=-26.00, Var=112.22 (N=1000)[0m
+[0;32mI (8452) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.02 (N=1000)[0m
+[0;32mI (9270) receiver: Stats: 8516 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (9272) receiver: CSI RSSI: Mean=-27.11, Median=-26.00, Var=53.61 (N=1000)[0m
+[0;32mI (9275) receiver: NOW RSSI: Mean=-26.11, Median=-26.00, Var=0.16 (N=1000)[0m
+[0;32mI (10164) receiver: Stats: 9698 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (10167) receiver: CSI RSSI: Mean=-26.73, Median=-26.00, Var=37.74 (N=1000)[0m
+[0;32mI (10171) receiver: NOW RSSI: Mean=-26.04, Median=-26.00, Var=0.03 (N=1000)[0m
+[0;32mI (11002) receiver: Stats: 8773 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (11003) receiver: CSI RSSI: Mean=-28.55, Median=-26.00, Var=129.77 (N=1000)[0m
+[0;32mI (11007) receiver: NOW RSSI: Mean=-26.04, Median=-26.00, Var=0.04 (N=1000)[0m
+[0;32mI (11818) receiver: Stats: 8619 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (11820) receiver: CSI RSSI: Mean=-28.45, Median=-26.00, Var=122.91 (N=1000)[0m
+[0;32mI (11824) receiver: NOW RSSI: Mean=-26.07, Median=-26.00, Var=0.12 (N=1000)[0m
+[0;32mI (12753) receiver: Stats: 10365 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (12755) receiver: CSI RSSI: Mean=-28.55, Median=-26.00, Var=120.65 (N=1000)[0m
+[0;32mI (12759) receiver: NOW RSSI: Mean=-26.13, Median=-26.00, Var=0.11 (N=1000)[0m
+[0;32mI (13682) receiver: Stats: 10041 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (13682) receiver: CSI RSSI: Mean=-27.70, Median=-26.00, Var=87.90 (N=1000)[0m
+[0;32mI (13687) receiver: NOW RSSI: Mean=-26.06, Median=-26.00, Var=0.05 (N=1000)[0m
+[0;32mI (14553) receiver: Stats: 9172 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (14556) receiver: CSI RSSI: Mean=-26.51, Median=-26.00, Var=19.86 (N=1000)[0m
+[0;32mI (14559) receiver: NOW RSSI: Mean=-26.14, Median=-26.00, Var=0.12 (N=1000)[0m
+[0;32mI (15413) receiver: Stats: 8935 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (15413) receiver: CSI RSSI: Mean=-29.06, Median=-26.00, Var=162.01 (N=1000)[0m
+[0;32mI (15418) receiver: NOW RSSI: Mean=-26.04, Median=-26.00, Var=0.04 (N=1000)[0m
+[0;32mI (16203) receiver: Stats: 7761 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (16204) receiver: CSI RSSI: Mean=-26.54, Median=-26.00, Var=14.53 (N=1000)[0m
+[0;32mI (16208) receiver: NOW RSSI: Mean=-26.31, Median=-26.00, Var=1.73 (N=1000)[0m
+[0;32mI (17013) receiver: Stats: 8345 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (17014) receiver: CSI RSSI: Mean=-26.85, Median=-26.00, Var=44.04 (N=1000)[0m
+[0;32mI (17017) receiver: NOW RSSI: Mean=-26.03, Median=-26.00, Var=0.03 (N=1000)[0m
+[0;32mI (17894) receiver: Stats: 9384 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (17894) receiver: CSI RSSI: Mean=-28.72, Median=-26.00, Var=135.99 (N=1000)[0m
+[0;32mI (17898) receiver: NOW RSSI: Mean=-26.14, Median=-26.00, Var=0.45 (N=1000)[0m
+[0;32mI (18772) receiver: Stats: 9857 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (18774) receiver: CSI RSSI: Mean=-27.28, Median=-26.00, Var=47.93 (N=1000)[0m
+[0;32mI (18777) receiver: NOW RSSI: Mean=-26.40, Median=-26.00, Var=0.24 (N=1000)[0m
+[0;32mI (19784) receiver: Stats: 12367 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (19786) receiver: CSI RSSI: Mean=-28.74, Median=-27.00, Var=115.80 (N=1000)[0m
+[0;32mI (19791) receiver: NOW RSSI: Mean=-26.50, Median=-26.00, Var=0.25 (N=1000)[0m
+[0;32mI (20776) receiver: Stats: 12003 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (20777) receiver: CSI RSSI: Mean=-27.42, Median=-26.00, Var=54.08 (N=1000)[0m
+[0;32mI (20780) receiver: NOW RSSI: Mean=-26.41, Median=-26.00, Var=0.24 (N=1000)[0m
+[0;32mI (21766) receiver: Stats: 11397 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (21769) receiver: CSI RSSI: Mean=-28.64, Median=-27.00, Var=104.50 (N=1000)[0m
+[0;32mI (21772) receiver: NOW RSSI: Mean=-26.58, Median=-27.00, Var=0.32 (N=1000)[0m
+[0;32mI (22740) receiver: Stats: 10995 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (22741) receiver: CSI RSSI: Mean=-31.59, Median=-27.00, Var=238.91 (N=1000)[0m
+[0;32mI (22746) receiver: NOW RSSI: Mean=-26.50, Median=-27.00, Var=0.25 (N=1000)[0m
+[0;32mI (23751) receiver: Stats: 11879 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (23752) receiver: CSI RSSI: Mean=-29.70, Median=-27.00, Var=161.74 (N=1000)[0m
+[0;32mI (23756) receiver: NOW RSSI: Mean=-26.46, Median=-26.00, Var=0.25 (N=1000)[0m
+[0;32mI (24766) receiver: Stats: 11871 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (24767) receiver: CSI RSSI: Mean=-27.10, Median=-26.00, Var=38.50 (N=1000)[0m
+[0;32mI (24771) receiver: NOW RSSI: Mean=-26.39, Median=-26.00, Var=0.24 (N=1000)[0m
+[0;32mI (25677) receiver: Stats: 9730 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (25678) receiver: CSI RSSI: Mean=-28.15, Median=-26.00, Var=89.56 (N=1000)[0m
+[0;32mI (25682) receiver: NOW RSSI: Mean=-26.42, Median=-26.00, Var=0.24 (N=1000)[0m
+[0;32mI (26614) receiver: Stats: 10622 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (26615) receiver: CSI RSSI: Mean=-26.89, Median=-27.00, Var=11.12 (N=1000)[0m
+[0;32mI (26618) receiver: NOW RSSI: Mean=-26.68, Median=-27.00, Var=0.22 (N=1000)[0m
+[0;32mI (27586) receiver: Stats: 11488 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (27589) receiver: CSI RSSI: Mean=-28.28, Median=-27.00, Var=82.39 (N=1000)[0m
+[0;32mI (27592) receiver: NOW RSSI: Mean=-26.67, Median=-27.00, Var=0.22 (N=1000)[0m
+[0;32mI (28554) receiver: Stats: 11167 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (28556) receiver: CSI RSSI: Mean=-30.42, Median=-26.00, Var=208.10 (N=1000)[0m
+[0;32mI (28560) receiver: NOW RSSI: Mean=-26.20, Median=-26.00, Var=0.16 (N=1000)[0m
+[0;32mI (29521) receiver: Stats: 11083 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (29524) receiver: CSI RSSI: Mean=-30.72, Median=-27.00, Var=206.24 (N=1000)[0m
+[0;32mI (29527) receiver: NOW RSSI: Mean=-26.54, Median=-27.00, Var=0.25 (N=1000)[0m
+[0;32mI (30480) receiver: Stats: 10867 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (30480) receiver: CSI RSSI: Mean=-31.04, Median=-27.00, Var=203.27 (N=1000)[0m
+[0;32mI (30484) receiver: NOW RSSI: Mean=-26.80, Median=-27.00, Var=0.36 (N=1000)[0m
+[0;32mI (31443) receiver: Stats: 11002 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (31446) receiver: CSI RSSI: Mean=-27.74, Median=-27.00, Var=55.52 (N=1000)[0m
+[0;32mI (31449) receiver: NOW RSSI: Mean=-26.67, Median=-27.00, Var=0.22 (N=1000)[0m
+[0;32mI (32457) receiver: Stats: 12319 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (32458) receiver: CSI RSSI: Mean=-27.53, Median=-27.00, Var=36.39 (N=1000)[0m
+[0;32mI (32462) receiver: NOW RSSI: Mean=-26.83, Median=-27.00, Var=0.14 (N=1000)[0m
+[0;32mI (33424) receiver: Stats: 11011 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (33425) receiver: CSI RSSI: Mean=-38.76, Median=-26.00, Var=507.11 (N=1000)[0m
+[0;32mI (33429) receiver: NOW RSSI: Mean=-26.22, Median=-26.00, Var=0.17 (N=1000)[0m
+[0;32mI (34271) receiver: Stats: 8393 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (34272) receiver: CSI RSSI: Mean=-30.39, Median=-27.00, Var=183.09 (N=1000)[0m
+[0;32mI (34276) receiver: NOW RSSI: Mean=-26.92, Median=-27.00, Var=0.13 (N=1000)[0m
+[0;32mI (35224) receiver: Stats: 10959 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (35225) receiver: CSI RSSI: Mean=-27.03, Median=-27.00, Var=16.05 (N=1000)[0m
+[0;32mI (35229) receiver: NOW RSSI: Mean=-26.74, Median=-27.00, Var=0.25 (N=1000)[0m
+[0;32mI (36136) receiver: Stats: 9972 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (36137) receiver: CSI RSSI: Mean=-28.87, Median=-27.00, Var=121.38 (N=1000)[0m
+[0;32mI (36141) receiver: NOW RSSI: Mean=-26.57, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (37100) receiver: Stats: 11099 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (37102) receiver: CSI RSSI: Mean=-28.79, Median=-26.00, Var=133.00 (N=1000)[0m
+[0;32mI (37106) receiver: NOW RSSI: Mean=-26.30, Median=-26.00, Var=0.21 (N=1000)[0m
+[0;32mI (38062) receiver: Stats: 11166 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (38064) receiver: CSI RSSI: Mean=-27.61, Median=-27.00, Var=47.73 (N=1000)[0m
+[0;32mI (38068) receiver: NOW RSSI: Mean=-26.71, Median=-27.00, Var=0.32 (N=1000)[0m
+[0;32mI (39032) receiver: Stats: 11233 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (39034) receiver: CSI RSSI: Mean=-28.35, Median=-27.00, Var=97.81 (N=1000)[0m
+[0;32mI (39039) receiver: NOW RSSI: Mean=-26.48, Median=-26.00, Var=0.25 (N=1000)[0m
+[0;32mI (40078) receiver: Stats: 12983 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (40079) receiver: CSI RSSI: Mean=-27.24, Median=-27.00, Var=33.70 (N=1000)[0m
+[0;32mI (40083) receiver: NOW RSSI: Mean=-26.63, Median=-27.00, Var=0.23 (N=1000)[0m
+[0;32mI (41070) receiver: Stats: 11702 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (41072) receiver: CSI RSSI: Mean=-27.50, Median=-27.00, Var=47.20 (N=1000)[0m
+[0;32mI (41076) receiver: NOW RSSI: Mean=-26.62, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (42084) receiver: Stats: 12242 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (42085) receiver: CSI RSSI: Mean=-29.92, Median=-27.00, Var=151.94 (N=1000)[0m
+[0;32mI (42090) receiver: NOW RSSI: Mean=-26.89, Median=-27.00, Var=0.10 (N=1000)[0m
+[0;32mI (43106) receiver: Stats: 12227 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (43107) receiver: CSI RSSI: Mean=-27.62, Median=-27.00, Var=49.05 (N=1000)[0m
+[0;32mI (43112) receiver: NOW RSSI: Mean=-26.70, Median=-27.00, Var=0.21 (N=1000)[0m
+[0;32mI (44099) receiver: Stats: 11589 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (44101) receiver: CSI RSSI: Mean=-32.43, Median=-27.00, Var=279.93 (N=1000)[0m
+[0;32mI (44105) receiver: NOW RSSI: Mean=-26.60, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (45083) receiver: Stats: 11398 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (45084) receiver: CSI RSSI: Mean=-29.75, Median=-27.00, Var=155.81 (N=1000)[0m
+[0;32mI (45088) receiver: NOW RSSI: Mean=-26.71, Median=-27.00, Var=0.26 (N=1000)[0m
+[0;32mI (45876) receiver: Stats: 7324 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (45877) receiver: CSI RSSI: Mean=-34.78, Median=-27.00, Var=370.75 (N=1000)[0m
+[0;32mI (45881) receiver: NOW RSSI: Mean=-26.69, Median=-27.00, Var=0.21 (N=1000)[0m
+[0;32mI (46639) receiver: Stats: 8174 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (46641) receiver: CSI RSSI: Mean=-28.03, Median=-27.00, Var=67.11 (N=1000)[0m
+[0;32mI (46645) receiver: NOW RSSI: Mean=-26.76, Median=-27.00, Var=0.63 (N=1000)[0m
+[0;32mI (47637) receiver: Stats: 11756 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (47640) receiver: CSI RSSI: Mean=-31.09, Median=-27.00, Var=214.64 (N=1000)[0m
+[0;32mI (47643) receiver: NOW RSSI: Mean=-26.74, Median=-27.00, Var=0.19 (N=1000)[0m
+[0;32mI (48576) receiver: Stats: 10484 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (48577) receiver: CSI RSSI: Mean=-31.92, Median=-27.00, Var=264.93 (N=1000)[0m
+[0;32mI (48581) receiver: NOW RSSI: Mean=-26.48, Median=-26.00, Var=0.25 (N=1000)[0m
+[0;32mI (49562) receiver: Stats: 11649 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (49563) receiver: CSI RSSI: Mean=-28.38, Median=-27.00, Var=82.86 (N=1000)[0m
+[0;32mI (49567) receiver: NOW RSSI: Mean=-26.78, Median=-27.00, Var=0.17 (N=1000)[0m
+[0;32mI (50543) receiver: Stats: 11880 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (50544) receiver: CSI RSSI: Mean=-27.75, Median=-27.00, Var=50.83 (N=1000)[0m
+[0;32mI (50549) receiver: NOW RSSI: Mean=-26.83, Median=-27.00, Var=0.79 (N=1000)[0m
+[0;32mI (51530) receiver: Stats: 11702 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (51532) receiver: CSI RSSI: Mean=-30.73, Median=-27.00, Var=196.67 (N=1000)[0m
+[0;32mI (51535) receiver: NOW RSSI: Mean=-26.76, Median=-27.00, Var=0.18 (N=1000)[0m
+[0;32mI (52591) receiver: Stats: 13522 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (52592) receiver: CSI RSSI: Mean=-27.74, Median=-27.00, Var=47.66 (N=1000)[0m
+[0;32mI (52597) receiver: NOW RSSI: Mean=-26.85, Median=-27.00, Var=0.13 (N=1000)[0m
+[0;32mI (53599) receiver: Stats: 12139 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (53600) receiver: CSI RSSI: Mean=-33.93, Median=-27.00, Var=338.86 (N=1000)[0m
+[0;32mI (53604) receiver: NOW RSSI: Mean=-26.72, Median=-27.00, Var=0.20 (N=1000)[0m
+[0;32mI (54582) receiver: Stats: 11590 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (54583) receiver: CSI RSSI: Mean=-27.30, Median=-27.00, Var=23.37 (N=1000)[0m
+[0;32mI (54587) receiver: NOW RSSI: Mean=-26.86, Median=-27.00, Var=0.12 (N=1000)[0m
+[0;32mI (55537) receiver: Stats: 10764 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (55537) receiver: CSI RSSI: Mean=-26.63, Median=-27.00, Var=4.52 (N=1000)[0m
+[0;32mI (55541) receiver: NOW RSSI: Mean=-26.60, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (56580) receiver: Stats: 12603 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (56581) receiver: CSI RSSI: Mean=-29.00, Median=-27.00, Var=113.84 (N=1000)[0m
+[0;32mI (56585) receiver: NOW RSSI: Mean=-26.81, Median=-27.00, Var=0.23 (N=1000)[0m
+[0;32mI (57698) receiver: Stats: 14129 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (57699) receiver: CSI RSSI: Mean=-27.99, Median=-27.00, Var=59.88 (N=1000)[0m
+[0;32mI (57703) receiver: NOW RSSI: Mean=-26.88, Median=-27.00, Var=0.11 (N=1000)[0m
+[0;32mI (58767) receiver: Stats: 13798 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (58768) receiver: CSI RSSI: Mean=-27.33, Median=-27.00, Var=24.21 (N=1000)[0m
+[0;32mI (58772) receiver: NOW RSSI: Mean=-26.88, Median=-27.00, Var=0.10 (N=1000)[0m
+[0;32mI (59880) receiver: Stats: 14253 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (59882) receiver: CSI RSSI: Mean=-27.71, Median=-27.00, Var=48.52 (N=1000)[0m
+[0;32mI (59886) receiver: NOW RSSI: Mean=-26.83, Median=-27.00, Var=0.14 (N=1000)[0m
+[0;32mI (60982) receiver: Stats: 14212 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (60985) receiver: CSI RSSI: Mean=-28.70, Median=-27.00, Var=96.38 (N=1000)[0m
+[0;32mI (60988) receiver: NOW RSSI: Mean=-26.84, Median=-27.00, Var=0.14 (N=1000)[0m
+[0;32mI (62061) receiver: Stats: 13541 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (62064) receiver: CSI RSSI: Mean=-27.10, Median=-27.00, Var=11.77 (N=1000)[0m
+[0;32mI (62068) receiver: NOW RSSI: Mean=-26.88, Median=-27.00, Var=0.11 (N=1000)[0m
+[0;32mI (63148) receiver: Stats: 14304 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (63148) receiver: CSI RSSI: Mean=-32.71, Median=-27.00, Var=278.89 (N=1000)[0m
+[0;32mI (63153) receiver: NOW RSSI: Mean=-26.88, Median=-27.00, Var=0.10 (N=1000)[0m
+[0;32mI (64203) receiver: Stats: 13028 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (64205) receiver: CSI RSSI: Mean=-28.17, Median=-27.00, Var=60.96 (N=1000)[0m
+[0;32mI (64209) receiver: NOW RSSI: Mean=-27.00, Median=-27.00, Var=0.00 (N=1000)[0m
+[0;32mI (65217) receiver: Stats: 12424 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (65218) receiver: CSI RSSI: Mean=-29.31, Median=-27.00, Var=144.11 (N=1000)[0m
+[0;32mI (65222) receiver: NOW RSSI: Mean=-26.74, Median=-27.00, Var=0.19 (N=1000)[0m
+[0;32mI (66161) receiver: Stats: 10629 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (66164) receiver: CSI RSSI: Mean=-27.45, Median=-27.00, Var=24.89 (N=1000)[0m
+[0;32mI (66168) receiver: NOW RSSI: Mean=-27.00, Median=-27.00, Var=0.00 (N=1000)[0m
+[0;32mI (66845) receiver: Stats: 8707 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (66846) receiver: CSI RSSI: Mean=-26.74, Median=-26.00, Var=41.13 (N=1000)[0m
+[0;32mI (66850) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (67371) receiver: Stats: 6530 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (67373) receiver: CSI RSSI: Mean=-26.74, Median=-26.00, Var=41.13 (N=1000)[0m
+[0;32mI (67376) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (68115) receiver: Stats: 8670 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (68115) receiver: CSI RSSI: Mean=-26.70, Median=-26.00, Var=39.03 (N=1000)[0m
+[0;32mI (68120) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (68863) receiver: Stats: 8794 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (68866) receiver: CSI RSSI: Mean=-27.85, Median=-26.00, Var=103.76 (N=1000)[0m
+[0;32mI (68870) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (69434) receiver: Stats: 6563 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (69437) receiver: CSI RSSI: Mean=-26.46, Median=-26.00, Var=24.94 (N=1000)[0m
+[0;32mI (69441) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (70023) receiver: Stats: 7316 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (70025) receiver: CSI RSSI: Mean=-27.08, Median=-26.00, Var=60.56 (N=1000)[0m
+[0;32mI (70029) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (70636) receiver: Stats: 8086 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (70639) receiver: CSI RSSI: Mean=-26.24, Median=-26.00, Var=13.00 (N=1000)[0m
+[0;32mI (70643) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (71083) receiver: Stats: 4878 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (71083) receiver: CSI RSSI: Mean=-26.63, Median=-26.00, Var=36.03 (N=1000)[0m
+[0;32mI (71088) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (71791) receiver: Stats: 8648 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (71794) receiver: CSI RSSI: Mean=-29.22, Median=-27.00, Var=146.68 (N=1000)[0m
+[0;32mI (71798) receiver: NOW RSSI: Mean=-26.57, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (72702) receiver: Stats: 11498 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (72703) receiver: CSI RSSI: Mean=-27.38, Median=-27.00, Var=35.15 (N=1000)[0m
+[0;32mI (72708) receiver: NOW RSSI: Mean=-26.75, Median=-27.00, Var=0.30 (N=1000)[0m
+[0;32mI (73685) receiver: Stats: 12209 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (73686) receiver: CSI RSSI: Mean=-27.90, Median=-26.00, Var=95.04 (N=1000)[0m
+[0;32mI (73690) receiver: NOW RSSI: Mean=-26.19, Median=-26.00, Var=0.21 (N=1000)[0m
+[0;32mI (74568) receiver: Stats: 9959 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (74570) receiver: CSI RSSI: Mean=-29.81, Median=-26.00, Var=180.85 (N=1000)[0m
+[0;32mI (74574) receiver: NOW RSSI: Mean=-26.38, Median=-26.00, Var=0.24 (N=1000)[0m
+[0;32mI (75461) receiver: Stats: 10240 pkts/sec | Last RSSI: -84 | Throttle: 0[0m
+[0;32mI (75462) receiver: CSI RSSI: Mean=-38.96, Median=-27.00, Var=558.58 (N=1000)[0m
+[0;32mI (75466) receiver: NOW RSSI: Mean=-26.61, Median=-27.00, Var=0.24 (N=1000)[0m
+[0;32mI (76432) receiver: Stats: 11041 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (76433) receiver: CSI RSSI: Mean=-27.74, Median=-26.00, Var=78.08 (N=1000)[0m
+[0;32mI (76438) receiver: NOW RSSI: Mean=-26.31, Median=-26.00, Var=0.21 (N=1000)[0m
+[0;32mI (77470) receiver: Stats: 13831 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (77473) receiver: CSI RSSI: Mean=-29.47, Median=-26.00, Var=177.34 (N=1000)[0m
+[0;32mI (77477) receiver: NOW RSSI: Mean=-26.17, Median=-26.00, Var=0.14 (N=1000)[0m
+[0;32mI (78464) receiver: Stats: 12779 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (78465) receiver: CSI RSSI: Mean=-27.22, Median=-26.00, Var=51.00 (N=1000)[0m
+[0;32mI (78470) receiver: NOW RSSI: Mean=-26.23, Median=-26.00, Var=0.18 (N=1000)[0m
+[0;32mI (79453) receiver: Stats: 12590 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (79454) receiver: CSI RSSI: Mean=-28.55, Median=-26.00, Var=131.57 (N=1000)[0m
+[0;32mI (79458) receiver: NOW RSSI: Mean=-26.09, Median=-26.00, Var=0.08 (N=1000)[0m
+[0;32mI (80366) receiver: Stats: 10394 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (80369) receiver: CSI RSSI: Mean=-28.30, Median=-26.00, Var=123.27 (N=1000)[0m
+[0;32mI (80372) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.01 (N=1000)[0m
+[0;32mI (80892) receiver: Stats: 5577 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (80893) receiver: CSI RSSI: Mean=-28.43, Median=-26.00, Var=131.54 (N=1000)[0m
+[0;32mI (80897) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (81349) receiver: Stats: 4826 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (81350) receiver: CSI RSSI: Mean=-26.25, Median=-26.00, Var=12.07 (N=1000)[0m
+[0;32mI (81354) receiver: NOW RSSI: Mean=-26.04, Median=-26.00, Var=0.04 (N=1000)[0m
+[0;32mI (82222) receiver: Stats: 9676 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (82224) receiver: CSI RSSI: Mean=-28.46, Median=-26.00, Var=109.62 (N=1000)[0m
+[0;32mI (82229) receiver: NOW RSSI: Mean=-26.46, Median=-26.00, Var=0.25 (N=1000)[0m
+[0;32mI (83106) receiver: Stats: 9715 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (83107) receiver: CSI RSSI: Mean=-29.16, Median=-26.00, Var=166.22 (N=1000)[0m
+[0;32mI (83111) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.02 (N=1000)[0m
+[0;32mI (83990) receiver: Stats: 9775 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (83992) receiver: CSI RSSI: Mean=-28.39, Median=-26.00, Var=129.97 (N=1000)[0m
+[0;32mI (83996) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (84490) receiver: Stats: 4663 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (84493) receiver: CSI RSSI: Mean=-26.68, Median=-26.00, Var=37.74 (N=1000)[0m
+[0;32mI (84496) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (84919) receiver: Stats: 4361 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (84920) receiver: CSI RSSI: Mean=-27.52, Median=-26.00, Var=79.89 (N=1000)[0m
+[0;32mI (84924) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (85481) receiver: Stats: 4738 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (85483) receiver: CSI RSSI: Mean=-28.34, Median=-26.00, Var=119.08 (N=1000)[0m
+[0;32mI (85487) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (85908) receiver: Stats: 3583 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (85910) receiver: CSI RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (85913) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (86308) receiver: Stats: 3760 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (86309) receiver: CSI RSSI: Mean=-27.11, Median=-26.00, Var=60.93 (N=1000)[0m
+[0;32mI (86313) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (86741) receiver: Stats: 4229 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (86744) receiver: CSI RSSI: Mean=-34.67, Median=-26.00, Var=400.52 (N=1000)[0m
+[0;32mI (86747) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (87179) receiver: Stats: 4433 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (87181) receiver: CSI RSSI: Mean=-26.22, Median=-26.00, Var=11.62 (N=1000)[0m
+[0;32mI (87185) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (87601) receiver: Stats: 4078 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (87602) receiver: CSI RSSI: Mean=-29.89, Median=-26.00, Var=201.49 (N=1000)[0m
+[0;32mI (87606) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (88043) receiver: Stats: 4504 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (88044) receiver: CSI RSSI: Mean=-29.00, Median=-26.00, Var=154.07 (N=1000)[0m
+[0;32mI (88049) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.13 (N=1000)[0m
+[0;32mI (88503) receiver: Stats: 5022 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (88505) receiver: CSI RSSI: Mean=-30.24, Median=-26.00, Var=218.69 (N=1000)[0m
+[0;32mI (88509) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (89234) receiver: Stats: 7291 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (89235) receiver: CSI RSSI: Mean=-28.10, Median=-26.00, Var=114.47 (N=1000)[0m
+[0;32mI (89239) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (89746) receiver: Stats: 5381 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (89747) receiver: CSI RSSI: Mean=-28.36, Median=-26.00, Var=126.72 (N=1000)[0m
+[0;32mI (89751) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (90195) receiver: Stats: 4859 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (90196) receiver: CSI RSSI: Mean=-27.74, Median=-26.00, Var=94.20 (N=1000)[0m
+[0;32mI (90200) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (90735) receiver: Stats: 5741 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (90737) receiver: CSI RSSI: Mean=-29.96, Median=-26.00, Var=202.12 (N=1000)[0m
+[0;32mI (90740) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (91168) receiver: Stats: 4067 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (91169) receiver: CSI RSSI: Mean=-26.50, Median=-26.00, Var=27.04 (N=1000)[0m
+[0;32mI (91173) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (91598) receiver: Stats: 4215 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (91600) receiver: CSI RSSI: Mean=-27.92, Median=-26.00, Var=94.57 (N=1000)[0m
+[0;32mI (91604) receiver: NOW RSSI: Mean=-26.19, Median=-26.00, Var=1.50 (N=1000)[0m
+[0;32mI (92050) receiver: Stats: 4757 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (92051) receiver: CSI RSSI: Mean=-26.93, Median=-26.00, Var=50.55 (N=1000)[0m
+[0;32mI (92055) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (92469) receiver: Stats: 3947 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (92471) receiver: CSI RSSI: Mean=-26.98, Median=-26.00, Var=52.51 (N=1000)[0m
+[0;32mI (92476) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (92943) receiver: Stats: 5269 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (92944) receiver: CSI RSSI: Mean=-26.27, Median=-26.00, Var=15.05 (N=1000)[0m
+[0;32mI (92948) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (93364) receiver: Stats: 4087 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (93366) receiver: CSI RSSI: Mean=-31.71, Median=-26.00, Var=266.54 (N=1000)[0m
+[0;32mI (93370) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (93821) receiver: Stats: 4935 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (93822) receiver: CSI RSSI: Mean=-26.87, Median=-26.00, Var=46.23 (N=1000)[0m
+[0;32mI (93827) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (94210) receiver: Stats: 3513 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (94212) receiver: CSI RSSI: Mean=-28.75, Median=-26.00, Var=141.13 (N=1000)[0m
+[0;32mI (94216) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (94654) receiver: Stats: 4652 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (94656) receiver: CSI RSSI: Mean=-26.80, Median=-26.00, Var=41.92 (N=1000)[0m
+[0;32mI (94660) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (95066) receiver: Stats: 3919 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (95067) receiver: CSI RSSI: Mean=-26.21, Median=-26.00, Var=11.19 (N=1000)[0m
+[0;32mI (95071) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (95498) receiver: Stats: 4434 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (95499) receiver: CSI RSSI: Mean=-28.70, Median=-26.00, Var=138.51 (N=1000)[0m
+[0;32mI (95503) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (95918) receiver: Stats: 4004 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (95919) receiver: CSI RSSI: Mean=-27.22, Median=-26.00, Var=63.03 (N=1000)[0m
+[0;32mI (95923) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (96339) receiver: Stats: 4146 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (96342) receiver: CSI RSSI: Mean=-28.48, Median=-26.00, Var=127.97 (N=1000)[0m
+[0;32mI (96345) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (96794) receiver: Stats: 4402 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (96796) receiver: CSI RSSI: Mean=-29.84, Median=-26.00, Var=192.55 (N=1000)[0m
+[0;32mI (96800) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (97252) receiver: Stats: 4772 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (97254) receiver: CSI RSSI: Mean=-29.19, Median=-26.00, Var=162.71 (N=1000)[0m
+[0;32mI (97257) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (97698) receiver: Stats: 4748 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (97701) receiver: CSI RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (97704) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (98150) receiver: Stats: 4884 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (98151) receiver: CSI RSSI: Mean=-30.05, Median=-26.00, Var=204.87 (N=1000)[0m
+[0;32mI (98155) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (98569) receiver: Stats: 4056 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (98570) receiver: CSI RSSI: Mean=-29.34, Median=-26.00, Var=168.38 (N=1000)[0m
+[0;32mI (98574) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (99032) receiver: Stats: 5063 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (99033) receiver: CSI RSSI: Mean=-31.00, Median=-26.00, Var=240.49 (N=1000)[0m
+[0;32mI (99037) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (99744) receiver: Stats: 7550 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (99745) receiver: CSI RSSI: Mean=-28.64, Median=-26.00, Var=134.88 (N=1000)[0m
+[0;32mI (99749) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (100278) receiver: Stats: 5672 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (100279) receiver: CSI RSSI: Mean=-31.37, Median=-26.00, Var=256.69 (N=1000)[0m
+[0;32mI (100283) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (100751) receiver: Stats: 5219 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (100752) receiver: CSI RSSI: Mean=-29.20, Median=-26.00, Var=161.92 (N=1000)[0m
+[0;32mI (100756) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (101231) receiver: Stats: 5255 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (101232) receiver: CSI RSSI: Mean=-26.70, Median=-26.00, Var=36.99 (N=1000)[0m
+[0;32mI (101236) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (101642) receiver: Stats: 3972 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (101643) receiver: CSI RSSI: Mean=-28.05, Median=-26.00, Var=106.60 (N=1000)[0m
+[0;32mI (101648) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (102100) receiver: Stats: 4868 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (102102) receiver: CSI RSSI: Mean=-28.87, Median=-26.00, Var=146.77 (N=1000)[0m
+[0;32mI (102106) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (102562) receiver: Stats: 5070 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (102563) receiver: CSI RSSI: Mean=-29.83, Median=-26.00, Var=188.98 (N=1000)[0m
+[0;32mI (102568) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (103011) receiver: Stats: 4678 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (103012) receiver: CSI RSSI: Mean=-27.06, Median=-26.00, Var=33.98 (N=1000)[0m
+[0;32mI (103016) receiver: NOW RSSI: Mean=-26.48, Median=-26.00, Var=3.61 (N=1000)[0m
+[0;32mI (103859) receiver: Stats: 8742 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (103860) receiver: CSI RSSI: Mean=-26.49, Median=-26.00, Var=26.06 (N=1000)[0m
+[0;32mI (103865) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (104349) receiver: Stats: 5121 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (104351) receiver: CSI RSSI: Mean=-30.14, Median=-26.00, Var=204.68 (N=1000)[0m
+[0;32mI (104355) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (104831) receiver: Stats: 5411 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (104835) receiver: CSI RSSI: Mean=-26.64, Median=-26.00, Var=33.30 (N=1000)[0m
+[0;32mI (104839) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (105260) receiver: Stats: 4332 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (105261) receiver: CSI RSSI: Mean=-28.77, Median=-26.00, Var=142.90 (N=1000)[0m
+[0;32mI (105265) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (105626) receiver: Stats: 3026 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (105627) receiver: CSI RSSI: Mean=-30.18, Median=-26.00, Var=206.35 (N=1000)[0m
+[0;32mI (105631) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (106049) receiver: Stats: 4123 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (106050) receiver: CSI RSSI: Mean=-27.12, Median=-26.00, Var=58.27 (N=1000)[0m
+[0;32mI (106054) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (106649) receiver: Stats: 5949 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (106650) receiver: CSI RSSI: Mean=-30.37, Median=-26.00, Var=212.73 (N=1000)[0m
+[0;32mI (106655) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.13 (N=1000)[0m
+[0;32mI (107544) receiver: Stats: 9934 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (107546) receiver: CSI RSSI: Mean=-26.69, Median=-26.00, Var=36.57 (N=1000)[0m
+[0;32mI (107550) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (108022) receiver: Stats: 5369 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (108023) receiver: CSI RSSI: Mean=-27.11, Median=-26.00, Var=57.75 (N=1000)[0m
+[0;32mI (108027) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (108468) receiver: Stats: 4588 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (108471) receiver: CSI RSSI: Mean=-27.90, Median=-26.00, Var=98.52 (N=1000)[0m
+[0;32mI (108475) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (108906) receiver: Stats: 4531 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (108910) receiver: CSI RSSI: Mean=-29.77, Median=-26.00, Var=185.68 (N=1000)[0m
+[0;32mI (108914) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (109331) receiver: Stats: 4203 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (109334) receiver: CSI RSSI: Mean=-31.08, Median=-26.00, Var=248.34 (N=1000)[0m
+[0;32mI (109338) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (109795) receiver: Stats: 5087 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (109797) receiver: CSI RSSI: Mean=-28.27, Median=-26.00, Var=117.33 (N=1000)[0m
+[0;32mI (109801) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (110242) receiver: Stats: 4853 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (110243) receiver: CSI RSSI: Mean=-27.55, Median=-26.00, Var=80.24 (N=1000)[0m
+[0;32mI (110247) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (110712) receiver: Stats: 5209 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (110714) receiver: CSI RSSI: Mean=-27.39, Median=-26.00, Var=71.18 (N=1000)[0m
+[0;32mI (110718) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (111180) receiver: Stats: 5290 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (111183) receiver: CSI RSSI: Mean=-28.44, Median=-26.00, Var=123.27 (N=1000)[0m
+[0;32mI (111187) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (111680) receiver: Stats: 6161 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (111682) receiver: CSI RSSI: Mean=-27.54, Median=-26.00, Var=82.05 (N=1000)[0m
+[0;32mI (111686) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (112177) receiver: Stats: 5951 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (112180) receiver: CSI RSSI: Mean=-28.26, Median=-26.00, Var=116.92 (N=1000)[0m
+[0;32mI (112184) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (112671) receiver: Stats: 5781 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (112675) receiver: CSI RSSI: Mean=-30.10, Median=-26.00, Var=204.38 (N=1000)[0m
+[0;32mI (112679) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (113112) receiver: Stats: 4502 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (113113) receiver: CSI RSSI: Mean=-31.08, Median=-26.00, Var=246.25 (N=1000)[0m
+[0;32mI (113117) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (113595) receiver: Stats: 5216 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (113598) receiver: CSI RSSI: Mean=-28.25, Median=-26.00, Var=114.49 (N=1000)[0m
+[0;32mI (113602) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (114044) receiver: Stats: 4807 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (114044) receiver: CSI RSSI: Mean=-34.15, Median=-26.00, Var=370.87 (N=1000)[0m
+[0;32mI (114049) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (114518) receiver: Stats: 5438 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (114519) receiver: CSI RSSI: Mean=-28.99, Median=-26.00, Var=151.02 (N=1000)[0m
+[0;32mI (114523) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (115010) receiver: Stats: 5174 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (115011) receiver: CSI RSSI: Mean=-27.60, Median=-26.00, Var=83.20 (N=1000)[0m
+[0;32mI (115016) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (115418) receiver: Stats: 3941 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (115418) receiver: CSI RSSI: Mean=-26.22, Median=-26.00, Var=11.51 (N=1000)[0m
+[0;32mI (115423) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (115882) receiver: Stats: 4988 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (115883) receiver: CSI RSSI: Mean=-28.10, Median=-26.00, Var=110.22 (N=1000)[0m
+[0;32mI (115887) receiver: NOW RSSI: Mean=-26.02, Median=-26.00, Var=0.19 (N=1000)[0m
+[0;32mI (116383) receiver: Stats: 5907 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (116384) receiver: CSI RSSI: Mean=-27.19, Median=-26.00, Var=63.17 (N=1000)[0m
+[0;32mI (116389) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (116869) receiver: Stats: 5595 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (116871) receiver: CSI RSSI: Mean=-28.82, Median=-26.00, Var=143.78 (N=1000)[0m
+[0;32mI (116874) receiver: NOW RSSI: Mean=-26.01, Median=-26.00, Var=0.06 (N=1000)[0m
+[0;32mI (117425) receiver: Stats: 7116 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (117426) receiver: CSI RSSI: Mean=-26.06, Median=-26.00, Var=3.84 (N=1000)[0m
+[0;32mI (117430) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (118225) receiver: Stats: 9276 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (118228) receiver: CSI RSSI: Mean=-26.22, Median=-26.00, Var=12.05 (N=1000)[0m
+[0;32mI (118233) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (118894) receiver: Stats: 8010 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (118897) receiver: CSI RSSI: Mean=-27.34, Median=-26.00, Var=79.71 (N=1000)[0m
+[0;32mI (118901) receiver: NOW RSSI: Mean=-25.81, Median=-26.00, Var=0.15 (N=1000)[0m
+[0;32mI (119911) receiver: Stats: 12798 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (119914) receiver: CSI RSSI: Mean=-26.28, Median=-25.00, Var=55.09 (N=1000)[0m
+[0;32mI (119918) receiver: NOW RSSI: Mean=-25.28, Median=-25.00, Var=0.20 (N=1000)[0m
+[0;32mI (120816) receiver: Stats: 11029 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (120817) receiver: CSI RSSI: Mean=-30.65, Median=-26.00, Var=235.31 (N=1000)[0m
+[0;32mI (120821) receiver: NOW RSSI: Mean=-26.00, Median=-26.00, Var=0.00 (N=1000)[0m
+[0;32mI (121663) receiver: Stats: 10029 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (121664) receiver: CSI RSSI: Mean=-28.12, Median=-26.00, Var=125.98 (N=1000)[0m
+[0;32mI (121669) receiver: NOW RSSI: Mean=-25.75, Median=-26.00, Var=0.18 (N=1000)[0m
+[0;32mI (122628) receiver: Stats: 11645 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (122630) receiver: CSI RSSI: Mean=-26.52, Median=-26.00, Var=31.14 (N=1000)[0m
+[0;32mI (122634) receiver: NOW RSSI: Mean=-25.96, Median=-26.00, Var=0.04 (N=1000)[0m
+[0;32mI (123587) receiver: Stats: 11385 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (123588) receiver: CSI RSSI: Mean=-27.44, Median=-26.00, Var=83.17 (N=1000)[0m
+[0;32mI (123592) receiver: NOW RSSI: Mean=-25.87, Median=-26.00, Var=0.11 (N=1000)[0m
+[0;32mI (124636) receiver: Stats: 12807 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (124637) receiver: CSI RSSI: Mean=-27.81, Median=-26.00, Var=105.78 (N=1000)[0m
+[0;32mI (124642) receiver: NOW RSSI: Mean=-25.83, Median=-26.00, Var=0.14 (N=1000)[0m
+[0;32mI (125544) receiver: Stats: 10340 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (125546) receiver: CSI RSSI: Mean=-32.29, Median=-26.00, Var=319.21 (N=1000)[0m
+[0;32mI (125550) receiver: NOW RSSI: Mean=-25.79, Median=-26.00, Var=0.17 (N=1000)[0m
+[0;32mI (126318) receiver: Stats: 8601 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (126318) receiver: CSI RSSI: Mean=-27.47, Median=-25.00, Var=135.69 (N=1000)[0m
+[0;32mI (126323) receiver: NOW RSSI: Mean=-25.00, Median=-25.00, Var=0.00 (N=1000)[0m
+[0;32mI (126803) receiver: Stats: 5504 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (126806) receiver: CSI RSSI: Mean=-27.14, Median=-25.00, Var=119.42 (N=1000)[0m
+[0;32mI (126809) receiver: NOW RSSI: Mean=-25.00, Median=-25.00, Var=0.00 (N=1000)[0m

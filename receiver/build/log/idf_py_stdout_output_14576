@@ -1,0 +1,471 @@
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /home/t/esp/rotation_sensing/receiver/build/bootloader/esp-idf/esptool_py && /home/t/.espressif/python_env/idf5.3_py3.13_env/bin/python /home/t/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/t/esp/rotation_sensing/receiver/build/bootloader/bootloader.bin
+Bootloader binary size 0x5260 bytes. 0x2da0 bytes (36%) free.
+[2/9] No install step for 'bootloader'
+[3/9] Completed 'bootloader'
+[4/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj
+FAILED: [code=1] esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj 
+/home/t/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc -DESP_PLATFORM -DIDF_VER=\"v5.3\" -DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -DUNITY_INCLUDE_CONFIG_H -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -I/home/t/esp/rotation_sensing/receiver/build/config -I/home/t/esp/rotation_sensing/receiver/main -I/home/t/esp/esp-idf/components/newlib/platform_include -I/home/t/esp/esp-idf/components/freertos/config/include -I/home/t/esp/esp-idf/components/freertos/config/include/freertos -I/home/t/esp/esp-idf/components/freertos/config/xtensa/include -I/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/include -I/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -I/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -I/home/t/esp/esp-idf/components/freertos/esp_additions/include -I/home/t/esp/esp-idf/components/esp_hw_support/include -I/home/t/esp/esp-idf/components/esp_hw_support/include/soc -I/home/t/esp/esp-idf/components/esp_hw_support/include/soc/esp32s3 -I/home/t/esp/esp-idf/components/esp_hw_support/dma/include -I/home/t/esp/esp-idf/components/esp_hw_support/ldo/include -I/home/t/esp/esp-idf/components/esp_hw_support/port/esp32s3/. -I/home/t/esp/esp-idf/components/esp_hw_support/port/esp32s3/include -I/home/t/esp/esp-idf/components/heap/include -I/home/t/esp/esp-idf/components/log/include -I/home/t/esp/esp-idf/components/soc/include -I/home/t/esp/esp-idf/components/soc/esp32s3 -I/home/t/esp/esp-idf/components/soc/esp32s3/include -I/home/t/esp/esp-idf/components/hal/platform_port/include -I/home/t/esp/esp-idf/components/hal/esp32s3/include -I/home/t/esp/esp-idf/components/hal/include -I/home/t/esp/esp-idf/components/esp_rom/include -I/home/t/esp/esp-idf/components/esp_rom/include/esp32s3 -I/home/t/esp/esp-idf/components/esp_rom/esp32s3 -I/home/t/esp/esp-idf/components/esp_common/include -I/home/t/esp/esp-idf/components/esp_system/include -I/home/t/esp/esp-idf/components/esp_system/port/soc -I/home/t/esp/esp-idf/components/esp_system/port/include/private -I/home/t/esp/esp-idf/components/xtensa/esp32s3/include -I/home/t/esp/esp-idf/components/xtensa/include -I/home/t/esp/esp-idf/components/xtensa/deprecated_include -I/home/t/esp/esp-idf/components/lwip/include -I/home/t/esp/esp-idf/components/lwip/include/apps -I/home/t/esp/esp-idf/components/lwip/include/apps/sntp -I/home/t/esp/esp-idf/components/lwip/lwip/src/include -I/home/t/esp/esp-idf/components/lwip/port/include -I/home/t/esp/esp-idf/components/lwip/port/freertos/include -I/home/t/esp/esp-idf/components/lwip/port/esp32xx/include -I/home/t/esp/esp-idf/components/lwip/port/esp32xx/include/arch -I/home/t/esp/esp-idf/components/lwip/port/esp32xx/include/sys -I/home/t/esp/rotation_sensing/receiver/managed_components/espressif__led_strip/include -I/home/t/esp/rotation_sensing/receiver/managed_components/espressif__led_strip/interface -I/home/t/esp/esp-idf/components/esp_driver_rmt/include -I/home/t/esp/esp-idf/components/esp_driver_spi/include -I/home/t/esp/esp-idf/components/esp_pm/include -I/home/t/esp/esp-idf/components/esp_driver_gpio/include -I/home/t/esp/esp-idf/components/mbedtls/port/include -I/home/t/esp/esp-idf/components/mbedtls/mbedtls/include -I/home/t/esp/esp-idf/components/mbedtls/mbedtls/library -I/home/t/esp/esp-idf/components/mbedtls/esp_crt_bundle/include -I/home/t/esp/esp-idf/components/mbedtls/mbedtls/3rdparty/everest/include -I/home/t/esp/esp-idf/components/mbedtls/mbedtls/3rdparty/p256-m -I/home/t/esp/esp-idf/components/mbedtls/mbedtls/3rdparty/p256-m/p256-m -I/home/t/esp/esp-idf/components/esp_app_format/include -I/home/t/esp/esp-idf/components/esp_bootloader_format/include -I/home/t/esp/esp-idf/components/app_update/include -I/home/t/esp/esp-idf/components/bootloader_support/include -I/home/t/esp/esp-idf/components/bootloader_support/bootloader_flash/include -I/home/t/esp/esp-idf/components/esp_partition/include -I/home/t/esp/esp-idf/components/efuse/include -I/home/t/esp/esp-idf/components/efuse/esp32s3/include -I/home/t/esp/esp-idf/components/esp_mm/include -I/home/t/esp/esp-idf/components/spi_flash/include -I/home/t/esp/esp-idf/components/pthread/include -I/home/t/esp/esp-idf/components/esp_timer/include -I/home/t/esp/esp-idf/components/esp_driver_gptimer/include -I/home/t/esp/esp-idf/components/esp_ringbuf/include -I/home/t/esp/esp-idf/components/esp_driver_uart/include -I/home/t/esp/esp-idf/components/vfs/include -I/home/t/esp/esp-idf/components/app_trace/include -I/home/t/esp/esp-idf/components/esp_event/include -I/home/t/esp/esp-idf/components/nvs_flash/include -I/home/t/esp/esp-idf/components/esp_driver_pcnt/include -I/home/t/esp/esp-idf/components/esp_driver_mcpwm/include -I/home/t/esp/esp-idf/components/esp_driver_ana_cmpr/include -I/home/t/esp/esp-idf/components/esp_driver_i2s/include -I/home/t/esp/esp-idf/components/sdmmc/include -I/home/t/esp/esp-idf/components/esp_driver_sdmmc/include -I/home/t/esp/esp-idf/components/esp_driver_sdspi/include -I/home/t/esp/esp-idf/components/esp_driver_sdio/include -I/home/t/esp/esp-idf/components/esp_driver_dac/include -I/home/t/esp/esp-idf/components/esp_driver_tsens/include -I/home/t/esp/esp-idf/components/esp_driver_sdm/include -I/home/t/esp/esp-idf/components/esp_driver_i2c/include -I/home/t/esp/esp-idf/components/esp_driver_ledc/include -I/home/t/esp/esp-idf/components/esp_driver_parlio/include -I/home/t/esp/esp-idf/components/esp_driver_usb_serial_jtag/include -I/home/t/esp/esp-idf/components/driver/deprecated -I/home/t/esp/esp-idf/components/driver/i2c/include -I/home/t/esp/esp-idf/components/driver/touch_sensor/include -I/home/t/esp/esp-idf/components/driver/twai/include -I/home/t/esp/esp-idf/components/driver/touch_sensor/esp32s3/include -I/home/t/esp/esp-idf/components/esp_phy/include -I/home/t/esp/esp-idf/components/esp_phy/esp32s3/include -I/home/t/esp/esp-idf/components/esp_vfs_console/include -I/home/t/esp/esp-idf/components/esp_netif/include -I/home/t/esp/esp-idf/components/wpa_supplicant/include -I/home/t/esp/esp-idf/components/wpa_supplicant/port/include -I/home/t/esp/esp-idf/components/wpa_supplicant/esp_supplicant/include -I/home/t/esp/esp-idf/components/esp_coex/include -I/home/t/esp/esp-idf/components/esp_wifi/include -I/home/t/esp/esp-idf/components/esp_wifi/wifi_apps/include -I/home/t/esp/esp-idf/components/esp_wifi/wifi_apps/nan_app/include -I/home/t/esp/esp-idf/components/esp_wifi/include/local -I/home/t/esp/esp-idf/components/unity/include -I/home/t/esp/esp-idf/components/unity/unity/src -I/home/t/esp/esp-idf/components/cmock/CMock/src -I/home/t/esp/esp-idf/components/console -I/home/t/esp/esp-idf/components/http_parser -I/home/t/esp/esp-idf/components/esp-tls -I/home/t/esp/esp-idf/components/esp-tls/esp-tls-crypto -I/home/t/esp/esp-idf/components/esp_adc/include -I/home/t/esp/esp-idf/components/esp_adc/interface -I/home/t/esp/esp-idf/components/esp_adc/esp32s3/include -I/home/t/esp/esp-idf/components/esp_adc/deprecated/include -I/home/t/esp/esp-idf/components/esp_driver_isp/include -I/home/t/esp/esp-idf/components/esp_driver_cam/include -I/home/t/esp/esp-idf/components/esp_driver_cam/interface -I/home/t/esp/esp-idf/components/esp_driver_jpeg/include -I/home/t/esp/esp-idf/components/esp_driver_ppa/include -I/home/t/esp/esp-idf/components/esp_eth/include -I/home/t/esp/esp-idf/components/esp_gdbstub/include -I/home/t/esp/esp-idf/components/esp_hid/include -I/home/t/esp/esp-idf/components/tcp_transport/include -I/home/t/esp/esp-idf/components/esp_http_client/include -I/home/t/esp/esp-idf/components/esp_http_server/include -I/home/t/esp/esp-idf/components/esp_https_ota/include -I/home/t/esp/esp-idf/components/esp_https_server/include -I/home/t/esp/esp-idf/components/esp_psram/include -I/home/t/esp/esp-idf/components/esp_lcd/include -I/home/t/esp/esp-idf/components/esp_lcd/interface -I/home/t/esp/esp-idf/components/esp_lcd/rgb/include -I/home/t/esp/esp-idf/components/protobuf-c/protobuf-c -I/home/t/esp/esp-idf/components/protocomm/include/common -I/home/t/esp/esp-idf/components/protocomm/include/security -I/home/t/esp/esp-idf/components/protocomm/include/transports -I/home/t/esp/esp-idf/components/protocomm/include/crypto/srp6a -I/home/t/esp/esp-idf/components/protocomm/proto-c -I/home/t/esp/esp-idf/components/esp_local_ctrl/include -I/home/t/esp/esp-idf/components/espcoredump/include -I/home/t/esp/esp-idf/components/espcoredump/include/port/xtensa -I/home/t/esp/esp-idf/components/wear_levelling/include -I/home/t/esp/esp-idf/components/fatfs/diskio -I/home/t/esp/esp-idf/components/fatfs/src -I/home/t/esp/esp-idf/components/fatfs/vfs -I/home/t/esp/esp-idf/components/idf_test/include -I/home/t/esp/esp-idf/components/idf_test/include/esp32s3 -I/home/t/esp/esp-idf/components/ieee802154/include -I/home/t/esp/esp-idf/components/json/cJSON -I/home/t/esp/esp-idf/components/mqtt/esp-mqtt/include -I/home/t/esp/esp-idf/components/nvs_sec_provider/include -I/home/t/esp/esp-idf/components/perfmon/include -I/home/t/esp/esp-idf/components/spiffs/include -I/home/t/esp/esp-idf/components/touch_element/include -I/home/t/esp/esp-idf/components/usb/include -I/home/t/esp/esp-idf/components/wifi_provisioning/include -mlongcalls  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -mdisable-hardware-atomics -Og -fno-shrink-wrap -fmacro-prefix-map=/home/t/esp/rotation_sensing/receiver=. -fmacro-prefix-map=/home/t/esp/esp-idf=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj -MF esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj -c /home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:109:8: error: unknown type name 'app_config_packet_t'
+  109 | static app_config_packet_t g_config = {.type = APP_PACKET_TYPE_CONFIG_STATE,
+      |        ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:109:40: error: field name not in record or union initializer
+  109 | static app_config_packet_t g_config = {.type = APP_PACKET_TYPE_CONFIG_STATE,
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:109:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:109:48: error: 'APP_PACKET_TYPE_CONFIG_STATE' undeclared here (not in a function); did you mean 'APP_PACKET_TYPE_CONFIG'?
+  109 | static app_config_packet_t g_config = {.type = APP_PACKET_TYPE_CONFIG_STATE,
+      |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                APP_PACKET_TYPE_CONFIG
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:110:40: error: field name not in record or union initializer
+  110 |                                        .dshot_pin_a = DSHOT_ESC_GPIO_NUM_A,
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:110:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:37:30: warning: excess elements in scalar initializer
+   37 | #define DSHOT_ESC_GPIO_NUM_A 13
+      |                              ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:110:55: note: in expansion of macro 'DSHOT_ESC_GPIO_NUM_A'
+  110 |                                        .dshot_pin_a = DSHOT_ESC_GPIO_NUM_A,
+      |                                                       ^~~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:37:30: note: (near initialization for 'g_config')
+   37 | #define DSHOT_ESC_GPIO_NUM_A 13
+      |                              ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:110:55: note: in expansion of macro 'DSHOT_ESC_GPIO_NUM_A'
+  110 |                                        .dshot_pin_a = DSHOT_ESC_GPIO_NUM_A,
+      |                                                       ^~~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:111:40: error: field name not in record or union initializer
+  111 |                                        .dshot_pin_b = DSHOT_ESC_GPIO_NUM_B,
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:111:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:38:30: warning: excess elements in scalar initializer
+   38 | #define DSHOT_ESC_GPIO_NUM_B 14
+      |                              ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:111:55: note: in expansion of macro 'DSHOT_ESC_GPIO_NUM_B'
+  111 |                                        .dshot_pin_b = DSHOT_ESC_GPIO_NUM_B,
+      |                                                       ^~~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:38:30: note: (near initialization for 'g_config')
+   38 | #define DSHOT_ESC_GPIO_NUM_B 14
+      |                              ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:111:55: note: in expansion of macro 'DSHOT_ESC_GPIO_NUM_B'
+  111 |                                        .dshot_pin_b = DSHOT_ESC_GPIO_NUM_B,
+      |                                                       ^~~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:112:40: error: field name not in record or union initializer
+  112 |                                        .led_pin = LEDC_IO,
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:112:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:33:17: warning: excess elements in scalar initializer
+   33 | #define LEDC_IO 48
+      |                 ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:112:51: note: in expansion of macro 'LEDC_IO'
+  112 |                                        .led_pin = LEDC_IO,
+      |                                                   ^~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:33:17: note: (near initialization for 'g_config')
+   33 | #define LEDC_IO 48
+      |                 ^~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:112:51: note: in expansion of macro 'LEDC_IO'
+  112 |                                        .led_pin = LEDC_IO,
+      |                                                   ^~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:113:40: error: field name not in record or union initializer
+  113 |                                        .rotation_source = 0, // CSI
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:113:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:113:59: warning: excess elements in scalar initializer
+  113 |                                        .rotation_source = 0, // CSI
+      |                                                           ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:113:59: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:114:40: error: field name not in record or union initializer
+  114 |                                        .step_lag = 5,
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:114:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:114:52: warning: excess elements in scalar initializer
+  114 |                                        .step_lag = 5,
+      |                                                    ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:114:52: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:115:40: error: field name not in record or union initializer
+  115 |                                        .step_window = 5};
+      |                                        ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:115:40: note: (near initialization for 'g_config')
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:115:55: warning: excess elements in scalar initializer
+  115 |                                        .step_window = 5};
+      |                                                       ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:115:55: note: (near initialization for 'g_config')
+In file included from /home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:12:
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: In function 'load_config':
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:22: error: request for member 'dshot_pin_a' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                      ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:435:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  435 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:44: error: request for member 'dshot_pin_b' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                            ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:435:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  435 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:66: error: request for member 'led_pin' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                                                  ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:435:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  435 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:22: error: request for member 'dshot_pin_a' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                      ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:436:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  436 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:44: error: request for member 'dshot_pin_b' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                            ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:436:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  436 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:66: error: request for member 'led_pin' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                                                  ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:436:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  436 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:22: error: request for member 'dshot_pin_a' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                      ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:437:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  437 |         else if (level==ESP_LOG_DEBUG )     { esp_log_write(ESP_LOG_DEBUG,      tag, LOG_FORMAT(D, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:44: error: request for member 'dshot_pin_b' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                            ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:437:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  437 |         else if (level==ESP_LOG_DEBUG )     { esp_log_write(ESP_LOG_DEBUG,      tag, LOG_FORMAT(D, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:66: error: request for member 'led_pin' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                                                  ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:437:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  437 |         else if (level==ESP_LOG_DEBUG )     { esp_log_write(ESP_LOG_DEBUG,      tag, LOG_FORMAT(D, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:22: error: request for member 'dshot_pin_a' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                      ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:438:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  438 |         else if (level==ESP_LOG_VERBOSE )   { esp_log_write(ESP_LOG_VERBOSE,    tag, LOG_FORMAT(V, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:44: error: request for member 'dshot_pin_b' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                            ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:438:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  438 |         else if (level==ESP_LOG_VERBOSE )   { esp_log_write(ESP_LOG_VERBOSE,    tag, LOG_FORMAT(V, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:66: error: request for member 'led_pin' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                                                  ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:438:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  438 |         else if (level==ESP_LOG_VERBOSE )   { esp_log_write(ESP_LOG_VERBOSE,    tag, LOG_FORMAT(V, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:22: error: request for member 'dshot_pin_a' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                      ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:439:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  439 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:44: error: request for member 'dshot_pin_b' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                            ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:439:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  439 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:145:66: error: request for member 'led_pin' in something not a structure or union
+  145 |              g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+      |                                                                  ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:439:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  439 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:144:5: note: in expansion of macro 'ESP_LOGI'
+  144 |     ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+      |     ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: In function 'rotation_task':
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:355:18: error: request for member 'rotation_source' in something not a structure or union
+  355 |         (g_config.rotation_source == 0) ? &g_csi_rssi_buf : &g_espnow_rssi_buf;
+      |                  ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:385:28: error: request for member 'step_lag' in something not a structure or union
+  385 |     int step_lag = g_config.step_lag;
+      |                            ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:386:28: error: request for member 'step_window' in something not a structure or union
+  386 |     int step_win = g_config.step_window;
+      |                            ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:461:17: error: request for member 'type' in something not a structure or union
+  461 |         g_config.type = APP_PACKET_TYPE_CONFIG_STATE;
+      |                 ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: In function 'example_espnow_recv_cb':
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:532:25: error: 'APP_PACKET_TYPE_CONFIG_SET' undeclared (first use in this function); did you mean 'APP_PACKET_TYPE_CONFIG'?
+  532 |   } else if (data[0] == APP_PACKET_TYPE_CONFIG_SET) {
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                         APP_PACKET_TYPE_CONFIG
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:532:25: note: each undeclared identifier is reported only once for each function it appears in
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:533:23: error: 'app_config_packet_t' undeclared (first use in this function); did you mean 'config_packet_t'?
+  533 |     if (len >= sizeof(app_config_packet_t)) {
+      |                       ^~~~~~~~~~~~~~~~~~~
+      |                       config_packet_t
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:534:33: error: expected '=', ',', ';', 'asm' or '__attribute__' before '*' token
+  534 |       const app_config_packet_t *pkt = (const app_config_packet_t *)data;
+      |                                 ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:534:34: error: 'pkt' undeclared (first use in this function)
+  534 |       const app_config_packet_t *pkt = (const app_config_packet_t *)data;
+      |                                  ^~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:534:46: error: expected ')' before 'app_config_packet_t'
+  534 |       const app_config_packet_t *pkt = (const app_config_packet_t *)data;
+      |                                        ~     ^~~~~~~~~~~~~~~~~~~~
+      |                                              )
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:534:33: error: type defaults to 'int' in type name [-Werror=implicit-int]
+  534 |       const app_config_packet_t *pkt = (const app_config_packet_t *)data;
+      |                                 ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:538:39: error: request for member 'dshot_pin_a' in something not a structure or union
+  538 |       if (pkt->dshot_pin_a != g_config.dshot_pin_a ||
+      |                                       ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:539:39: error: request for member 'dshot_pin_b' in something not a structure or union
+  539 |           pkt->dshot_pin_b != g_config.dshot_pin_b ||
+      |                                       ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:540:35: error: request for member 'led_pin' in something not a structure or union
+  540 |           pkt->led_pin != g_config.led_pin) {
+      |                                   ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:547:15: error: request for member 'type' in something not a structure or union
+  547 |       g_config.type = APP_PACKET_TYPE_CONFIG_STATE;
+      |               ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: In function 'example_espnow_init':
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:637:7: warning: 'esp_wifi_config_espnow_rate' is deprecated: This API can be only used when rate is non-HE rate,                                 please use esp_now_set_peer_rate_config if you want full support of the rate. [-Wdeprecated-declarations]
+  637 |       esp_wifi_config_espnow_rate(ESPNOW_WIFI_IF, WIFI_PHY_RATE_24M);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:15:
+/home/t/esp/esp-idf/components/esp_wifi/include/esp_now.h:270:11: note: declared here
+  270 | esp_err_t esp_wifi_config_espnow_rate(wifi_interface_t ifx, wifi_phy_rate_t rate)
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: In function 'app_main':
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:662:33: error: request for member 'led_pin' in something not a structure or union
+  662 |       .strip_gpio_num = g_config.led_pin,
+      |                                 ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:65: error: request for member 'dshot_pin_a' in something not a structure or union
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |                                                                 ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:435:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  435 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:676:20: error: request for member 'dshot_pin_b' in something not a structure or union
+  676 |            g_config.dshot_pin_b);
+      |                    ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:435:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  435 |         if (level==ESP_LOG_ERROR )          { esp_log_write(ESP_LOG_ERROR,      tag, LOG_FORMAT(E, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:65: error: request for member 'dshot_pin_a' in something not a structure or union
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |                                                                 ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:436:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  436 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:676:20: error: request for member 'dshot_pin_b' in something not a structure or union
+  676 |            g_config.dshot_pin_b);
+      |                    ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:436:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  436 |         else if (level==ESP_LOG_WARN )      { esp_log_write(ESP_LOG_WARN,       tag, LOG_FORMAT(W, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:65: error: request for member 'dshot_pin_a' in something not a structure or union
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |                                                                 ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:437:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  437 |         else if (level==ESP_LOG_DEBUG )     { esp_log_write(ESP_LOG_DEBUG,      tag, LOG_FORMAT(D, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:676:20: error: request for member 'dshot_pin_b' in something not a structure or union
+  676 |            g_config.dshot_pin_b);
+      |                    ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:437:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  437 |         else if (level==ESP_LOG_DEBUG )     { esp_log_write(ESP_LOG_DEBUG,      tag, LOG_FORMAT(D, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:65: error: request for member 'dshot_pin_a' in something not a structure or union
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |                                                                 ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:438:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  438 |         else if (level==ESP_LOG_VERBOSE )   { esp_log_write(ESP_LOG_VERBOSE,    tag, LOG_FORMAT(V, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:676:20: error: request for member 'dshot_pin_b' in something not a structure or union
+  676 |            g_config.dshot_pin_b);
+      |                    ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:438:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  438 |         else if (level==ESP_LOG_VERBOSE )   { esp_log_write(ESP_LOG_VERBOSE,    tag, LOG_FORMAT(V, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:65: error: request for member 'dshot_pin_a' in something not a structure or union
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |                                                                 ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:439:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  439 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:676:20: error: request for member 'dshot_pin_b' in something not a structure or union
+  676 |            g_config.dshot_pin_b);
+      |                    ^
+/home/t/esp/esp-idf/components/log/include/esp_log.h:439:137: note: in definition of macro 'ESP_LOG_LEVEL'
+  439 |         else                                { esp_log_write(ESP_LOG_INFO,       tag, LOG_FORMAT(I, format), esp_log_timestamp(), tag, ##__VA_ARGS__); } \
+      |                                                                                                                                         ^~~~~~~~~~~
+/home/t/esp/esp-idf/components/log/include/esp_log.h:367:38: note: in expansion of macro 'ESP_LOG_LEVEL_LOCAL'
+  367 | #define ESP_LOGI( tag, format, ... ) ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO,    tag, format, ##__VA_ARGS__)
+      |                                      ^~~~~~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:675:3: note: in expansion of macro 'ESP_LOGI'
+  675 |   ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+      |   ^~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:687:27: error: request for member 'dshot_pin_a' in something not a structure or union
+  687 |       .gpio_num = g_config.dshot_pin_a,
+      |                           ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:696:27: error: request for member 'dshot_pin_b' in something not a structure or union
+  696 |       .gpio_num = g_config.dshot_pin_b,
+      |                           ^
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c: At top level:
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:189:18: warning: 'tmag_read_bytes' defined but not used [-Wunused-function]
+  189 | static esp_err_t tmag_read_bytes(uint8_t reg_addr, uint8_t *data, size_t len) {
+      |                  ^~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:181:18: warning: 'tmag_write_byte' defined but not used [-Wunused-function]
+  181 | static esp_err_t tmag_write_byte(uint8_t reg_addr, uint8_t data) {
+      |                  ^~~~~~~~~~~~~~~
+/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c:162:18: warning: 'i2c_master_init' defined but not used [-Wunused-function]
+  162 | static esp_err_t i2c_master_init(int sda, int scl) {
+      |                  ^~~~~~~~~~~~~~~
+cc1: some warnings being treated as errors
+ninja: build stopped: subcommand failed.

@@ -1,0 +1,19 @@
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM1 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40374080: [0;33m_WindowOverflow8[0m[0m at [0;32m/home/t/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2111[0m
+[0m--- 0x4037a87e: [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m64[0m
+[0m--- 0x4037cb97: [0;33mspinlock_acquire[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/spinlock.h[0m[0m:[1;31m121[0m
+[0m--- (inlined by) [0;33mxPortEnterCriticalTimeout[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m473[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m
+[0m--- 0x40374095: [0;33m_WindowOverflow8[0m[0m at [0;32m/home/t/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2119[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m[0m

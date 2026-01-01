@@ -1,0 +1,844 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x20 (DOWNLOAD(USB/UART0))
+Saved PC:0x40041a79
+waiting for download
+[0;32mI (1144) receiver: Stats: 10 pkts/sec | Last RSSI: -84 | Throttle: 0[0m
+[0;32mI (1145) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1363) receiver: Stats: 7 pkts/sec | Last RSSI: -84 | Throttle: 0[0m
+[0;32mI (1364) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1597) receiver: Stats: 6 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (1598) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1806) receiver: Stats: 7 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (1807) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2017) receiver: Stats: 8 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (2018) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2224) receiver: Stats: 8 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (2225) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2431) receiver: Stats: 7 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (2432) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2639) receiver: Stats: 9 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (2640) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2864) receiver: Stats: 13 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (2865) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3129) receiver: Stats: 11 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (3130) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3390) receiver: Stats: 26 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (3391) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3646) receiver: Stats: 10 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (3647) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3890) receiver: Stats: 13 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (3891) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4099) receiver: Stats: 10 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (4100) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4316) receiver: Stats: 10 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (4317) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4525) receiver: Stats: 10 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (4526) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4568) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (4569) receiver: Added Target as Peer[0m
+[0;32mI (5286) receiver: Stats: 8635 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (5288) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6263) receiver: Stats: 12247 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (6265) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7387) receiver: Stats: 14935 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (7390) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (8463) receiver: Stats: 13838 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (8466) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9417) receiver: Stats: 12096 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (9419) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10558) receiver: Stats: 15078 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (10560) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (11669) receiver: Stats: 14773 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (11671) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (12625) receiver: Stats: 12262 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (12626) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (13660) receiver: Stats: 13659 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (13661) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (14715) receiver: Stats: 12819 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (14719) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (15694) receiver: Stats: 11269 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (15695) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (16547) receiver: Stats: 9968 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (16550) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (16588) receiver: Received SET CONFIG[0m
+[0;33mW (16592) receiver: Pin config changed. Rebooting...[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (660) receiver: Config Loaded: DShot A=8, B=14, LED=48[0m
+[0;32mI (661) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (667) receiver: Initializing DShot on GPIO 8 and 14[0m
+[0;32mI (672) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (682) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (692) pp: pp rom version: e7ae62f[0m
+[0;32mI (695) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (701) wifi:wifi driver task: 3fce5d1c, prio:23, stack:6656, core=0[0m
+[0;32mI (708) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (710) wifi:wifi certification version: v7.0[0m
+[0;32mI (714) wifi:config NVS flash: enabled[0m
+[0;32mI (717) wifi:config nano formating: disabled[0m
+[0;32mI (721) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (726) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (730) wifi:Init management short buffer num: 32[0m
+[0;32mI (735) wifi:Init static tx buffer num: 16[0m
+[0;32mI (739) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (742) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (746) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (751) wifi:Init static rx buffer num: 10[0m
+[0;32mI (754) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (759) wifi_init: rx ba win: 6[0m
+[0;32mI (762) wifi_init: accept mbox: 6[0m
+[0;32mI (766) wifi_init: tcpip mbox: 32[0m
+[0;32mI (770) wifi_init: udp mbox: 6[0m
+[0;32mI (774) wifi_init: tcp mbox: 6[0m
+[0;32mI (777) wifi_init: tcp tx win: 5760[0m
+[0;32mI (781) wifi_init: tcp rx win: 5760[0m
+[0;32mI (786) wifi_init: tcp mss: 1440[0m
+[0;32mI (790) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (794) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (799) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (842) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (859) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (860) wifi:enable tsf[0m
+[0;32mI (862) wifi:ic_enable_sniffer[0m
+[0;32mI (866) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (868) main_task: Returned from app_main()[0m
+[0;32mI (869) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (873) receiver: Added Target as Peer[0m
+[0;32mI (1141) receiver: Stats: 3595 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (1141) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2216) receiver: Stats: 13757 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (2219) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3241) receiver: Stats: 12676 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (3245) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4188) receiver: Stats: 12597 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (4189) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5175) receiver: Stats: 11710 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (5179) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5971) receiver: Stats: 8153 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (5973) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6712) receiver: Stats: 7188 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (6714) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6829) receiver: Received SET CONFIG[0m
+[0;33mW (6834) receiver: Pin config changed. Rebooting...[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (1119) receiver: Stats: 2958 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (1119) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1954) receiver: Stats: 8491 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (1955) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2702) receiver: Stats: 7286 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (2703) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3617) receiver: Stats: 10620 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (3618) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4403) receiver: Stats: 7573 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (4406) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5138) receiver: Stats: 6194 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (5139) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6018) receiver: Stats: 10469 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (6020) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6712) receiver: Stats: 6515 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (6713) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7578) receiver: Stats: 10507 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (7579) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (8403) receiver: Stats: 9324 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (8405) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9108) receiver: Stats: 5021 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (9110) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10019) receiver: Stats: 10044 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (10020) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10712) receiver: Stats: 6058 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (10714) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (11569) receiver: Stats: 9610 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (11571) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (12018) receiver: Received SET CONFIG[0m
+[0;33mW (12023) receiver: Pin config changed. Rebooting...[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (659) receiver: Config Loaded: DShot A=8, B=9, LED=2[0m
+[0;32mI (661) gpio: GPIO[2]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (667) receiver: Initializing DShot on GPIO 8 and 9[0m
+[0;32mI (672) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (681) gpio: GPIO[9]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (691) pp: pp rom version: e7ae62f[0m
+[0;32mI (694) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (701) wifi:wifi driver task: 3fce5da0, prio:23, stack:6656, core=0[0m
+[0;32mI (708) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (709) wifi:wifi certification version: v7.0[0m
+[0;32mI (713) wifi:config NVS flash: enabled[0m
+[0;32mI (717) wifi:config nano formating: disabled[0m
+[0;32mI (721) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (726) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (730) wifi:Init management short buffer num: 32[0m
+[0;32mI (735) wifi:Init static tx buffer num: 16[0m
+[0;32mI (739) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (742) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (746) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (750) wifi:Init static rx buffer num: 10[0m
+[0;32mI (754) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (758) wifi_init: rx ba win: 6[0m
+[0;32mI (761) wifi_init: accept mbox: 6[0m
+[0;32mI (765) wifi_init: tcpip mbox: 32[0m
+[0;32mI (769) wifi_init: udp mbox: 6[0m
+[0;32mI (773) wifi_init: tcp mbox: 6[0m
+[0;32mI (777) wifi_init: tcp tx win: 5760[0m
+[0;32mI (781) wifi_init: tcp rx win: 5760[0m
+[0;32mI (785) wifi_init: tcp mss: 1440[0m
+[0;32mI (789) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (794) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (799) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;32mI (846) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (846) wifi:enable tsf[0m
+[0;32mI (849) wifi:ic_enable_sniffer[0m
+[0;32mI (851) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (852) main_task: Returned from app_main()[0m
+[0;32mI (853) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (859) receiver: Added Target as Peer[0m
+[0;32mI (1106) receiver: Stats: 2831 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (1107) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2022) receiver: Stats: 10231 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (2023) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2632) receiver: Stats: 5835 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (2633) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3286) receiver: Stats: 6379 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (3288) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4056) receiver: Stats: 8156 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (4058) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4788) receiver: Stats: 7362 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (4789) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5615) receiver: Stats: 9299 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (5617) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6528) receiver: Stats: 10339 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (6529) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7449) receiver: Stats: 10283 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (7450) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (8373) receiver: Stats: 10343 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (8374) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9017) receiver: Stats: 5695 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (9019) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9156) receiver: Received SET CONFIG[0m
+[0;33mW (9160) receiver: Pin config changed. Rebooting...[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (26) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (269) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (509) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (512) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (523) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (529) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (659) receiver: Config Loaded: DShot A=8, B=9, LED=48[0m
+[0;32mI (661) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (667) receiver: Initializing DShot on GPIO 8 and 9[0m
+[0;32mI (672) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (681) gpio: GPIO[9]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (692) pp: pp rom version: e7ae62f[0m
+[0;32mI (694) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (701) wifi:wifi driver task: 3fce5da0, prio:23, stack:6656, core=0[0m
+[0;32mI (708) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (709) wifi:wifi certification version: v7.0[0m
+[0;32mI (714) wifi:config NVS flash: enabled[0m
+[0;32mI (717) wifi:config nano formating: disabled[0m
+[0;32mI (721) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (726) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (730) wifi:Init management short buffer num: 32[0m
+[0;32mI (735) wifi:Init static tx buffer num: 16[0m
+[0;32mI (739) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (742) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (746) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (750) wifi:Init static rx buffer num: 10[0m
+[0;32mI (754) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (759) wifi_init: rx ba win: 6[0m
+[0;32mI (762) wifi_init: accept mbox: 6[0m
+[0;32mI (766) wifi_init: tcpip mbox: 32[0m
+[0;32mI (770) wifi_init: udp mbox: 6[0m
+[0;32mI (773) wifi_init: tcp mbox: 6[0m
+[0;32mI (777) wifi_init: tcp tx win: 5760[0m
+[0;32mI (781) wifi_init: tcp rx win: 5760[0m
+[0;32mI (785) wifi_init: tcp mss: 1440[0m
+[0;32mI (789) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (794) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (799) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (840) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (857) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (857) wifi:enable tsf[0m
+[0;32mI (859) wifi:ic_enable_sniffer[0m
+[0;32mI (861) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (861) main_task: Returned from app_main()[0m
+[0;32mI (865) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (870) receiver: Added Target as Peer[0m
+[0;32mI (1112) receiver: Stats: 2205 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (1113) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2072) receiver: Stats: 11711 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (2073) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2915) receiver: Stats: 8790 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (2916) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3761) receiver: Stats: 9061 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (3765) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4737) receiver: Stats: 12258 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (4737) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5637) receiver: Stats: 11798 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (5639) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6499) receiver: Stats: 11561 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (6502) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7354) receiver: Stats: 11081 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (7356) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (8418) receiver: Stats: 14446 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (8420) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9408) receiver: Stats: 12315 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (9410) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10269) receiver: Stats: 11357 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (10270) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10875) receiver: Stats: 6062 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (10877) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (11718) receiver: Stats: 10796 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (11720) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (12631) receiver: Stats: 12337 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (12635) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (13679) receiver: Stats: 13544 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (13683) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (14664) receiver: Stats: 12813 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (14665) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (15749) receiver: Stats: 14649 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (15750) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (16871) receiver: Stats: 14598 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (16874) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (18039) receiver: Stats: 16135 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (18040) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (19013) receiver: Stats: 11837 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (19016) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (20048) receiver: Stats: 13207 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (20049) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (21042) receiver: Stats: 11748 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (21045) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (21980) receiver: Stats: 12774 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (21983) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (23026) receiver: Stats: 13860 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (23030) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (23994) receiver: Stats: 12340 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (23996) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (25046) receiver: Stats: 14154 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (25047) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (25343) receiver: Received SET CONFIG[0m
+[0;32mI (26075) receiver: Stats: 13461 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (26078) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (27238) receiver: Stats: 15734 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (27241) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (28286) receiver: Stats: 13769 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (28288) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (29363) receiver: Stats: 13853 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (29363) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (30193) receiver: Stats: 10549 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (30195) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (31015) receiver: Stats: 8320 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (31018) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (32071) receiver: Stats: 13312 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (32072) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (33156) receiver: Stats: 14515 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (33157) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (34153) receiver: Stats: 12080 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (34154) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (35272) receiver: Stats: 14579 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (35272) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (36283) receiver: Stats: 12673 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (36284) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (37511) receiver: Stats: 16954 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (37512) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (37787) receiver: Received SET CONFIG[0m
+[0;32mI (38649) receiver: Stats: 14833 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (38652) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (39623) receiver: Stats: 12706 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (39623) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (40535) receiver: Stats: 11705 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (40537) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (41465) receiver: Received SET CONFIG[0m
+[0;32mI (41591) receiver: Stats: 13906 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (41592) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (42162) receiver: Received SET CONFIG[0m
+[0;32mI (42499) receiver: Stats: 11743 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (42502) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (42575) receiver: Received SET CONFIG[0m
+[0;32mI (43538) receiver: Stats: 13225 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (43539) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (44296) receiver: Stats: 9689 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (44299) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (44773) receiver: Stats: 5573 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (44776) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (45857) receiver: Stats: 15090 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (45859) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (46461) receiver: Stats: 7757 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (46462) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (47185) receiver: Stats: 9526 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (47186) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (47796) receiver: Stats: 8210 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (47798) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (48293) receiver: Stats: 5872 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (48296) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (49064) receiver: Stats: 10861 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (49066) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (49824) receiver: Stats: 10183 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (49828) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (50664) receiver: Stats: 9790 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (50665) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (51725) receiver: Stats: 13336 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (51726) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (52764) receiver: Stats: 14551 pkts/sec | Last RSSI: -28 | Throttle: 0[0m
+[0;32mI (52766) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (53774) receiver: Stats: 13919 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (53775) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (54552) receiver: Stats: 9978 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (54556) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (55589) receiver: Stats: 14102 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (55590) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (56641) receiver: Stats: 13837 pkts/sec | Last RSSI: -28 | Throttle: 0[0m
+[0;32mI (56642) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (57800) receiver: Stats: 16106 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (57803) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (58936) receiver: Stats: 16012 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (58937) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (59938) receiver: Stats: 13022 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (59939) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (60441) receiver: Stats: 28 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (60442) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (60944) receiver: Stats: 16 pkts/sec | Last RSSI: -86 | Throttle: 0[0m
+[0;32mI (60945) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (61447) receiver: Stats: 25 pkts/sec | Last RSSI: -85 | Throttle: 0[0m
+[0;32mI (61448) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (61950) receiver: Stats: 23 pkts/sec | Last RSSI: -86 | Throttle: 0[0m
+[0;32mI (61951) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (62453) receiver: Stats: 21 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (62454) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (62956) receiver: Stats: 31 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (62957) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (63459) receiver: Stats: 23 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (63460) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (63963) receiver: Stats: 29 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (63964) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (64466) receiver: Stats: 22 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (64467) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (64969) receiver: Stats: 26 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (64970) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (65472) receiver: Stats: 25 pkts/sec | Last RSSI: -85 | Throttle: 0[0m
+[0;32mI (65473) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (65975) receiver: Stats: 27 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (65976) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (66478) receiver: Stats: 8 pkts/sec | Last RSSI: -90 | Throttle: 0[0m
+[0;32mI (66479) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (66981) receiver: Stats: 13 pkts/sec | Last RSSI: -84 | Throttle: 0[0m
+[0;32mI (66982) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (67484) receiver: Stats: 13 pkts/sec | Last RSSI: -85 | Throttle: 0[0m
+[0;32mI (67485) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (142996) receiver: Stats: 7147 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (142999) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (143617) receiver: Stats: 6872 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (143618) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (144154) receiver: Stats: 5719 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (144157) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (144690) receiver: Stats: 6717 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (144694) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (145253) receiver: Stats: 7268 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (145255) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (145946) receiver: Stats: 9043 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (145948) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (146762) receiver: Stats: 8692 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (146763) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (147484) receiver: Stats: 8826 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (147487) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (148076) receiver: Stats: 7765 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (148077) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (148597) receiver: Stats: 6382 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (148600) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (149156) receiver: Stats: 7364 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (149156) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (149694) receiver: Stats: 6858 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (149696) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (150143) receiver: Stats: 4923 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (150144) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (150474) receiver: Stats: 2234 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (150475) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (150859) receiver: Stats: 3485 pkts/sec | Last RSSI: -74 | Throttle: 0[0m
+[0;32mI (150860) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (151254) receiver: Stats: 3714 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (151256) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (151767) receiver: Stats: 6245 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (151768) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (152507) receiver: Stats: 8171 pkts/sec | Last RSSI: -74 | Throttle: 0[0m
+[0;32mI (152509) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (153206) receiver: Stats: 9485 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (153208) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (153810) receiver: Stats: 8403 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (153811) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (154366) receiver: Stats: 7135 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (154368) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (154894) receiver: Stats: 6486 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (154896) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (155451) receiver: Stats: 7465 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (155452) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (156069) receiver: Stats: 8583 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (156069) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (157060) receiver: Stats: 13156 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (157063) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (158039) receiver: Stats: 12535 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (158039) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (159026) receiver: Stats: 12602 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (159027) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (159958) receiver: Stats: 11651 pkts/sec | Last RSSI: -40 | Throttle: 0[0m
+[0;32mI (159959) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (160809) receiver: Stats: 9767 pkts/sec | Last RSSI: -41 | Throttle: 0[0m
+[0;32mI (160810) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (161718) receiver: Stats: 10461 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (161720) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (162420) receiver: Stats: 8088 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (162421) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (162864) receiver: Stats: 4690 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (162865) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (163285) receiver: Stats: 4013 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (163286) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (163673) receiver: Stats: 3532 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (163674) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (164112) receiver: Stats: 2741 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (164112) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (164643) receiver: Stats: 3043 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (164644) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (165326) receiver: Stats: 6605 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (165328) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (166068) receiver: Stats: 7071 pkts/sec | Last RSSI: -43 | Throttle: 0[0m
+[0;32mI (166068) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (166653) receiver: Stats: 5495 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (166654) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (167490) receiver: Stats: 9053 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (167493) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (168184) receiver: Stats: 6404 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (168185) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (168966) receiver: Stats: 7940 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (168967) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (169736) receiver: Stats: 7443 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (169740) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (170306) receiver: Stats: 5555 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (170308) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (170722) receiver: Stats: 4055 pkts/sec | Last RSSI: -42 | Throttle: 0[0m
+[0;32mI (170723) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (171056) receiver: Stats: 2265 pkts/sec | Last RSSI: -77 | Throttle: 0[0m
+[0;32mI (171057) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (171427) receiver: Stats: 3169 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (171428) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (171862) receiver: Stats: 3928 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (171864) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (172689) receiver: Stats: 9188 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (172691) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (173363) receiver: Stats: 6099 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (173364) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (174008) receiver: Stats: 5166 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (174010) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (174588) receiver: Stats: 4167 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (174590) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (175207) receiver: Stats: 4031 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (175208) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (175898) receiver: Stats: 5577 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (175899) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (176438) receiver: Stats: 4172 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (176439) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (176800) receiver: Stats: 2821 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (176803) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (177174) receiver: Stats: 3026 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (177175) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (177644) receiver: Stats: 4269 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (177645) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (178350) receiver: Stats: 5527 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (178351) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (179047) receiver: Stats: 5596 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (179049) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (179512) receiver: Stats: 4442 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (179513) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (179894) receiver: Stats: 3153 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (179895) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (180320) receiver: Stats: 3550 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (180321) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (180763) receiver: Stats: 4033 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (180765) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181075) receiver: Stats: 1580 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (181077) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181372) receiver: Stats: 935 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (181373) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181756) receiver: Stats: 3311 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (181757) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (182113) receiver: Stats: 1898 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (182115) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (182513) receiver: Stats: 3231 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (182515) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (182979) receiver: Stats: 4326 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (182980) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (183710) receiver: Stats: 6329 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (183711) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (184185) receiver: Stats: 2351 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (184187) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (184908) receiver: Stats: 6472 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (184912) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (185659) receiver: Stats: 6796 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (185660) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (186232) receiver: Stats: 2929 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (186233) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (186880) receiver: Stats: 4742 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (186881) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (187435) receiver: Stats: 3112 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (187436) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (187992) receiver: Stats: 3289 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (187992) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (188412) receiver: Stats: 2097 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (188413) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (188772) receiver: Stats: 2828 pkts/sec | Last RSSI: -74 | Throttle: 0[0m
+[0;32mI (188773) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (189260) receiver: Stats: 4033 pkts/sec | Last RSSI: -75 | Throttle: 0[0m
+[0;32mI (189260) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (189942) receiver: Stats: 5115 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (189943) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (190481) receiver: Stats: 4363 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (190483) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (190937) receiver: Stats: 3430 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (190938) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (191306) receiver: Stats: 2452 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (191306) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (191689) receiver: Stats: 3184 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (191691) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (192040) receiver: Stats: 2412 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (192042) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (192403) receiver: Stats: 2562 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (192403) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (192781) receiver: Stats: 3151 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (192783) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (193357) receiver: Stats: 5248 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (193359) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (194064) receiver: Stats: 5614 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (194065) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (194721) receiver: Stats: 5087 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (194721) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (195311) receiver: Stats: 5185 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (195312) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (195897) receiver: Stats: 5151 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (195898) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (196255) receiver: Stats: 2607 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (196257) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (196650) receiver: Stats: 3505 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (196650) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (197064) receiver: Stats: 3885 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (197066) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (197666) receiver: Stats: 6040 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (197667) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (198312) receiver: Stats: 5312 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (198314) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (199060) receiver: Stats: 6682 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (199061) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (199610) receiver: Stats: 5222 pkts/sec | Last RSSI: -44 | Throttle: 0[0m
+[0;32mI (199611) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (200009) receiver: Stats: 2902 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (200010) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (200406) receiver: Stats: 3452 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (200407) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (200775) receiver: Stats: 2869 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (200777) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (201157) receiver: Stats: 3402 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (201158) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (201781) receiver: Stats: 5796 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (201782) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (202296) receiver: Stats: 3669 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (202297) receiver: Vector: 0.000000, 0.000000[0m

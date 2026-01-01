@@ -1,0 +1,2809 @@
+[0;32mI (152) esp_image: segment 3: paddr=000aca18 vaddr=3fc99bESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403cd85e
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xc10
+load:0x403cb700,len:0x2dc0
+entry 0x403c8904
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 29 2025 20:21:00[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (27) boot: chip revision: v0.2[0m
+[0;32mI (28) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (28) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (29) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (29) boot: Enabling RNG early entropy source...[0m
+[0;32mI (30) boot: Partition Table:[0m
+[0;32mI (30) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (31) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (32) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (33) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (34) boot: End of partition table[0m
+[0;32mI (35) esp_image: segment 0: paddr=00010020 vaddr=3c080020 size=1effch (126972) map[0m
+[0;32mI (59) esp_image: segment 1: paddr=0002f024 vaddr=3fc98c00 size=00ff4h (  4084) load[0m
+[0;32mI (60) esp_image: segment 2: paddr=00030020 vaddr=42000020 size=7c9f0h (510448) map[0m
+[0;32mI (152) esp_image: segment 3: paddr=000aca18 vaddr=3fc99bf4 size=03850h ( 14416) load[0m
+[0;32mI (156) esp_image: segment 4: paddr=000b0270 vaddr=40374000 size=14b84h ( 84868) load[0m
+[0;32mI (183) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (184) boot: Disabling RNG early entropy source...[0m
+[0;32mI (185) cpu_start: Multicore app[0m
+[0;32mI (194) cpu_start: Pro cpu start user code[0m
+[0;32mI (194) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (195) app_init: Application information:[0m
+[0;32mI (195) app_init: Project name:     espnow_example[0m
+[0;32mI (196) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (196) app_init: Compile time:     Dec 29 2025 20:20:59[0m
+[0;32mI (197) app_init: ELF file SHA256:  124e9f737...[0m
+[0;32mI (198) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (198) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (199) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (199) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (200) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (201) heap_init: At 3FCA1030 len 000486E0 (289 KiB): RAM[0m
+[0;32mI (202) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (203) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (204) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (205) spi_flash: detected chip: generic[0m
+[0;32mI (205) spi_flash: flash io: dio[0m
+[0;33mW (206) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (207) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (208) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (210) main_task: Started on CPU0[0m
+[0;32mI (211) main_task: Calling app_main()[0m
+[0;32mI (223) pp: pp rom version: e7ae62f[0m
+[0;32mI (223) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (225) wifi:wifi driver task: 3fcaaeb0, prio:23, stack:6656, core=0[0m
+[0;32mI (230) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (230) wifi:wifi certification version: v7.0[0m
+[0;32mI (231) wifi:config NVS flash: enabled[0m
+[0;32mI (231) wifi:config nano formating: disabled[0m
+[0;32mI (232) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (232) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (233) wifi:Init management short buffer num: 32[0m
+[0;32mI (233) wifi:Init dynamic tx buffer num: 64[0m
+[0;32mI (234) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (234) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (235) wifi:Init static rx buffer num: 10[0m
+[0;32mI (235) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (236) wifi_init: rx ba win: 6[0m
+[0;32mI (237) wifi_init: accept mbox: 6[0m
+[0;32mI (237) wifi_init: tcpip mbox: 32[0m
+[0;32mI (238) wifi_init: udp mbox: 6[0m
+[0;32mI (238) wifi_init: tcp mbox: 6[0m
+[0;32mI (239) wifi_init: tcp tx win: 5760[0m
+[0;32mI (239) wifi_init: tcp rx win: 5760[0m
+[0;32mI (240) wifi_init: tcp mss: 1440[0m
+[0;32mI (240) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (241) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (242) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (279) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (330) wifi:mode : sta (e4:b3:23:f7:f3:f0)[0m
+[0;32mI (331) wifi:enable tsf[0m
+[0;32mI (333) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (333) sender: Starting Serial Reader Task[0m
+[0;32mI (334) sender: Starting ESP-NOW Sender Task (Hot Loop)[0m
+[0;32mI (335) main_task: Returned from app_main()[0m
+[0;32mI (1218) receiver: Stats: 18 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (1219) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1478) receiver: Stats: 10 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (1479) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1687) receiver: Stats: 10 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (1688) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (1897) receiver: Stats: 10 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (1898) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2106) receiver: Stats: 10 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (2107) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2349) receiver: Stats: 18 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (2350) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2574) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (2575) receiver: Added Target as Peer[0m
+[0;32mI (2658) receiver: Stats: 1128 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (2659) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (3323) receiver: Stats: 7259 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (3327) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4234) receiver: Stats: 11120 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (4236) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5126) receiver: Stats: 10268 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (5127) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (6166) receiver: Stats: 13075 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (6169) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7173) receiver: Stats: 12544 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (7174) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (8199) receiver: Stats: 13325 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (8200) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9002) receiver: Stats: 9821 pkts/sec | Last RSSI: -19 | Throttle: 0[0m
+[0;32mI (9003) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9824) receiver: Stats: 9665 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (9825) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (10930) receiver: Stats: 14925 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (10932) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (11989) receiver: Stats: 13936 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (11990) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (12998) receiver: Stats: 13137 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (13000) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (14079) receiver: Stats: 14289 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (14082) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (15019) receiver: Stats: 12251 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (15020) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (15883) receiver: Stats: 10984 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (15884) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (16798) receiver: Stats: 11689 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (16799) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (17912) receiver: Stats: 14404 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (17916) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (18990) receiver: Stats: 14088 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (18993) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (19921) receiver: Stats: 10948 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (19922) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (20924) receiver: Stats: 12822 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (20926) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (22043) receiver: Stats: 14896 pkts/sec | Last RSSI: -20 | Throttle: 0[0m
+[0;32mI (22044) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (22997) receiver: Stats: 12562 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (23001) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (23949) receiver: Stats: 12563 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (23952) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (25025) receiver: Stats: 13944 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (25026) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (26125) receiver: Stats: 14687 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (26128) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (27206) receiver: Stats: 13633 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (27207) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (28267) receiver: Stats: 13753 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (28269) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (29185) receiver: Stats: 11166 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (29186) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (30279) receiver: Stats: 14514 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (30280) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (31414) receiver: Stats: 15241 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (31416) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (32530) receiver: Stats: 14996 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (32531) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (33657) receiver: Stats: 15624 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (33658) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (34734) receiver: Stats: 14335 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (34737) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (35866) receiver: Stats: 15016 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (35867) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (36968) receiver: Stats: 14276 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (36969) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (38031) receiver: Stats: 13998 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (38032) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (38929) receiver: Stats: 10931 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (38931) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (39742) receiver: Stats: 9304 pkts/sec | Last RSSI: -21 | Throttle: 0[0m
+[0;32mI (39742) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (40611) receiver: Stats: 10750 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (40613) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (41577) receiver: Stats: 12650 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (41578) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (42605) receiver: Stats: 13541 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (42606) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (43689) receiver: Stats: 14095 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (43690) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (44774) receiver: Stats: 14122 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (44779) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (45863) receiver: Stats: 14384 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (45867) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (47000) receiver: Stats: 15255 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (47002) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (47927) receiver: Stats: 10817 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (47928) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (48959) receiver: Stats: 12778 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (48960) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (50069) receiver: Stats: 14441 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (50070) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (51152) receiver: Stats: 13941 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (51154) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (52217) receiver: Stats: 13972 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (52218) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (53438) receiver: Stats: 16670 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (53441) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (54638) receiver: Stats: 16594 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (54641) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (55677) receiver: Stats: 13601 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (55678) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (56696) receiver: Stats: 13592 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (56697) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (57722) receiver: Stats: 13814 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (57723) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (58785) receiver: Stats: 13611 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (58787) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (59413) receiver: Stats: 5583 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (59413) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (60088) receiver: Stats: 6587 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (60090) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (60997) receiver: Stats: 10579 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (60998) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (61757) receiver: Stats: 8632 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (61758) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (62427) receiver: Stats: 6891 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (62429) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (63207) receiver: Stats: 7883 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (63210) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (64016) receiver: Stats: 9067 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (64019) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (64940) receiver: Stats: 10596 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (64941) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (65764) receiver: Stats: 8851 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (65767) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (66635) receiver: Stats: 9543 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (66637) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (67550) receiver: Stats: 9910 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (67551) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (68408) receiver: Stats: 9661 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (68410) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (69109) receiver: Stats: 6860 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (69111) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (69983) receiver: Stats: 10680 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (69984) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (70801) receiver: Stats: 9880 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (70804) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (71558) receiver: Stats: 7721 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (71561) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (72352) receiver: Stats: 8474 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (72356) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (73037) receiver: Stats: 7230 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (73038) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (73919) receiver: Stats: 9783 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (73920) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (74757) receiver: Stats: 10344 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (74758) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (75421) receiver: Stats: 6667 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (75424) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (76071) receiver: Stats: 5809 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (76072) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (76781) receiver: Stats: 8014 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (76782) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (77483) receiver: Stats: 6629 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (77484) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (78138) receiver: Stats: 6088 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (78139) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (78984) receiver: Stats: 8838 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (78985) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (79721) receiver: Stats: 7439 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (79722) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (80494) receiver: Stats: 8058 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (80495) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (81514) receiver: Stats: 12707 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (81515) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (82262) receiver: Stats: 7050 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (82264) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (82952) receiver: Stats: 6277 pkts/sec | Last RSSI: -22 | Throttle: 0[0m
+[0;32mI (82953) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (83738) receiver: Stats: 7579 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (83740) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (84574) receiver: Stats: 10096 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (84575) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (85624) receiver: Stats: 13015 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (85624) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (86731) receiver: Stats: 14501 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (86733) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (87645) receiver: Stats: 11211 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (87648) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (88619) receiver: Stats: 11862 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (88620) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (89519) receiver: Stats: 9446 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (89520) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (90490) receiver: Stats: 11582 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (90492) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (91158) receiver: Stats: 6482 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (91159) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (92077) receiver: Stats: 9858 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (92078) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (92640) receiver: Stats: 4934 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (92641) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (93497) receiver: Stats: 9198 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (93498) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (94437) receiver: Stats: 10356 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (94438) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (95250) receiver: Stats: 8812 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (95252) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (96171) receiver: Stats: 10599 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (96172) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (97098) receiver: Stats: 10139 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (97100) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (97866) receiver: Stats: 8336 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (97866) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (98512) receiver: Stats: 5699 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (98513) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (99123) receiver: Stats: 5463 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (99124) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (99845) receiver: Stats: 7019 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (99846) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (100579) receiver: Stats: 6239 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (100580) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (101277) receiver: Stats: 7809 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (101278) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (102139) receiver: Stats: 9101 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (102140) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (102980) receiver: Stats: 8685 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (102981) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (103912) receiver: Stats: 10435 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (103913) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (104764) receiver: Stats: 8618 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (104765) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (105645) receiver: Stats: 10207 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (105647) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (106431) receiver: Stats: 7793 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (106432) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (107282) receiver: Stats: 8676 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (107285) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (108143) receiver: Stats: 9100 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (108144) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (108920) receiver: Stats: 7251 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (108922) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (109737) receiver: Stats: 8294 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (109738) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (110490) receiver: Stats: 7388 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (110491) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (111315) receiver: Stats: 7887 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (111315) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (112236) receiver: Stats: 9952 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (112237) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (113151) receiver: Stats: 9852 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (113152) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (114146) receiver: Stats: 11822 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (114148) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (115004) receiver: Stats: 9732 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (115004) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (115966) receiver: Stats: 11261 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (115968) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (116695) receiver: Stats: 7414 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (116698) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (117561) receiver: Stats: 10307 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (117562) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (118382) receiver: Stats: 8967 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (118383) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (119148) receiver: Stats: 6310 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (119149) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (120048) receiver: Stats: 9509 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (120051) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (120902) receiver: Stats: 9456 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (120902) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (121732) receiver: Stats: 10002 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (121733) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (122539) receiver: Stats: 8634 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (122540) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (123329) receiver: Stats: 8400 pkts/sec | Last RSSI: -24 | Throttle: 0[0m
+[0;32mI (123330) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (124182) receiver: Stats: 9629 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (124183) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (124830) receiver: Stats: 6077 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (124831) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (125717) receiver: Stats: 10430 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (125720) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (126657) receiver: Stats: 10740 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (126658) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (127565) receiver: Stats: 10367 pkts/sec | Last RSSI: -23 | Throttle: 0[0m
+[0;32mI (127566) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (128416) receiver: Stats: 9332 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (128417) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (129128) receiver: Stats: 8171 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (129129) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (129848) receiver: Stats: 7605 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (129849) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (130725) receiver: Stats: 10900 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (130729) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (131768) receiver: Stats: 13047 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (131771) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (132768) receiver: Stats: 11810 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (132769) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (133786) receiver: Stats: 12392 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (133789) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (134715) receiver: Stats: 10402 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (134716) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (135598) receiver: Stats: 10369 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (135599) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (136382) receiver: Stats: 8913 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (136383) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (137125) receiver: Stats: 8447 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (137126) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (137975) receiver: Stats: 9502 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (137977) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (138795) receiver: Stats: 9581 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (138797) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (139403) receiver: Stats: 6156 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (139404) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (140040) receiver: Stats: 6725 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (140042) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (140765) receiver: Stats: 8654 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (140766) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (141529) receiver: Stats: 9309 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (141532) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (142336) receiver: Stats: 9825 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (142337) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (143243) receiver: Stats: 10365 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (143245) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (144043) receiver: Stats: 9549 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (144046) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (144889) receiver: Stats: 9120 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (144889) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (145924) receiver: Stats: 12756 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (145925) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (146872) receiver: Stats: 10916 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (146875) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (147813) receiver: Stats: 10766 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (147813) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (148624) receiver: Stats: 8148 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (148625) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (149543) receiver: Stats: 10071 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (149546) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (150583) receiver: Stats: 13113 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (150584) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (151618) receiver: Stats: 12682 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (151619) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (152518) receiver: Stats: 11059 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (152519) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (153219) receiver: Received SET CONFIG[0m
+[0;32mI (153473) receiver: Stats: 11580 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (153474) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (154480) receiver: Stats: 12526 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (154481) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (155451) receiver: Stats: 11639 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (155451) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (156520) receiver: Stats: 13243 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (156521) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (157354) receiver: Stats: 9453 pkts/sec | Last RSSI: -81 | Throttle: 0[0m
+[0;32mI (157358) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (158096) receiver: Stats: 8422 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (158097) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (158881) receiver: Stats: 8624 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (158882) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (159747) receiver: Stats: 9431 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (159748) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (160488) receiver: Stats: 8340 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (160489) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (161351) receiver: Stats: 9568 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (161354) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (162223) receiver: Stats: 10533 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (162224) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (163087) receiver: Stats: 9356 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (163088) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (163996) receiver: Stats: 11523 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (163998) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (164948) receiver: Stats: 11462 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (164950) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (165834) receiver: Stats: 10990 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (165838) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (166610) receiver: Stats: 9289 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (166611) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (167274) receiver: Stats: 7272 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (167277) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (168143) receiver: Stats: 10454 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (168146) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (169077) receiver: Stats: 10503 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (169079) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (169897) receiver: Stats: 9196 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (169901) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (170752) receiver: Stats: 10117 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (170754) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (171688) receiver: Stats: 11277 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (171689) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (172503) receiver: Stats: 8650 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (172504) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (173232) receiver: Stats: 7128 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (173233) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (174057) receiver: Stats: 8659 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (174060) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (174708) receiver: Stats: 5842 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (174709) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (175524) receiver: Stats: 9182 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (175525) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (176249) receiver: Stats: 8087 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (176250) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (177118) receiver: Stats: 9891 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (177119) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (178004) receiver: Stats: 10507 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (178006) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (178790) receiver: Stats: 8323 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (178791) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (179486) receiver: Stats: 5934 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (179487) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (180262) receiver: Stats: 8440 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (180264) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181055) receiver: Stats: 8757 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (181057) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181929) receiver: Stats: 11271 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (181931) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (182766) receiver: Stats: 9407 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (182771) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (183638) receiver: Stats: 10532 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (183641) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (184450) receiver: Stats: 10041 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (184451) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (185380) receiver: Stats: 10912 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (185382) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (186308) receiver: Stats: 10465 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (186311) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (187185) receiver: Stats: 9119 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (187186) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (188001) receiver: Stats: 9343 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (188004) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (188916) receiver: Stats: 10393 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (188917) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (189857) receiver: Stats: 11352 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (189859) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (190927) receiver: Stats: 13966 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (190928) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (191994) receiver: Stats: 13547 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (191995) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (192931) receiver: Stats: 11078 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (192932) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (193765) receiver: Stats: 9748 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (193766) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (194677) receiver: Stats: 11103 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (194679) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (195677) receiver: Stats: 13174 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (195678) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (196280) receiver: Received SET CONFIG[0m
+[0;32mI (196728) receiver: Stats: 13139 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (196730) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (197803) receiver: Stats: 14328 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (197804) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (198814) receiver: Stats: 13447 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (198815) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (199687) receiver: Stats: 9297 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (199688) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (200445) receiver: Stats: 8767 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (200450) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (201527) receiver: Stats: 14139 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (201528) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (202692) receiver: Stats: 15726 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (202693) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (203028) receiver: Received SET CONFIG[0m
+[0;32mI (203186) receiver: Received SET CONFIG[0m
+[0;32mI (203555) receiver: Received SET CONFIG[0m
+[0;32mI (203742) receiver: Received SET CONFIG[0m
+[0;32mI (203757) receiver: Stats: 13843 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (203759) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (204820) receiver: Stats: 14060 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (204824) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (205843) receiver: Stats: 13083 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (205846) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (206861) receiver: Stats: 13074 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (206863) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (207852) receiver: Stats: 11967 pkts/sec | Last RSSI: -83 | Throttle: 0[0m
+[0;32mI (207853) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (208708) receiver: Stats: 10085 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (208709) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (209577) receiver: Stats: 10261 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (209577) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (210546) receiver: Stats: 12483 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (210547) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (211543) receiver: Stats: 12137 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (211547) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (212625) receiver: Stats: 14057 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (212628) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (213519) receiver: Stats: 11624 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (213522) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (214473) receiver: Stats: 12968 pkts/sec | Last RSSI: -27 | Throttle: 0[0m
+[0;32mI (214476) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (215553) receiver: Stats: 14810 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (215553) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (216721) receiver: Stats: 15768 pkts/sec | Last RSSI: -26 | Throttle: 0[0m
+[0;32mI (216723) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (217697) receiver: Received SET CONFIG[0m
+[0;33mW (217702) receiver: Pin config changed. Rebooting...[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (26) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (523) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (529) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (240) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (262) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (263) boot: Disabling RNG early entropy source...[0m
+[0;32mI (275) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (275) esp_psram: Speed: 80MHz[0m
+[0;32mI (275) cpu_start: Multicore app[0m
+[0;32mI (506) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (515) cpu_start: Pro cpu start user code[0m
+[0;32mI (515) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (515) app_init: Application information:[0m
+[0;32mI (518) app_init: Project name:     espnow_example[0m
+[0;32mI (523) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (529) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (535) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (540) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (544) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (549) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (554) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (559) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (566) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (572) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (578) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (584) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (591) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (599) spi_flash: detected chip: generic[0m
+[0;32mI (603) spi_flash: flash io: dio[0m
+[0;33mW (607) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (620) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (627) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (634) main_task: Started on CPU0[0m
+[0;32mI (638) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (647) main_task: Calling app_main()[0m
+[0;32mI (651) receiver: Starting Receiver App...[0m
+[0;32mI (667) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (668) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (669) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (523) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (529) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (523) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (529) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (574) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (26) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (580) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (26) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (586) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (598) spi_flash: flash io: dio[0m
+[0;33mW (602) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (622) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (662) receiver: Config Loaded: DShot A=8, B=9, LED=24[0m
+[0;31mE (663) rmt: rmt_new_tx_channel(246): invalid GPIO number 24[0m
+[0;31mE (664) led_strip_rmt: led_strip_new_rmt_device(154): create RMT TX channel failed[0m
+ESP_ERROR_CHECK failed: esp_err_t 0x102 (ESP_ERR_INVALID_ARG) at 0x4200b282
+file: "./main/espnow_example_main.c" line 699
+func: app_main
+expression: led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip)
+
+abort() was called at PC 0x4037dae3 on core 0
+
+
+Backtrace: 0x40375cb6:0x3fcd5730 0x4037daed:0x3fcd5750 0x40385d21:0x3fcd5770 0x4037dae3:0x3fcd57e0 0x4200b282:0x3fcd5810 0x42083673:0x3fcd58c0 0x4037e609:0x3fcd58f0
+
+
+
+
+ELF file SHA256: 3f106c24f
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40375bf0
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (26) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (42) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (47) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (56) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (63) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (78) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (90) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21c80h (138368) map[0m
+[0;32mI (123) esp_image: segment 1: paddr=00031ca8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036948 vaddr=40374000 size=096d0h ( 38608) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84634h (542260) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c465c vaddr=4037d6d0 size=0d260h ( 53856) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (258) boot: Disabling RNG early entropy source...[0m
+[0;32mI (270) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (270) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (501) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (510) cpu_start: Pro cpu start user code[0m
+[0;32mI (510) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (511) app_init: Application information:[0m
+[0;32mI (513) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (524) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (530) app_init: ELF file SHA256:  3f106c24f...[0m
+[0;32mI (535) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (540) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (554) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCD2160 len 000175B0 (93 KiB): RAM[0m

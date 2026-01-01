@@ -21,6 +21,7 @@
 #include "freertos/timers.h"
 #include "led_strip.h"
 #include "math.h"
+#include "nvs.h"
 #include "nvs_flash.h"
 #include <inttypes.h>
 #include <stdio.h>
@@ -38,7 +39,7 @@
 
 #define RSSI_BUF_SIZE 6000
 #define INTERPOLATION_INTERVAL_US 100
-#define CORRELATION_WINDOW 1000
+// #define CORRELATION_WINDOW 1000 // Moving to config
 
 static const char *TAG = "receiver";
 
@@ -69,6 +70,7 @@ static volatile bool g_send_status = false;
 
 typedef struct {
   int8_t rssi;
+  int8_t smoothed_rssi;
   int64_t timestamp;
 } rssi_sample_t;
 
@@ -93,11 +95,72 @@ typedef struct {
   float estimated_period_us;
 } rotation_state_t;
 
-static rssi_circular_buffer_t g_rssi_buf = {0};
+typedef struct {
+  float mean;
+  float median;
+  float variance;
+  int count;
+} buf_stats_t;
+
+static rssi_circular_buffer_t g_csi_rssi_buf = {0};
+static rssi_circular_buffer_t g_espnow_rssi_buf = {0};
 static control_input_t g_control_input = {0};
 static rotation_state_t g_rotation_state = {0};
 
+static app_config_packet_t g_config = {.type = APP_PACKET_TYPE_CONFIG_STATE,
+                                       .dshot_pin_a = DSHOT_ESC_GPIO_NUM_A,
+                                       .dshot_pin_b = DSHOT_ESC_GPIO_NUM_B,
+                                       .led_pin = LEDC_IO,
+                                       .rotation_source = 0, // CSI
+                                       .step_lag = 5,
+                                       .step_window = 5,
+                                       .smoothing_window = 20,
+                                       .throttle_multiplier = 1.0f,
+                                       .translation_multiplier = 1.0f,
+                                       .correlation_window = 1000};
+
+static void save_config(void) {
+  nvs_handle_t my_handle;
+  esp_err_t err = nvs_open("storage", NVS_READWRITE, &my_handle);
+  if (err != ESP_OK) {
+    ESP_LOGE(TAG, "Error (%s) opening NVS handle!", esp_err_to_name(err));
+  } else {
+    err = nvs_set_blob(my_handle, "config", &g_config, sizeof(g_config));
+    if (err != ESP_OK)
+      ESP_LOGE(TAG, "NVS set failed");
+    err = nvs_commit(my_handle);
+    nvs_close(my_handle);
+  }
+}
+
+static void load_config(void) {
+  nvs_handle_t my_handle;
+  esp_err_t err = nvs_open("storage", NVS_READWRITE, &my_handle);
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "NVS Open mismatch, using defaults");
+    return;
+  }
+  size_t required_size = sizeof(g_config);
+  err = nvs_get_blob(my_handle, "config", &g_config, &required_size);
+  if (err != ESP_OK) {
+    ESP_LOGW(TAG, "NVS Load failed, saving defaults");
+    save_config();
+  } else {
+    ESP_LOGI(TAG, "Config Loaded: DShot A=%d, B=%d, LED=%d",
+             g_config.dshot_pin_a, g_config.dshot_pin_b, g_config.led_pin);
+    // Safety check for multipliers (avoid divide by zero or zero throttle if
+    // unitialized)
+    if (g_config.throttle_multiplier < 0.001f)
+      g_config.throttle_multiplier = 1.0f;
+    if (g_config.translation_multiplier < 0.001f)
+      g_config.translation_multiplier = 1.0f;
+  }
+  nvs_close(my_handle);
+}
+
 static SemaphoreHandle_t g_data_mutex;
+static volatile uint32_t g_recv_pkt_count = 0;
+static volatile int8_t g_last_rssi = 0;
 
 // DShot Handles
 static rmt_channel_handle_t esc_chan_a = NULL;
@@ -106,120 +169,233 @@ static rmt_encoder_handle_t dshot_encoder_a = NULL;
 static rmt_encoder_handle_t dshot_encoder_b = NULL;
 static led_strip_handle_t g_led_strip = NULL;
 
-// Function to init I2C with specific pins
-static esp_err_t i2c_master_init(int sda, int scl) {
-  int i2c_master_port = I2C_MASTER_NUM;
-  i2c_config_t conf = {
-      .mode = I2C_MODE_MASTER,
-      .sda_io_num = sda,
-      .sda_pullup_en = GPIO_PULLUP_ENABLE,
-      .scl_io_num = scl,
-      .scl_pullup_en = GPIO_PULLUP_ENABLE,
-      .master.clk_speed = I2C_MASTER_FREQ_HZ,
-  };
-  esp_err_t err = i2c_param_config(i2c_master_port, &conf);
-  if (err != ESP_OK)
-    return err;
-  return i2c_driver_install(i2c_master_port, conf.mode,
-                            I2C_MASTER_RX_BUF_DISABLE,
-                            I2C_MASTER_TX_BUF_DISABLE, 0);
-}
-
-// Helper to write register
-static esp_err_t tmag_write_byte(uint8_t reg_addr, uint8_t data) {
-  uint8_t write_buf[2] = {reg_addr, data};
-  return i2c_master_write_to_device(I2C_MASTER_NUM, TMAG5273_ADDR, write_buf,
-                                    sizeof(write_buf),
-                                    1000 / portTICK_PERIOD_MS);
-}
-
-// Simple Read Register
-static esp_err_t tmag_read_bytes(uint8_t reg_addr, uint8_t *data, size_t len) {
-  return i2c_master_write_read_device(I2C_MASTER_NUM, TMAG5273_ADDR, &reg_addr,
-                                      1, data, len, 1000 / portTICK_PERIOD_MS);
-}
-
 // Helper: Interpolate and Add to Circular Buffer
-static void interpolate_rssi(int64_t timestamp, int8_t rssi) {
+static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
+                             int8_t rssi) {
   // If buffer is empty, just add the first point
-  if (g_rssi_buf.last_timestamp == 0) {
-    g_rssi_buf.buffer[g_rssi_buf.head].rssi = rssi;
-    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = timestamp;
-    g_rssi_buf.last_timestamp = timestamp;
-    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+  if (buf->last_timestamp == 0) {
+    buf->buffer[buf->head].rssi = rssi;
+    buf->buffer[buf->head].smoothed_rssi = rssi; // No history yet
+    buf->buffer[buf->head].timestamp = timestamp;
+    buf->last_timestamp = timestamp;
+    buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     // Tail stays 0 until full? Or just 0.
     return;
   }
 
-  int64_t target_ts = g_rssi_buf.last_timestamp + INTERPOLATION_INTERVAL_US;
+  int64_t target_ts = buf->last_timestamp + INTERPOLATION_INTERVAL_US;
 
   // Safety: If gap is too large (> 100ms), reset
-  if (timestamp - g_rssi_buf.last_timestamp > 100000) {
-    g_rssi_buf.last_timestamp = timestamp;
-    g_rssi_buf.buffer[g_rssi_buf.head].rssi = rssi;
-    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = timestamp;
-    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
-    if (g_rssi_buf.head == g_rssi_buf.tail) {
-      g_rssi_buf.tail = (g_rssi_buf.tail + 1) % RSSI_BUF_SIZE;
+  if (timestamp - buf->last_timestamp > 100000) {
+    buf->last_timestamp = timestamp;
+    buf->buffer[buf->head].rssi = rssi;
+    buf->buffer[buf->head].smoothed_rssi = rssi; // Reset history
+    buf->buffer[buf->head].timestamp = timestamp;
+    buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
+    if (buf->head == buf->tail) {
+      buf->tail = (buf->tail + 1) % RSSI_BUF_SIZE;
     }
     return;
   }
 
   // Nearest Neighbor Interpolation for all uniform points between last_ts and
-  // current ts
+  // current ts Setup sliding window for smoothing from existing buffer state
+  uint16_t w_len = g_config.smoothing_window;
+  if (w_len < 1)
+    w_len = 1;
+
+  int32_t running_sum = 0;
+  int valid_history = 0;
+
+  // Initialize running_sum from recent history relative to HEAD
+  // We need (w_len - 1) samples.
+  int current_total_count =
+      (buf->head - buf->tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+  int history_available =
+      (current_total_count > (w_len - 1)) ? (w_len - 1) : current_total_count;
+
+  for (int i = 0; i < history_available; i++) {
+    int idx = (buf->head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    running_sum += buf->buffer[idx].rssi;
+  }
+  valid_history = history_available;
+
   while (target_ts <= timestamp) {
     // Nearest neighbor
-    int8_t val;
+    int8_t val = rssi;
 
-    val = rssi;
+    // Update Sliding Window Sum
+    running_sum += val;
+    valid_history++;
 
-    g_rssi_buf.buffer[g_rssi_buf.head].rssi = val;
-    g_rssi_buf.buffer[g_rssi_buf.head].timestamp = target_ts;
-    g_rssi_buf.head = (g_rssi_buf.head + 1) % RSSI_BUF_SIZE;
-    if (g_rssi_buf.head == g_rssi_buf.tail) {
-      g_rssi_buf.tail = (g_rssi_buf.tail + 1) % RSSI_BUF_SIZE;
+    if (valid_history > w_len) {
+      // Subtract oldest
+      int remove_idx = (buf->head - w_len + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+      running_sum -= buf->buffer[remove_idx].rssi;
+      valid_history = w_len;
     }
 
-    g_rssi_buf.last_timestamp = target_ts;
+    int8_t smoothed = (int8_t)(running_sum / valid_history);
+
+    buf->buffer[buf->head].rssi = val;
+    buf->buffer[buf->head].smoothed_rssi = smoothed;
+    buf->buffer[buf->head].timestamp = target_ts;
+    buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
+    if (buf->head == buf->tail) {
+      buf->tail = (buf->tail + 1) % RSSI_BUF_SIZE;
+    }
+
+    buf->last_timestamp = target_ts;
     target_ts += INTERPOLATION_INTERVAL_US;
   }
+}
+
+static int compare_int8(const void *a, const void *b) {
+  return (*(int8_t *)a - *(int8_t *)b);
+}
+
+static void calculate_stats(rssi_circular_buffer_t *buf, buf_stats_t *stats) {
+  int head = buf->head;
+  int tail = buf->tail;
+  int count = (head - tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+
+  if (count == 0) {
+    memset(stats, 0, sizeof(buf_stats_t));
+    return;
+  }
+
+  int sum = 0;
+  // Create a temp array for median calculation to avoid modifying main buffer
+  // or complex logic Just take last N samples or all valid samples. The buffer
+  // is large (6000), let's just take last 1000 or all.
+  int limit = (count > 1000) ? 1000 : count;
+  int8_t *temp_vals = malloc(limit * sizeof(int8_t));
+  if (!temp_vals) {
+    // Allocation failed, return empty stats
+    memset(stats, 0, sizeof(buf_stats_t));
+    return;
+  }
+
+  for (int i = 0; i < limit; i++) {
+    int idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int8_t val = buf->buffer[idx].rssi;
+    sum += val;
+    temp_vals[i] = val;
+  }
+
+  stats->count = limit;
+  stats->mean = (float)sum / limit;
+
+  // Variance
+  float var_sum = 0;
+  for (int i = 0; i < limit; i++) {
+    float diff = temp_vals[i] - stats->mean;
+    var_sum += diff * diff;
+  }
+  stats->variance = var_sum / limit;
+
+  // Median
+  qsort(temp_vals, limit, sizeof(int8_t), compare_int8);
+  if (limit % 2 == 0) {
+    stats->median = (temp_vals[limit / 2 - 1] + temp_vals[limit / 2]) / 2.0f;
+  } else {
+    stats->median = temp_vals[limit / 2];
+  }
+
+  free(temp_vals);
+}
+
+static void update_recv_stats(int8_t rssi) {
+  g_recv_pkt_count++;
+  g_last_rssi = rssi;
 }
 
 // Motor Control Task - Pinned to Core 1
 static void motor_task(void *pvParameter) {
 
-  TickType_t last_wake_time = xTaskGetTickCount();
-  const TickType_t period = pdMS_TO_TICKS(1); // 1000Hz
-
   while (1) {
-    vTaskDelayUntil(&last_wake_time, period);
+    vTaskDelay(1);
+    // check current heading
+    int64_t now = esp_timer_get_time();
+    int64_t time_since_peak = now - g_rotation_state.last_peak_timestamp;
+    float phase = 2.0f * M_PI * (float)time_since_peak /
+                  g_rotation_state.estimated_period_us;
+
+    // Apply User Offset
+    phase += g_config.phase_offset;
+
+    // Normalize phase 0..2PI
+    phase = fmod(phase, 2.0f * M_PI);
+    if (phase < 0)
+      phase += 2.0f * M_PI;
+
+    // Check if in arc (e.g. PI +/- PI/8)
+    const double HEADING_START = M_PI - M_PI / 8.0;
+    const double HEADING_END = M_PI + M_PI / 8.0;
+    const double TRANSLATION_BASE_STRENGTH = 100;
 
     // --- Update Motor Mixing ---
     // Throttle + Vector
     // Meltybrain math:
     // Motor Power = Throttle + Translation_Mag * cos(angle + Translation_Phase)
-
     int throttle = g_control_input.throttle;
-    // Apply motor command
-    // Note: Dshot RMT encoder usage needs to be correct.
+    int leftDShot = throttle;
+    int rightDShot = throttle;
+    if (throttle < 48) {
+      // < 48 is DShot command, not sure we are actually handling that correctly
+      // in sender app, so default to 0 == STOP command.
+      leftDShot = 0;
+      rightDShot = 0;
+    } else {
+      // throttle is a speed
+      throttle = (g_control_input.throttle * g_config.throttle_multiplier);
 
-    rmt_transmit(esc_chan_a, dshot_encoder_a, &throttle, sizeof(throttle),
+      float vx = g_control_input.vector_x;
+      float vy = g_control_input.vector_y;
+      float mag = sqrtf(vx * vx + vy * vy);
+
+      // If magnitude is significant, apply translation
+      if (mag > 0.1f) {
+        float target_angle = atan2f(-vy, vx) + M_PI_2;
+        // Normalize 0..2PI
+        if (target_angle < 0)
+          target_angle += 2.0f * M_PI;
+        if (target_angle >= 2.0f * M_PI)
+          target_angle -= 2.0f * M_PI;
+
+        // Calculate diff
+        float diff = phase - target_angle;
+        while (diff <= -M_PI)
+          diff += 2.0f * M_PI;
+        while (diff > M_PI)
+          diff -= 2.0f * M_PI;
+
+        if (fabsf(diff) < (M_PI / 8.0)) {
+          float strength =
+              TRANSLATION_BASE_STRENGTH * g_config.translation_multiplier * mag;
+          leftDShot = throttle + strength;
+          rightDShot = throttle - strength;
+        }
+      }
+
+      // clamp to DShot range
+      if (leftDShot < 48)
+        leftDShot = 48;
+      if (leftDShot > 2047)
+        leftDShot = 2047;
+      if (rightDShot < 48)
+        rightDShot = 48;
+      if (rightDShot > 2047)
+        rightDShot = 2047;
+    }
+    rmt_transmit(esc_chan_a, dshot_encoder_a, &leftDShot, sizeof(leftDShot),
                  &((rmt_transmit_config_t){.loop_count = 0}));
-    rmt_transmit(esc_chan_b, dshot_encoder_b, &throttle, sizeof(throttle),
+    rmt_transmit(esc_chan_b, dshot_encoder_b, &rightDShot, sizeof(rightDShot),
                  &((rmt_transmit_config_t){.loop_count = 0}));
 
     // --- Update LED ---
     // Green in 45 deg arc opposite peak.
-    // Needs current 'angle' estimation based on timestamp.
-    int64_t now = esp_timer_get_time();
-    int64_t time_since_peak = now - g_rotation_state.last_peak_timestamp;
-    float phase = 2.0f * M_PI * (float)time_since_peak /
-                  g_rotation_state.estimated_period_us;
-    // Normalize phase 0..2PI
-    phase = fmod(phase, 2.0f * M_PI);
-
-    // Check if in arc (e.g. PI +/- PI/8)
-    if (phase > (M_PI - M_PI / 4.0) && phase < (M_PI + M_PI / 4.0)) {
+    if (phase > HEADING_START && phase < HEADING_END) {
       led_strip_set_pixel(g_led_strip, 0, 0, 20, 0); // Green
     } else {
       led_strip_set_pixel(g_led_strip, 0, 20, 0, 0); // Red
@@ -229,78 +405,166 @@ static void motor_task(void *pvParameter) {
 }
 
 // Rotation Estimation Task
+// Helper for Autocorrelation Error Calculation
+static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
+                                        int lag, int corr_window,
+                                        int step_win) {
+  int64_t diff_sum = 0;
+  for (int i = 0; i < corr_window; i += step_win) {
+    int idx1 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int idx2 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    // Use pre-calculated smoothed values
+    int8_t v1 = buf->buffer[idx1].smoothed_rssi;
+    int8_t v2 = buf->buffer[idx2].smoothed_rssi;
+    diff_sum += abs(v1 - v2);
+  }
+  return diff_sum;
+}
+
+// Rotation Estimation Task
 static void rotation_task(void *pvParameter) {
 
   while (1) {
-    // Yield to other tasks
-    vTaskDelay(pdMS_TO_TICKS(1));
+    vTaskDelay(1);
+    rssi_circular_buffer_t *active_buf =
+        (g_config.rotation_source == 0) ? &g_csi_rssi_buf : &g_espnow_rssi_buf;
 
-    int head = g_rssi_buf.head;
-    int count = (head - g_rssi_buf.tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int head = active_buf->head;
+    int count = (head - active_buf->tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    uint16_t corr_window = g_config.correlation_window;
+    if (corr_window == 0)
+      corr_window = 1000; // Safety default
 
-    if (count < CORRELATION_WINDOW * 2)
+    if (count < corr_window * 2)
       continue; // Need enough data
 
     // --- 1. Autocorrelation (Difference Function) ---
     // We want to find best lag L in range [MIN_PERIOD, MAX_PERIOD]
 
+    int64_t autocorr_start = esp_timer_get_time();
+
     int32_t best_lag = 0;
     int64_t min_diff = INT64_MAX;
 
-    // Optimization: Only search around predicted period if we have one?
-    int start_lag = 100; // 10ms
+    int start_lag = 200; // 20ms
     int end_lag = 3000;  // 300ms
 
-    if (g_rotation_state.estimated_period_us > 0) {
-      int predicted_lag =
-          g_rotation_state.estimated_period_us / INTERPOLATION_INTERVAL_US;
-      start_lag = predicted_lag - 200;
-      end_lag = predicted_lag + 200;
-      if (start_lag < 100)
-        start_lag = 100;
-      if (end_lag > 5000)
-        end_lag = 5000;
-    }
-
     // Subsample for speed
-    int step_lag = 5;
-    int step_win = 5;
+    int step_lag = g_config.step_lag;
+    int step_win = g_config.step_window;
 
+    // Coarse Search
     for (int lag = start_lag; lag <= end_lag; lag += step_lag) {
-      int64_t diff_sum = 0;
-      for (int i = 0; i < CORRELATION_WINDOW; i += step_win) {
-        int idx1 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-        int idx2 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-        int8_t v1 = g_rssi_buf.buffer[idx1].rssi;
-        int8_t v2 = g_rssi_buf.buffer[idx2].rssi;
-        diff_sum += abs(v1 - v2);
-      }
+      int64_t diff_sum = calculate_autocorr_error(active_buf, head, lag,
+                                                  corr_window, step_win);
       if (diff_sum < min_diff) {
         min_diff = diff_sum;
         best_lag = lag;
       }
     }
 
+    // Check for integer multiples (Harmonics)
     if (best_lag > 0) {
+      int original_lag = best_lag;
+      int64_t threshold = min_diff * 160 / 100; // Within 60% of min error
+
+      for (int div = 8; div >= 2; div--) {
+        int test_lag = original_lag / div;
+        if (test_lag < start_lag)
+          continue;
+
+        int64_t test_diff = calculate_autocorr_error(active_buf, head, test_lag,
+                                                     corr_window, step_win);
+
+        if (test_diff <= threshold) {
+          best_lag = test_lag;
+          break;
+        }
+      }
+    }
+
+    int final_lag = best_lag;
+
+    // Narrow down the best lag, checking +- step_lag
+    for (int i = -step_lag; i <= step_lag; i++) {
+      int lag = best_lag + i;
+      if (lag < start_lag || lag > end_lag)
+        continue;
+      int64_t diff_sum = calculate_autocorr_error(active_buf, head, lag,
+                                                  corr_window, step_win);
+      if (diff_sum < min_diff) {
+        min_diff = diff_sum;
+        final_lag = lag;
+      }
+    }
+
+    if (final_lag > 0) {
       g_rotation_state.estimated_period_us =
-          best_lag * INTERPOLATION_INTERVAL_US;
+          final_lag * INTERPOLATION_INTERVAL_US;
       g_rotation_state.rotation_rate =
           1000000.0f / g_rotation_state.estimated_period_us;
 
-      // Find Phase Peak in the last period
+      // Find Phase Peak in the second most recent period
       int peak_idx = -1;
       int8_t max_rssi = -128;
-      for (int i = 0; i < best_lag; i++) {
+      for (int i = final_lag; i < final_lag * 2; i++) {
         int idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-        if (g_rssi_buf.buffer[idx].rssi > max_rssi) {
-          max_rssi = g_rssi_buf.buffer[idx].rssi;
+        if (active_buf->buffer[idx].smoothed_rssi > max_rssi) {
+          max_rssi = active_buf->buffer[idx].smoothed_rssi;
           peak_idx = idx;
         }
       }
       if (peak_idx >= 0) {
         g_rotation_state.last_peak_timestamp =
-            g_rssi_buf.buffer[peak_idx].timestamp;
+            active_buf->buffer[(peak_idx + final_lag) % RSSI_BUF_SIZE]
+                .timestamp;
       }
+    }
+    int64_t autocorr_end = esp_timer_get_time();
+    static uint32_t last_autocorr_time = 0;
+    last_autocorr_time = (uint32_t)(autocorr_end - autocorr_start);
+
+    static int log_count = 0;
+    // Log stats every 1 second (approx 100 * 10ms)
+    if (log_count++ % 100 == 0) {
+      static uint32_t last_pkt_count = 0;
+      uint32_t curr_pkt_count = g_recv_pkt_count;
+      uint32_t diff = curr_pkt_count - last_pkt_count;
+
+      // Calculate and print RSSI stats
+      buf_stats_t csi_stats, espnow_stats;
+      calculate_stats(&g_csi_rssi_buf, &csi_stats);
+      calculate_stats(&g_espnow_rssi_buf, &espnow_stats);
+
+      ESP_LOGI(TAG,
+               "Stats: %" PRIu32 " pkts/sec | Last RSSI: %d | Throttle: %d",
+               diff, g_last_rssi, g_control_input.throttle);
+      ESP_LOGI(TAG, "Vector: %f, %f", g_control_input.vector_x,
+               g_control_input.vector_y);
+
+      // Send Stats Packet back to Sender
+      stats_packet_t stats_pkt = {.type = APP_PACKET_TYPE_STATS,
+                                  .csi_mean = csi_stats.mean,
+                                  .csi_var = csi_stats.variance,
+                                  .espnow_mean = espnow_stats.mean,
+                                  .espnow_var = espnow_stats.variance,
+                                  .pkts_per_sec = (int32_t)diff,
+                                  .last_rssi = g_last_rssi,
+                                  .rotation_rate =
+                                      g_rotation_state.rotation_rate,
+                                  .vector_x = g_control_input.vector_x,
+                                  .vector_y = g_control_input.vector_y,
+                                  .autocorrelation_time = last_autocorr_time};
+
+      esp_now_send(s_broadcast_mac, (uint8_t *)&stats_pkt, sizeof(stats_pkt));
+
+      // Broadcast Config State if Idle (Throttle 0)
+      if (g_control_input.throttle == 0) {
+        g_config.type = APP_PACKET_TYPE_CONFIG_STATE;
+        esp_now_send(s_broadcast_mac, (uint8_t *)&g_config, sizeof(g_config));
+      }
+
+      last_pkt_count = curr_pkt_count;
     }
   }
 }
@@ -310,7 +574,8 @@ static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
     return;
   }
 
-  interpolate_rssi(esp_timer_get_time(), info->rx_ctrl.rssi);
+  interpolate_rssi(&g_csi_rssi_buf, esp_timer_get_time(), info->rx_ctrl.rssi);
+  update_recv_stats(info->rx_ctrl.rssi);
 }
 
 // Send Callback
@@ -328,7 +593,9 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
                                    const uint8_t *data, int len) {
   // Extract RSSI
   if (recv_info->rx_ctrl) {
-    interpolate_rssi(esp_timer_get_time(), recv_info->rx_ctrl->rssi);
+    interpolate_rssi(&g_espnow_rssi_buf, esp_timer_get_time(),
+                     recv_info->rx_ctrl->rssi);
+    update_recv_stats(recv_info->rx_ctrl->rssi);
   }
 
   // Capture Target MAC
@@ -357,16 +624,38 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
     }
   }
 
-  // Parse Control Packet
-  // Format: [Throttle (2 bytes)] [VectorX (4 bytes)] [VectorY (4 bytes)] ?
-  // User said: "The control state will have a desired throttle, and a
-  // desired translation vector." Let's assume binary format for now.
+  // Parse Packet
+  if (data[0] == APP_PACKET_TYPE_CONTROL) {
+    if (len >= sizeof(control_packet_t)) {
+      const control_packet_t *pkt = (const control_packet_t *)data;
+      g_control_input.throttle = pkt->throttle;
+      g_control_input.vector_x = pkt->vector_x;
+      g_control_input.vector_y = pkt->vector_y;
+    }
+  } else if (data[0] == APP_PACKET_TYPE_CONFIG_SET) {
+    if (len >= sizeof(app_config_packet_t)) {
+      const app_config_packet_t *pkt = (const app_config_packet_t *)data;
+      ESP_LOGI(TAG, "Received SET CONFIG");
 
-  if (len >= sizeof(uint16_t)) {
-    uint16_t throttle;
-    memcpy(&throttle, data, sizeof(uint16_t));
-    g_control_input.throttle = throttle;
-    // Pending: Vector parsing if we define the struct better.
+      bool reboot_needed = false;
+      if (pkt->dshot_pin_a != g_config.dshot_pin_a ||
+          pkt->dshot_pin_b != g_config.dshot_pin_b ||
+          pkt->led_pin != g_config.led_pin) {
+        reboot_needed = true;
+      }
+
+      // Update Global State
+      g_config = *pkt;
+      // Restore type just in case we need to send it back as STATE
+      g_config.type = APP_PACKET_TYPE_CONFIG_STATE;
+
+      save_config();
+
+      if (reboot_needed) {
+        ESP_LOGW(TAG, "Pin config changed. Rebooting...");
+        esp_restart();
+      }
+    }
   }
 }
 
@@ -421,6 +710,13 @@ static esp_err_t example_espnow_init(void) {
   ESP_ERROR_CHECK(esp_now_register_recv_cb(example_espnow_recv_cb));
   ESP_ERROR_CHECK(esp_now_register_send_cb(espnow_send_cb));
 
+  g_send_cb_sem = xSemaphoreCreateBinary();
+  if (g_send_cb_sem == NULL) {
+    ESP_LOGE(TAG, "Create send cb sem fail");
+    esp_now_deinit();
+    return ESP_FAIL;
+  }
+
   /* Set primary master key. */
   ESP_ERROR_CHECK(esp_now_set_pmk((uint8_t *)CONFIG_ESPNOW_PMK));
 
@@ -461,11 +757,12 @@ void app_main(void) {
   }
   ESP_ERROR_CHECK(ret);
 
+  load_config(); // Load pins from NVS
+
   // Initialize LED Strip and Dim it (User Request)
   // Note: Only if LED strip component is available and valid pin
-  led_strip_handle_t led_strip;
   led_strip_config_t strip_config = {
-      .strip_gpio_num = LEDC_IO,
+      .strip_gpio_num = g_config.led_pin,
       .max_leds = 1,
   };
   led_strip_rmt_config_t rmt_config = {
@@ -473,13 +770,13 @@ void app_main(void) {
       .flags.with_dma = false,
   };
   ESP_ERROR_CHECK(
-      led_strip_new_rmt_device(&strip_config, &rmt_config, &led_strip));
-  led_strip_set_pixel(led_strip, 0, 8, 8, 8); // ~3% brightness (very dim)
-  led_strip_refresh(led_strip);
+      led_strip_new_rmt_device(&strip_config, &rmt_config, &g_led_strip));
+  led_strip_set_pixel(g_led_strip, 0, 8, 8, 8); // ~3% brightness (very dim)
+  led_strip_refresh(g_led_strip);
 
   // DShot Init
-  ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", DSHOT_ESC_GPIO_NUM_A,
-           DSHOT_ESC_GPIO_NUM_B);
+  ESP_LOGI(TAG, "Initializing DShot on GPIO %d and %d", g_config.dshot_pin_a,
+           g_config.dshot_pin_b);
 
   dshot_esc_encoder_config_t encoder_config = {
       .resolution = DSHOT_ESC_RESOLUTION_HZ,
@@ -490,7 +787,7 @@ void app_main(void) {
   ESP_ERROR_CHECK(rmt_new_dshot_esc_encoder(&encoder_config, &dshot_encoder_b));
 
   rmt_tx_channel_config_t tx_chan_config_a = {
-      .gpio_num = DSHOT_ESC_GPIO_NUM_A,
+      .gpio_num = g_config.dshot_pin_a,
       .clk_src = RMT_CLK_SRC_DEFAULT,
       .resolution_hz = DSHOT_ESC_RESOLUTION_HZ,
       .mem_block_symbols = 64,
@@ -499,7 +796,7 @@ void app_main(void) {
   ESP_ERROR_CHECK(rmt_new_tx_channel(&tx_chan_config_a, &esc_chan_a));
 
   rmt_tx_channel_config_t tx_chan_config_b = {
-      .gpio_num = DSHOT_ESC_GPIO_NUM_B,
+      .gpio_num = g_config.dshot_pin_b,
       .clk_src = RMT_CLK_SRC_DEFAULT,
       .resolution_hz = DSHOT_ESC_RESOLUTION_HZ,
       .mem_block_symbols = 64,

@@ -1,0 +1,333 @@
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM0 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m.[0m[0;33m[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40375cb6: [0;33mesp_ptr_executable[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/esp_memory_utils.h[0m[0m:[1;31m237[0m
+[0m--- (inlined by) [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m76[0m
+[0m--- 0x4037daed: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x40385d21: [0;33mpm_disable_beacon_monitor_timer[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x4037dae3: [0;33mprvAddCurrentTaskToDelayedList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m6350[0m
+[0m--- 0x4200b282: [0;33mnvs::Storage::populateBlobIndices(intrusive_list<nvs::Storage::BlobIndexNode>&)[0m[0m at [0;32m/home/t/esp/esp-idf/components/nvs_flash/src/nvs_storage.cpp[0m[0m:[1;31m67[0m
+[0m--- 0x4037e609: [0;33mvTaskRemoveFromUnorderedEventList[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4107[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m--- 0x40375bf0: [0;33mesp_backtrace_print_from_frame[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_system/port/arch/xtensa/debug_helpers.c[0m[0m:[1;31m61[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 124e9f737001561d6c06f25ccfd4cb9cb68cae606c9f6f58051427799da83a65[0m
+[0m

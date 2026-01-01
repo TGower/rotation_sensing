@@ -1,0 +1,126 @@
+[0;32mI (124) esp_image: segment 1: paddr=00031a80 vaddr=3fc9aaESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x28 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403cd63c
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21a58h (137816) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=00031a80 vaddr=3fc9aa00 size=04c88h ( 19592) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036710 vaddr=40374000 size=09908h ( 39176) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=831ech (537068) map[0m
+[0;32mI (235) esp_image: segment 4: paddr=000c3214 vaddr=4037d908 size=0d028h ( 53288) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (269) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (269) esp_psram: Speed: 80MHz[0m
+[0;32mI (270) cpu_start: Multicore app[0m
+[0;32mI (500) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (509) cpu_start: Pro cpu start user code[0m
+[0;32mI (509) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (510) app_init: Application information:[0m
+[0;32mI (512) app_init: Project name:     espnow_example[0m
+[0;32mI (518) app_init: App version:      bd39f8f-dirty[0m
+[0;32mI (523) app_init: Compile time:     Dec 29 2025 20:01:05[0m
+[0;32mI (529) app_init: ELF file SHA256:  45484fcaf...[0m
+[0;32mI (534) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (539) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (544) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (549) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (553) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (561) heap_init: At 3FCBAA30 len 0002ECE0 (187 KiB): RAM[0m
+[0;32mI (567) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (573) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (579) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (585) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (594) spi_flash: detected chip: generic[0m
+[0;32mI (597) spi_flash: flash io: dio[0m
+[0;33mW (601) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (615) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (621) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (629) main_task: Started on CPU0[0m
+[0;32mI (633) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (642) main_task: Calling app_main()[0m
+[0;32mI (646) receiver: Starting Receiver App...[0m
+[0;32mI (656) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (661) receiver: Initializing DShot on GPIO 13 and 14[0m
+[0;32mI (666) gpio: GPIO[13]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (676) gpio: GPIO[14]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (686) pp: pp rom version: e7ae62f[0m
+[0;32mI (689) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (695) wifi:wifi driver task: 3fcce694, prio:23, stack:6656, core=0[0m
+[0;32mI (703) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (704) wifi:wifi certification version: v7.0[0m
+[0;32mI (708) wifi:config NVS flash: enabled[0m
+[0;32mI (711) wifi:config nano formating: disabled[0m
+[0;32mI (716) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (720) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (724) wifi:Init management short buffer num: 32[0m
+[0;32mI (729) wifi:Init static tx buffer num: 16[0m
+[0;32mI (733) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (736) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (741) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (745) wifi:Init static rx buffer num: 10[0m
+[0;32mI (748) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (753) wifi_init: rx ba win: 6[0m
+[0;32mI (756) wifi_init: accept mbox: 6[0m
+[0;32mI (760) wifi_init: tcpip mbox: 32[0m
+[0;32mI (764) wifi_init: udp mbox: 6[0m
+[0;32mI (768) wifi_init: tcp mbox: 6[0m
+[0;32mI (772) wifi_init: tcp tx win: 5760[0m
+[0;32mI (776) wifi_init: tcp rx win: 5760[0m
+[0;32mI (780) wifi_init: tcp mss: 1440[0m
+[0;32mI (784) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (788) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (793) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;32mI (836) wifi:mode : sta (e4:b3:23:f7:f7:30)[0m
+[0;32mI (837) wifi:enable tsf[0m
+[0;32mI (839) wifi:ic_enable_sniffer[0m
+[0;32mI (843) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (847) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (848) receiver: Added Target as Peer[0m
+[0;32mI (850) main_task: Returned from app_main()[0m
+[0;32mI (1109) receiver: Stats: 1656 pkts/sec | Last RSSI: -69 | Throttle: 199[0m
+[0;32mI (2150) receiver: Stats: 6866 pkts/sec | Last RSSI: -69 | Throttle: 174[0m
+[0;32mI (3018) receiver: Stats: 5289 pkts/sec | Last RSSI: -68 | Throttle: 152[0m
+[0;32mI (3852) receiver: Stats: 4702 pkts/sec | Last RSSI: -68 | Throttle: 169[0m
+[0;32mI (4848) receiver: Stats: 6482 pkts/sec | Last RSSI: -68 | Throttle: 155[0m
+[0;32mI (5780) receiver: Stats: 6005 pkts/sec | Last RSSI: -81 | Throttle: 183[0m
+[0;32mI (6718) receiver: Stats: 6216 pkts/sec | Last RSSI: -68 | Throttle: 167[0m
+[0;32mI (7768) receiver: Stats: 6840 pkts/sec | Last RSSI: -68 | Throttle: 171[0m
+[0;32mI (8688) receiver: Stats: 5521 pkts/sec | Last RSSI: -68 | Throttle: 198[0m
+[0;32mI (9543) receiver: Stats: 4934 pkts/sec | Last RSSI: -65 | Throttle: 177[0m
+[0;32mI (10508) receiver: Stats: 6515 pkts/sec | Last RSSI: -61 | Throttle: 164[0m
+[0;32mI (11593) receiver: Stats: 7516 pkts/sec | Last RSSI: -59 | Throttle: 178[0m
+[0;32mI (12525) receiver: Stats: 5808 pkts/sec | Last RSSI: -62 | Throttle: 192[0m
+[0;32mI (13529) receiver: Stats: 6682 pkts/sec | Last RSSI: -66 | Throttle: 180[0m
+[0;32mI (14477) receiver: Stats: 5836 pkts/sec | Last RSSI: -69 | Throttle: 151[0m
+[0;32mI (15510) receiver: Stats: 6715 pkts/sec | Last RSSI: -68 | Throttle: 180[0m
+[0;32mI (16454) receiver: Stats: 5452 pkts/sec | Last RSSI: -69 | Throttle: 187[0m
+[0;32mI (17359) receiver: Stats: 5446 pkts/sec | Last RSSI: -69 | Throttle: 155[0m
+[0;32mI (18251) receiver: Stats: 5494 pkts/sec | Last RSSI: -69 | Throttle: 194[0m
+[0;32mI (19291) receiver: Stats: 7008 pkts/sec | Last RSSI: -68 | Throttle: 197[0m
+[0;32mI (20193) receiver: Stats: 5458 pkts/sec | Last RSSI: -68 | Throttle: 179[0m
+[0;32mI (21168) receiver: Stats: 6352 pkts/sec | Last RSSI: -69 | Throttle: 192[0m
+[0;32mI (22223) receiver: Stats: 6702 pkts/sec | Last RSSI: -70 | Throttle: 175[0m
+[0;32mI (23124) receiver: Stats: 5648 pkts/sec | Last RSSI: -68 | Throttle: 150[0m
+[0;32mI (23772) receiver: Stats: 3130 pkts/sec | Last RSSI: -69 | Throttle: 192[0m
+[0;32mI (24533) receiver: Stats: 4141 pkts/sec | Last RSSI: -66 | Throttle: 177[0m
