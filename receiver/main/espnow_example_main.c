@@ -13,6 +13,7 @@
 #include "esp_mac.h"
 #include "esp_netif.h"
 #include "esp_now.h"
+#include "esp_partition.h"
 #include "esp_timer.h"
 #include "esp_wifi.h"
 #include "espnow_example.h"
@@ -24,6 +25,7 @@
 #include "nvs.h"
 #include "nvs_flash.h"
 #include <inttypes.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -34,8 +36,8 @@
 #define ESPNOW_MAXDELAY 512
 
 #define DSHOT_ESC_RESOLUTION_HZ 40000000 // 40MHz
-#define DSHOT_ESC_GPIO_NUM_A 13
-#define DSHOT_ESC_GPIO_NUM_B 14
+#define DSHOT_ESC_GPIO_NUM_A 8
+#define DSHOT_ESC_GPIO_NUM_B 9
 
 #define RSSI_BUF_SIZE 6000
 #define INTERPOLATION_INTERVAL_US 100
@@ -68,14 +70,17 @@ static volatile bool g_send_status = false;
 #define TMAG_REG_MAN_ID_MSB 0x0F
 #define TMAG_REG_RESULT_X 0x12 // X_MSB_RESULT
 
-typedef struct {
-  int8_t rssi;
-  int8_t smoothed_rssi;
-  int64_t timestamp;
-} rssi_sample_t;
+// Assembly function declaration
+extern int32_t calculate_sad_vector(const int8_t *A, const int8_t *B, int len,
+                                    const int8_t *ones);
+
+// Aligned Vector of Ones (16 bytes)
+static const int8_t aligned_ones[16] __attribute__((aligned(16))) = {
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 typedef struct {
-  rssi_sample_t buffer[RSSI_BUF_SIZE];
+  int8_t rssi[RSSI_BUF_SIZE];
+  int64_t timestamp[RSSI_BUF_SIZE];
   int head;
   int tail;
   int64_t last_timestamp;
@@ -102,8 +107,8 @@ typedef struct {
   int count;
 } buf_stats_t;
 
-static rssi_circular_buffer_t g_csi_rssi_buf = {0};
-static rssi_circular_buffer_t g_espnow_rssi_buf = {0};
+static rssi_circular_buffer_t g_interpolated_rssi_buf = {0};
+static rssi_circular_buffer_t g_raw_rssi_buf = {0};
 static control_input_t g_control_input = {0};
 static rotation_state_t g_rotation_state = {0};
 
@@ -111,12 +116,13 @@ static app_config_packet_t g_config = {.type = APP_PACKET_TYPE_CONFIG_STATE,
                                        .dshot_pin_a = DSHOT_ESC_GPIO_NUM_A,
                                        .dshot_pin_b = DSHOT_ESC_GPIO_NUM_B,
                                        .led_pin = LEDC_IO,
-                                       .rotation_source = 0, // CSI
+                                       .rotation_source =
+                                           APP_ROTATION_SOURCE_ESPNOW,
                                        .step_lag = 5,
                                        .step_window = 5,
                                        .smoothing_window = 20,
-                                       .throttle_multiplier = 1.0f,
-                                       .translation_multiplier = 1.0f,
+                                       .throttle_multiplier = 2.0f,
+                                       .translation_multiplier = 4.0f,
                                        .correlation_window = 1000};
 
 static void save_config(void) {
@@ -162,6 +168,9 @@ static SemaphoreHandle_t g_data_mutex;
 static volatile uint32_t g_recv_pkt_count = 0;
 static volatile int8_t g_last_rssi = 0;
 
+// Dump State
+static volatile bool g_req_dump = false;
+static volatile bool g_is_dumping = false;
 // DShot Handles
 static rmt_channel_handle_t esc_chan_a = NULL;
 static rmt_channel_handle_t esc_chan_b = NULL;
@@ -172,11 +181,20 @@ static led_strip_handle_t g_led_strip = NULL;
 // Helper: Interpolate and Add to Circular Buffer
 static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
                              int8_t rssi) {
+
+  if (g_is_dumping)
+    return; // Prevent overwriting during dump
+
+  // Add raw RSSI to raw buffer
+  g_raw_rssi_buf.rssi[g_raw_rssi_buf.head] = rssi;
+  g_raw_rssi_buf.timestamp[g_raw_rssi_buf.head] = timestamp;
+  g_raw_rssi_buf.last_timestamp = timestamp;
+  g_raw_rssi_buf.head = (g_raw_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+
   // If buffer is empty, just add the first point
   if (buf->last_timestamp == 0) {
-    buf->buffer[buf->head].rssi = rssi;
-    buf->buffer[buf->head].smoothed_rssi = rssi; // No history yet
-    buf->buffer[buf->head].timestamp = timestamp;
+    buf->rssi[buf->head] = rssi;
+    buf->timestamp[buf->head] = timestamp;
     buf->last_timestamp = timestamp;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     // Tail stays 0 until full? Or just 0.
@@ -188,9 +206,8 @@ static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
   // Safety: If gap is too large (> 100ms), reset
   if (timestamp - buf->last_timestamp > 100000) {
     buf->last_timestamp = timestamp;
-    buf->buffer[buf->head].rssi = rssi;
-    buf->buffer[buf->head].smoothed_rssi = rssi; // Reset history
-    buf->buffer[buf->head].timestamp = timestamp;
+    buf->rssi[buf->head] = rssi;
+    buf->timestamp[buf->head] = timestamp;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     if (buf->head == buf->tail) {
       buf->tail = (buf->tail + 1) % RSSI_BUF_SIZE;
@@ -198,53 +215,15 @@ static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
     return;
   }
 
-  // Nearest Neighbor Interpolation for all uniform points between last_ts and
-  // current ts Setup sliding window for smoothing from existing buffer state
-  uint16_t w_len = g_config.smoothing_window;
-  if (w_len < 1)
-    w_len = 1;
-
-  int32_t running_sum = 0;
-  int valid_history = 0;
-
-  // Initialize running_sum from recent history relative to HEAD
-  // We need (w_len - 1) samples.
-  int current_total_count =
-      (buf->head - buf->tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-  int history_available =
-      (current_total_count > (w_len - 1)) ? (w_len - 1) : current_total_count;
-
-  for (int i = 0; i < history_available; i++) {
-    int idx = (buf->head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    running_sum += buf->buffer[idx].rssi;
-  }
-  valid_history = history_available;
-
   while (target_ts <= timestamp) {
     // Nearest neighbor
     int8_t val = rssi;
-
-    // Update Sliding Window Sum
-    running_sum += val;
-    valid_history++;
-
-    if (valid_history > w_len) {
-      // Subtract oldest
-      int remove_idx = (buf->head - w_len + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-      running_sum -= buf->buffer[remove_idx].rssi;
-      valid_history = w_len;
-    }
-
-    int8_t smoothed = (int8_t)(running_sum / valid_history);
-
-    buf->buffer[buf->head].rssi = val;
-    buf->buffer[buf->head].smoothed_rssi = smoothed;
-    buf->buffer[buf->head].timestamp = target_ts;
+    buf->rssi[buf->head] = val;
+    buf->timestamp[buf->head] = target_ts;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     if (buf->head == buf->tail) {
       buf->tail = (buf->tail + 1) % RSSI_BUF_SIZE;
     }
-
     buf->last_timestamp = target_ts;
     target_ts += INTERPOLATION_INTERVAL_US;
   }
@@ -278,7 +257,7 @@ static void calculate_stats(rssi_circular_buffer_t *buf, buf_stats_t *stats) {
 
   for (int i = 0; i < limit; i++) {
     int idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int8_t val = buf->buffer[idx].rssi;
+    int8_t val = buf->rssi[idx];
     sum += val;
     temp_vals[i] = val;
   }
@@ -394,31 +373,103 @@ static void motor_task(void *pvParameter) {
                  &((rmt_transmit_config_t){.loop_count = 0}));
 
     // --- Update LED ---
-    // Green in 45 deg arc opposite peak.
-    if (phase > HEADING_START && phase < HEADING_END) {
-      led_strip_set_pixel(g_led_strip, 0, 0, 20, 0); // Green
+    // User Request:
+    // Green for 45 deg arc opposite peak (Heading).
+    // Gradient Blue -> Red -> White for the rest.
+    // "Incoming" (0 to PI): Blue -> Red
+    // "Outgoing" (PI to 2PI): Red -> White
+    // Green Overrides.
+
+    uint8_t r = 0, g = 0, b = 0;
+    uint8_t max_intensity = 255;
+
+    // 1. Calculate Base Gradient
+    if (phase < M_PI) {
+      // Incoming: Blue (0,0,255) -> Red (255,0,0)
+      float ratio = phase / M_PI; // 0.0 to 1.0
+      r = (uint8_t)(max_intensity * ratio);
+      g = 0;
+      b = (uint8_t)(max_intensity * (1.0f - ratio));
     } else {
-      led_strip_set_pixel(g_led_strip, 0, 20, 0, 0); // Red
+      // Outgoing: Red (255,0,0) -> White (255,255,255)
+      float ratio = (phase - M_PI) / M_PI; // 0.0 to 1.0
+      r = max_intensity;
+      g = (uint8_t)(max_intensity * ratio);
+      b = (uint8_t)(max_intensity * ratio);
     }
+
+    // 2. Override with Green Arc (Heading)
+    // HEADING_START/END are roughly PI +/- PI/8
+    if (phase > HEADING_START && phase < HEADING_END) {
+      // Use a bright green, maybe slightly dimmed to match intensity if needed,
+      // but standard Green (0, 255, 0) is requested.
+      r = 0;
+      g = max_intensity;
+      b = 0;
+    }
+
+    led_strip_set_pixel(g_led_strip, 0, r, g, b);
     led_strip_refresh(g_led_strip);
   }
 }
 
 // Rotation Estimation Task
 // Helper for Autocorrelation Error Calculation
+// SIMD Autocorrelation
 static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
-                                        int lag, int corr_window,
-                                        int step_win) {
-  int64_t diff_sum = 0;
-  for (int i = 0; i < corr_window; i += step_win) {
-    int idx1 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    // Use pre-calculated smoothed values
-    int8_t v1 = buf->buffer[idx1].smoothed_rssi;
-    int8_t v2 = buf->buffer[idx2].smoothed_rssi;
-    diff_sum += abs(v1 - v2);
+                                        int lag, int corr_window) {
+  int64_t total_diff = 0;
+
+  int start_idx = (head - corr_window + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+  int cur_idx = start_idx;
+  int samples_left = corr_window;
+
+  while (samples_left > 0) {
+    // Determine max contiguous length
+    int contig_A = RSSI_BUF_SIZE - cur_idx;
+    int idx_B = (cur_idx - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int contig_B = RSSI_BUF_SIZE - idx_B;
+
+    int block_len = samples_left;
+    if (contig_A < block_len)
+      block_len = contig_A;
+    if (contig_B < block_len)
+      block_len = contig_B;
+
+    // Align A (cur_idx) to 16-byte boundary
+    // We check the address &buf->smoothed_rssi[cur_idx]
+    while (block_len > 0 && ((uintptr_t)&buf->rssi[cur_idx] & 0xF)) {
+      total_diff += abs(buf->rssi[cur_idx] - buf->rssi[idx_B]);
+
+      cur_idx = (cur_idx + 1) % RSSI_BUF_SIZE;
+      idx_B = (idx_B + 1) % RSSI_BUF_SIZE;
+      block_len--;
+      samples_left--;
+    }
+
+    // Now A is aligned (or block_len is 0)
+    int simd_len = (block_len / 16) * 16;
+    if (simd_len > 0) {
+      total_diff += calculate_sad_vector(&buf->rssi[cur_idx], &buf->rssi[idx_B],
+                                         simd_len, aligned_ones);
+
+      cur_idx = (cur_idx + simd_len) % RSSI_BUF_SIZE;
+      idx_B = (idx_B + simd_len) % RSSI_BUF_SIZE;
+      block_len -= simd_len;
+      samples_left -= simd_len;
+    }
+
+    // Handle remainder
+    while (block_len > 0) {
+      total_diff += abs(buf->rssi[cur_idx] - buf->rssi[idx_B]);
+      cur_idx = (cur_idx + 1) % RSSI_BUF_SIZE;
+      idx_B = (idx_B + 1) % RSSI_BUF_SIZE;
+      block_len--;
+      samples_left--;
+    }
   }
-  return diff_sum;
+
+  return total_diff;
 }
 
 // Rotation Estimation Task
@@ -426,11 +477,10 @@ static void rotation_task(void *pvParameter) {
 
   while (1) {
     vTaskDelay(1);
-    rssi_circular_buffer_t *active_buf =
-        (g_config.rotation_source == 0) ? &g_csi_rssi_buf : &g_espnow_rssi_buf;
 
-    int head = active_buf->head;
-    int count = (head - active_buf->tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int head = g_interpolated_rssi_buf.head;
+    int count =
+        (head - g_interpolated_rssi_buf.tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
     uint16_t corr_window = g_config.correlation_window;
     if (corr_window == 0)
       corr_window = 1000; // Safety default
@@ -438,63 +488,207 @@ static void rotation_task(void *pvParameter) {
     if (count < corr_window * 2)
       continue; // Need enough data
 
+    // --- Check for Dump Request ---
+    if (g_req_dump) {
+      ESP_LOGI(TAG, "Starting Buffer Dump to Flash...");
+      g_is_dumping = true;
+      g_req_dump = false; // Clear request
+
+      const esp_partition_t *part = esp_partition_find_first(
+          ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, "storage");
+
+      // Note: Subtype might be 0xFF (ANY does not work well depending on
+      // implementation if type is DATA). In csv we used 0xff (undefined) which
+      // corresponds to ESP_PARTITION_SUBTYPE_ANY? Actually 0xff is explicit
+      // undefined. Let's try SUBTYPE_ANY.
+      if (part) {
+        // Multi-Dump Logic
+        nvs_handle_t my_handle;
+        uint32_t dump_index = 0;
+
+        // 1. Get Current Index
+        if (nvs_open("storage", NVS_READWRITE, &my_handle) == ESP_OK) {
+          nvs_get_u32(my_handle, "dump_index", &dump_index);
+        }
+
+        // 2. Calculate Offset (128KB slots)
+        // Partition is 2MB = 16 slots of 128KB (0x20000)
+        // Buffer size is ~78KB, so we need 128KB slots.
+        uint32_t slot_size = 0x20000;
+        uint32_t max_slots = part->size / slot_size;
+        uint32_t offset = (dump_index % max_slots) * slot_size;
+
+        ESP_LOGI(TAG,
+                 "Starting Buffer Dump for Slot %" PRIu32
+                 " at Offset 0x%" PRIx32 "...",
+                 dump_index, offset);
+
+        // 3. Erase ONLY the target slot (64KB)
+        esp_partition_erase_range(part, offset, slot_size);
+
+        // 4. Write Data
+        /*
+          We need to dump the entire circular buffer struct.
+          Size is approx sizeof(rssi_circular_buffer_t).
+          Our buffer size fits within 64KB (approx 60KB).
+        */
+        esp_partition_write(part, offset, &g_raw_rssi_buf,
+                            sizeof(rssi_circular_buffer_t));
+
+        ESP_LOGI(TAG, "Buffer Dumped. Sending ACK.");
+
+        // 5. Increment and Save Index
+        dump_index++;
+        if (my_handle) {
+          nvs_set_u32(my_handle, "dump_index", dump_index);
+          nvs_commit(my_handle);
+          nvs_close(my_handle);
+        }
+
+        // Send ACK
+        // We can reuse the sending mechanism but here we just need to send a
+        // simple packet. For simplicity, we can't easily call espnow_send from
+        // here if we don't have the peer. But we DO have g_target_mac if valid.
+        if (g_target_mac_set) {
+          uint8_t ack_pkt[2] = {APP_PACKET_TYPE_CMD_ACK, 0x00};
+          esp_now_send(g_target_mac, ack_pkt, 2);
+        }
+      } else {
+        ESP_LOGE(TAG, "Storage partition not found!");
+      }
+      g_is_dumping = false;
+      g_req_dump = false;
+    }
+
     // --- 1. Autocorrelation (Difference Function) ---
     // We want to find best lag L in range [MIN_PERIOD, MAX_PERIOD]
 
     int64_t autocorr_start = esp_timer_get_time();
 
-    int32_t best_lag = 0;
+    int64_t best_lag = 0;
+    int64_t max_diff = 0;
     int64_t min_diff = INT64_MAX;
 
-    int start_lag = 200; // 20ms
-    int end_lag = 3000;  // 300ms
-
+    const int start_lag = 200; // 20ms
+    const int end_lag = 1000;  // 100ms
+#define MAX_LAGS ((1000 - 200) / 5)
     // Subsample for speed
     int step_lag = g_config.step_lag;
-    int step_win = g_config.step_window;
 
-    // Coarse Search
-    for (int lag = start_lag; lag <= end_lag; lag += step_lag) {
-      int64_t diff_sum = calculate_autocorr_error(active_buf, head, lag,
-                                                  corr_window, step_win);
+    static int64_t errors[MAX_LAGS];
+    static int lags[MAX_LAGS];
+    int count_lags = 0;
+
+    for (int lag = start_lag; lag < end_lag; lag += step_lag) {
+      if (count_lags >= MAX_LAGS)
+        break;
+
+      int64_t diff_sum = calculate_autocorr_error(&g_interpolated_rssi_buf,
+                                                  head, lag, corr_window);
+      errors[count_lags] = diff_sum;
+      lags[count_lags] = lag;
+      count_lags++;
+
       if (diff_sum < min_diff) {
         min_diff = diff_sum;
-        best_lag = lag;
+      }
+      if (diff_sum > max_diff) {
+        max_diff = diff_sum;
       }
     }
 
-    // Check for integer multiples (Harmonics)
-    if (best_lag > 0) {
-      int original_lag = best_lag;
-      int64_t threshold = min_diff * 160 / 100; // Within 60% of min error
+    // Process Slopes & Validate
+    best_lag = 0;
+    bool found_valid = false;
 
-      for (int div = 8; div >= 2; div--) {
-        int test_lag = original_lag / div;
-        if (test_lag < start_lag)
-          continue;
+    // Need at least a few points
+    if (count_lags > 3) {
+      double max_slope = 0;
+      static double slopes[MAX_LAGS]; // slope[i] is from i to i+1
 
-        int64_t test_diff = calculate_autocorr_error(active_buf, head, test_lag,
-                                                     corr_window, step_win);
+      for (int i = 0; i < count_lags - 1; i++) {
+        slopes[i] = (double)(errors[i + 1] - errors[i]);
+        if (fabs(slopes[i]) > max_slope)
+          max_slope = fabs(slopes[i]);
+      }
 
-        if (test_diff <= threshold) {
-          best_lag = test_lag;
-          break;
+      if (max_slope < 1.0)
+        max_slope = 1.0;
+
+      // Scan for Zero Crossings
+      const int LAG_WINDOW = 1; // Window for d2 check
+
+      for (int i = 0; i < count_lags - 2; i++) {
+        // Normalize Slopes
+        double norm_slope_curr = slopes[i] / max_slope;
+        double norm_slope_next = slopes[i + 1] / max_slope;
+
+        // Check for Negative -> Positive Slope (Valley)
+        if (norm_slope_curr < 0 && norm_slope_next > 0) {
+          int valley_idx = i + 1;
+
+          // 1. Normalized Error Check < 0.5
+          double norm_error = (double)(errors[valley_idx] - min_diff) /
+                              (double)(max_diff - min_diff);
+
+          if (norm_error < 0.5) {
+            // 2. Curvature Check (Avg d2)
+            // Range: [point - 2*LAG_WINDOW, point] which is valley_idx
+            // We use slopes indices up to i (which is valley_idx - 1)
+            // d2[k] corresponds to change in slope at k (slope[k+1] - slope[k])
+            double d2_sum = 0;
+            int count_d2 = 0;
+
+            // We want to average derivatives of normalized slope ending at the
+            // valley d2 calc uses slopes[k] and slopes[k+1]. To include the
+            // transition OUT of the valley (slope[i] -> slope[i+1]), we look at
+            // k=i. To look back 2*LAG_WINDOW steps...
+
+            for (int k = i; k >= i - (2 * LAG_WINDOW); k--) {
+              if (k < 0 || k >= count_lags - 1)
+                continue;
+              double d2 = (slopes[k + 1] - slopes[k]) / max_slope;
+              d2_sum += d2;
+              count_d2++;
+            }
+
+            if (count_d2 > 0) {
+              double avg_d2 = d2_sum / count_d2;
+              if (avg_d2 > 0.05) {
+                best_lag = lags[valley_idx];
+                found_valid = true;
+                break; // Found the first valid one
+              }
+            }
+          }
         }
       }
     }
 
     int final_lag = best_lag;
 
-    // Narrow down the best lag, checking +- step_lag
-    for (int i = -step_lag; i <= step_lag; i++) {
-      int lag = best_lag + i;
-      if (lag < start_lag || lag > end_lag)
-        continue;
-      int64_t diff_sum = calculate_autocorr_error(active_buf, head, lag,
-                                                  corr_window, step_win);
-      if (diff_sum < min_diff) {
-        min_diff = diff_sum;
-        final_lag = lag;
+    if (!found_valid) {
+      // Fallback: 2 seconds, 0.5Hz
+      g_rotation_state.estimated_period_us = 2000000;
+      g_rotation_state.rotation_rate = 0.5f;
+      // Reset valid lag so we don't do fine search on 0
+      final_lag = 0;
+    } else {
+      // Narrow down the best lag, checking +- step_lag
+      int64_t fine_min_diff = INT64_MAX;
+      // We know best_lag is from the coarse list, retrieve its error?
+      // Just recompute local to be safe and simple
+
+      for (int i = -step_lag; i <= step_lag; i++) {
+        int lag = best_lag + i;
+        if (lag < start_lag || lag > end_lag)
+          continue;
+        int64_t diff_sum = calculate_autocorr_error(&g_interpolated_rssi_buf,
+                                                    head, lag, corr_window);
+        if (diff_sum < fine_min_diff) {
+          fine_min_diff = diff_sum;
+          final_lag = lag;
+        }
       }
     }
 
@@ -504,21 +698,58 @@ static void rotation_task(void *pvParameter) {
       g_rotation_state.rotation_rate =
           1000000.0f / g_rotation_state.estimated_period_us;
 
-      // Find Phase Peak in the second most recent period
-      int peak_idx = -1;
-      int8_t max_rssi = -128;
-      for (int i = final_lag; i < final_lag * 2; i++) {
-        int idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-        if (active_buf->buffer[idx].smoothed_rssi > max_rssi) {
-          max_rssi = active_buf->buffer[idx].smoothed_rssi;
-          peak_idx = idx;
-        }
+      // IQ Demodulation for Phase Tracking
+      // Window: 4x Period
+      float period_us = g_rotation_state.estimated_period_us;
+      int window_duration = (int)(4.0f * period_us);
+
+      // Limit window to available data
+      if (window_duration > RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US) {
+        window_duration = RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US;
       }
-      if (peak_idx >= 0) {
-        g_rotation_state.last_peak_timestamp =
-            active_buf->buffer[(peak_idx + final_lag) % RSSI_BUF_SIZE]
-                .timestamp;
+
+      int samples_to_process = window_duration / INTERPOLATION_INTERVAL_US;
+      if (samples_to_process > RSSI_BUF_SIZE)
+        samples_to_process = RSSI_BUF_SIZE;
+
+      double sum_I = 0;
+      double sum_Q = 0;
+      double omega = 2.0 * M_PI / period_us;
+
+      // Reference time: use the most recent timestamp (head-1)
+      // We process backwards from head.
+      // Phase phi is relative to cos(omega * (t - t_ref)).
+      // t_ref is the timestamp of the HEAD sample (most recent).
+
+      int ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+      int64_t t_ref = g_interpolated_rssi_buf.timestamp[ref_idx];
+
+      for (int i = 0; i < samples_to_process; i++) {
+        int idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        int8_t val = g_interpolated_rssi_buf.rssi[idx];
+        int64_t t = g_interpolated_rssi_buf.timestamp[idx];
+
+        double dt = (double)(t - t_ref);
+        double angle = omega * dt;
+
+        sum_I += val * cos(angle);
+        sum_Q += val * sin(angle);
       }
+
+      // Calculate Phase of the Signal
+      double phi = atan2(sum_Q, sum_I);
+
+      // Find time where phase would be PI.
+      // omega * (t_target - t_ref) - phi = PI
+      // t_target = t_ref + (phi + PI) / omega
+
+      double dt_pi = (phi + M_PI) / omega;
+
+      g_rotation_state.last_peak_timestamp = t_ref + (int64_t)dt_pi;
+
+      // Ensure last_peak_timestamp is not essentially "unset" if calculation
+      // fails? atan2 always returns value. Buffer always has data if we are
+      // here (count check above).
     }
     int64_t autocorr_end = esp_timer_get_time();
     static uint32_t last_autocorr_time = 0;
@@ -532,9 +763,8 @@ static void rotation_task(void *pvParameter) {
       uint32_t diff = curr_pkt_count - last_pkt_count;
 
       // Calculate and print RSSI stats
-      buf_stats_t csi_stats, espnow_stats;
-      calculate_stats(&g_csi_rssi_buf, &csi_stats);
-      calculate_stats(&g_espnow_rssi_buf, &espnow_stats);
+      buf_stats_t rssi_stats;
+      calculate_stats(&g_interpolated_rssi_buf, &rssi_stats);
 
       ESP_LOGI(TAG,
                "Stats: %" PRIu32 " pkts/sec | Last RSSI: %d | Throttle: %d",
@@ -544,10 +774,8 @@ static void rotation_task(void *pvParameter) {
 
       // Send Stats Packet back to Sender
       stats_packet_t stats_pkt = {.type = APP_PACKET_TYPE_STATS,
-                                  .csi_mean = csi_stats.mean,
-                                  .csi_var = csi_stats.variance,
-                                  .espnow_mean = espnow_stats.mean,
-                                  .espnow_var = espnow_stats.variance,
+                                  .rssi_mean = rssi_stats.mean,
+                                  .rssi_var = rssi_stats.variance,
                                   .pkts_per_sec = (int32_t)diff,
                                   .last_rssi = g_last_rssi,
                                   .rotation_rate =
@@ -573,9 +801,11 @@ static void wifi_csi_rx_cb(void *ctx, wifi_csi_info_t *info) {
   if (!info || !info->buf || !info->len) {
     return;
   }
-
-  interpolate_rssi(&g_csi_rssi_buf, esp_timer_get_time(), info->rx_ctrl.rssi);
-  update_recv_stats(info->rx_ctrl.rssi);
+  if (g_config.rotation_source == APP_ROTATION_SOURCE_CSI) {
+    interpolate_rssi(&g_interpolated_rssi_buf, info->rx_ctrl.timestamp,
+                     info->rx_ctrl.rssi);
+    update_recv_stats(info->rx_ctrl.rssi);
+  }
 }
 
 // Send Callback
@@ -585,15 +815,12 @@ static void espnow_send_cb(const uint8_t *mac_addr,
   xSemaphoreGiveFromISR(g_send_cb_sem, NULL);
 }
 
-// Task to flush the buffer
-// Removed flush_task
-
-// ESP-NOW Receive Callback - PASSIVE, just updates timestamp
 static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
                                    const uint8_t *data, int len) {
   // Extract RSSI
-  if (recv_info->rx_ctrl) {
-    interpolate_rssi(&g_espnow_rssi_buf, esp_timer_get_time(),
+  if (g_config.rotation_source == APP_ROTATION_SOURCE_ESPNOW &&
+      recv_info->rx_ctrl) {
+    interpolate_rssi(&g_interpolated_rssi_buf, recv_info->rx_ctrl->timestamp,
                      recv_info->rx_ctrl->rssi);
     update_recv_stats(recv_info->rx_ctrl->rssi);
   }
@@ -632,6 +859,9 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
       g_control_input.vector_x = pkt->vector_x;
       g_control_input.vector_y = pkt->vector_y;
     }
+  } else if (data[0] == APP_PACKET_TYPE_CMD_DUMP) {
+    ESP_LOGI(TAG, "Received DUMP Command");
+    g_req_dump = true;
   } else if (data[0] == APP_PACKET_TYPE_CONFIG_SET) {
     if (len >= sizeof(app_config_packet_t)) {
       const app_config_packet_t *pkt = (const app_config_packet_t *)data;
@@ -668,6 +898,7 @@ static void example_wifi_init(void) {
   ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
   ESP_ERROR_CHECK(esp_wifi_set_mode(ESPNOW_WIFI_MODE));
   ESP_ERROR_CHECK(esp_wifi_start());
+  ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
   ESP_ERROR_CHECK(
       esp_wifi_set_channel(CONFIG_ESPNOW_CHANNEL, WIFI_SECOND_CHAN_NONE));
 
@@ -818,7 +1049,7 @@ void app_main(void) {
 
   g_data_mutex = xSemaphoreCreateMutex();
 
-  xTaskCreate(rotation_task, "rotation_task", 4096, NULL, 10, NULL);
+  xTaskCreate(rotation_task, "rotation_task", 8192, NULL, 10, NULL);
   xTaskCreatePinnedToCore(motor_task, "motor_task", 4096, NULL, 10, NULL, 1);
 
   example_wifi_init();

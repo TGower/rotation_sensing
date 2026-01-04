@@ -35,6 +35,7 @@ static uint8_t s_broadcast_mac[ESP_NOW_ETH_ALEN] = {0xFF, 0xFF, 0xFF,
 static control_packet_t g_control_curr = {.type = APP_PACKET_TYPE_CONTROL};
 static app_config_packet_t g_config_curr = {.type = APP_PACKET_TYPE_CONFIG_SET};
 static bool g_config_updated = false;
+static bool g_dump_req = false;
 static uint8_t g_target_mac[ESP_NOW_ETH_ALEN] = {0}; // Learned from stats
 static bool g_target_known = false;
 
@@ -82,6 +83,8 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
     } else if (type == APP_PACKET_TYPE_CONFIG_STATE &&
                len == sizeof(app_config_packet_t)) {
       label = "CONFIG_DATA";
+    } else if (type == APP_PACKET_TYPE_CMD_ACK) {
+      label = "DUMP_ACK";
     }
 
     if (label) {
@@ -181,12 +184,19 @@ static void serial_read_task(void *pvParameter) {
           expected_len = sizeof(control_packet_t);
         } else if (packet_type == APP_PACKET_TYPE_CONFIG_SET) {
           expected_len = sizeof(app_config_packet_t);
+        } else if (packet_type == APP_PACKET_TYPE_CMD_DUMP) {
+          expected_len = 1; // Type only, no payload struct
         } else {
           // Invalid type
           state = WAIT_SYNC;
           break;
         }
-        state = READ_PAYLOAD;
+
+        if (buf_idx >= expected_len) {
+          state = READ_CHECKSUM;
+        } else {
+          state = READ_PAYLOAD;
+        }
         break;
 
       case READ_PAYLOAD:
@@ -211,11 +221,15 @@ static void serial_read_task(void *pvParameter) {
             } else if (packet_type == APP_PACKET_TYPE_CONFIG_SET) {
               memcpy(&g_config_curr, buffer, sizeof(app_config_packet_t));
               g_config_updated = true;
+            } else if (packet_type == APP_PACKET_TYPE_CMD_DUMP) {
+              g_dump_req = true;
             }
             xSemaphoreGive(g_state_mutex);
           }
         } else {
-          ESP_LOGW(TAG, "Checksum Fail");
+          ESP_LOGW(TAG, "Checksum Fail: Calc 0x%02X vs Rx 0x%02X, Len %d",
+                   calc_sum, rx_byte, expected_len);
+          ESP_LOG_BUFFER_HEX_LEVEL(TAG, buffer, expected_len, ESP_LOG_WARN);
         }
 
         state = WAIT_SYNC;
@@ -239,6 +253,7 @@ static void espnow_sender_task(void *pvParameter) {
   while (1) {
     int64_t now = esp_timer_get_time();
     bool send_config = false;
+    bool send_dump = false;
     app_config_packet_t cfg_pkt;
 
     // Check for timeout and copy state
@@ -252,6 +267,11 @@ static void espnow_sender_task(void *pvParameter) {
         send_config = true;
         cfg_pkt = g_config_curr;
         g_config_updated = false;
+      }
+
+      if (g_dump_req) {
+        send_dump = true;
+        g_dump_req = false;
       }
       xSemaphoreGive(g_state_mutex);
     }
@@ -279,6 +299,13 @@ static void espnow_sender_task(void *pvParameter) {
       } else {
         ESP_LOGE(TAG, "Config Send Fail: %d", err);
       }
+    }
+
+    if (send_dump) {
+      uint8_t type = APP_PACKET_TYPE_CMD_DUMP;
+      // Broadcast or Unicast? Broadcast ensures it reaches.
+      esp_now_send(s_broadcast_mac, &type, 1);
+      ESP_LOGI(TAG, "Sent DUMP Command");
     }
 
     count++;

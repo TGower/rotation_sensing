@@ -1,0 +1,910 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x400490e9
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (26) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Dec 29 2025 20:01:05[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (33) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (38) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (43) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (48) boot: Enabling RNG early entropy source...[0m
+[0;32mI (53) boot: Partition Table:[0m
+[0;32mI (57) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (79) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (86) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c090020 size=21da0h (138656) map[0m
+[0;32mI (124) esp_image: segment 1: paddr=00031dc8 vaddr=3fc9aa00 size=04c98h ( 19608) load[0m
+[0;32mI (128) esp_image: segment 2: paddr=00036a68 vaddr=40374000 size=095b0h ( 38320) load[0m
+[0;32mI (138) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=84c94h (543892) map[0m
+[0;32mI (236) esp_image: segment 4: paddr=000c4cbc vaddr=4037d5b0 size=0d380h ( 54144) load[0m
+[0;32mI (258) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (259) boot: Disabling RNG early entropy source...[0m
+[0;32mI (271) esp_psram: Found 2MB PSRAM device[0m
+[0;32mI (271) esp_psram: Speed: 80MHz[0m
+[0;32mI (271) cpu_start: Multicore app[0m
+[0;32mI (502) esp_psram: SPI SRAM memory test OK[0m
+[0;32mI (511) cpu_start: Pro cpu start user code[0m
+[0;32mI (511) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (512) app_init: Application information:[0m
+[0;32mI (514) app_init: Project name:     espnow_example[0m
+[0;32mI (519) app_init: App version:      5fa02ef-dirty[0m
+[0;32mI (525) app_init: Compile time:     Jan  1 2026 13:47:30[0m
+[0;32mI (531) app_init: ELF file SHA256:  fb11541b8...[0m
+[0;32mI (536) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (541) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (545) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (550) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (555) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (563) heap_init: At 3FCC0820 len 00028EF0 (163 KiB): RAM[0m
+[0;32mI (569) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (575) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (581) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (587) esp_psram: Adding pool of 2048K of PSRAM memory to heap allocator[0m
+[0;32mI (595) spi_flash: detected chip: generic[0m
+[0;32mI (599) spi_flash: flash io: dio[0m
+[0;33mW (603) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (617) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (623) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (630) main_task: Started on CPU0[0m
+[0;32mI (634) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations[0m
+[0;32mI (643) main_task: Calling app_main()[0m
+[0;32mI (647) receiver: Starting Receiver App...[0m
+[0;32mI (658) receiver: Config Loaded: DShot A=8, B=9, LED=48[0m
+[0;32mI (659) gpio: GPIO[48]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (668) receiver: Initializing DShot on GPIO 8 and 9[0m
+[0;32mI (674) gpio: GPIO[8]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (683) gpio: GPIO[9]| InputEn: 0| OutputEn: 1| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 [0m
+[0;32mI (693) pp: pp rom version: e7ae62f[0m
+[0;32mI (695) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (702) wifi:wifi driver task: 3fcd4528, prio:23, stack:6656, core=0[0m
+[0;32mI (710) wifi:wifi firmware version: 0caa81945[0m
+[0;32mI (710) wifi:wifi certification version: v7.0[0m
+[0;32mI (715) wifi:config NVS flash: enabled[0m
+[0;32mI (718) wifi:config nano formating: disabled[0m
+[0;32mI (722) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (727) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (731) wifi:Init management short buffer num: 32[0m
+[0;32mI (736) wifi:Init static tx buffer num: 16[0m
+[0;32mI (740) wifi:Init tx cache buffer num: 32[0m
+[0;32mI (743) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (747) wifi:Init static rx buffer size: 2212[0m
+[0;32mI (751) wifi:Init static rx buffer num: 10[0m
+[0;32mI (755) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (759) wifi_init: rx ba win: 6[0m
+[0;32mI (763) wifi_init: accept mbox: 6[0m
+[0;32mI (767) wifi_init: tcpip mbox: 32[0m
+[0;32mI (771) wifi_init: udp mbox: 6[0m
+[0;32mI (774) wifi_init: tcp mbox: 6[0m
+[0;32mI (778) wifi_init: tcp tx win: 5760[0m
+[0;32mI (782) wifi_init: tcp rx win: 5760[0m
+[0;32mI (786) wifi_init: tcp mss: 1440[0m
+[0;32mI (790) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (795) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (800) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+[0;33mW (842) phy_init: saving new calibration data because of checksum failure, mode(0)[0m
+[0;32mI (886) wifi:mode : sta (e4:b3:23:f7:f7:30)[0m
+[0;32mI (886) wifi:enable tsf[0m
+[0;32mI (889) wifi:ic_enable_sniffer[0m
+[0;32mI (891) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (891) main_task: Returned from app_main()[0m
+[0;32mI (892) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (899) receiver: Added Target as Peer[0m
+[0;32mI (1114) receiver: Stats: 3002 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (1115) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (2727) receiver: Stats: 21915 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (2728) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (4451) receiver: Stats: 23375 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (4453) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (5941) receiver: Stats: 17938 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (5942) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (7626) receiver: Stats: 22882 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (7629) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (9314) receiver: Stats: 23306 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (9315) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (11236) receiver: Stats: 27085 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (11241) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (13061) receiver: Stats: 25564 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (13066) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (14815) receiver: Stats: 24492 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (14817) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (16391) receiver: Stats: 20411 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (16396) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (18134) receiver: Stats: 23512 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (18135) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (19858) receiver: Stats: 23345 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (19858) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (21705) receiver: Stats: 25623 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (21706) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (23483) receiver: Stats: 24437 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (23484) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (25322) receiver: Stats: 25578 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (25327) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (26926) receiver: Stats: 20890 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (26930) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (28746) receiver: Stats: 25540 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (28747) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (30683) receiver: Stats: 27628 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (30684) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (32649) receiver: Stats: 28578 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (32650) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (34564) receiver: Stats: 28581 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (34568) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (36546) receiver: Stats: 28528 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (36547) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (38480) receiver: Stats: 27630 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (38484) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (40631) receiver: Stats: 32324 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (40634) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (42557) receiver: Stats: 27940 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (42563) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (44411) receiver: Stats: 26011 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (44414) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (45895) receiver: Stats: 19266 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (45896) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (47626) receiver: Stats: 23548 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (47629) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (49524) receiver: Stats: 27405 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (49524) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (51296) receiver: Stats: 24492 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (51300) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (53134) receiver: Stats: 25924 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (53135) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (55062) receiver: Stats: 27849 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (55067) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (56927) receiver: Stats: 26373 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (56928) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (58655) receiver: Stats: 23620 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (58658) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (60484) receiver: Stats: 26295 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (60486) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (62416) receiver: Stats: 28150 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (62420) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (64302) receiver: Stats: 27033 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (64305) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (65947) receiver: Stats: 22516 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (65950) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (67744) receiver: Stats: 25065 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (67746) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (69317) receiver: Stats: 20912 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (69318) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (71059) receiver: Stats: 24112 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (71060) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (72855) receiver: Stats: 24843 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (72857) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (74700) receiver: Stats: 25709 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (74701) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (76331) receiver: Stats: 21452 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (76334) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (78136) receiver: Stats: 25319 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (78136) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (79958) receiver: Stats: 25525 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (79959) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (81754) receiver: Stats: 25216 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (81757) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (83555) receiver: Stats: 25297 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (83557) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (85250) receiver: Stats: 23131 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (85254) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (86777) receiver: Stats: 19033 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (86778) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (88787) receiver: Stats: 29213 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (88791) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (90646) receiver: Stats: 26275 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (90649) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (92613) receiver: Stats: 28759 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (92614) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (94692) receiver: Stats: 30071 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (94696) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (96519) receiver: Stats: 25559 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (96519) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (98514) receiver: Stats: 29268 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (98516) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (100387) receiver: Stats: 26954 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (100388) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (102582) receiver: Stats: 33184 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (102583) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (104645) receiver: Stats: 30748 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (104646) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (106404) receiver: Stats: 24429 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (106406) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (108170) receiver: Stats: 23945 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (108175) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (109973) receiver: Stats: 24698 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (109977) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (111909) receiver: Stats: 28312 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (111910) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (113699) receiver: Stats: 24958 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (113705) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (115390) receiver: Stats: 22503 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (115392) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (117133) receiver: Stats: 24449 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (117135) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (118944) receiver: Stats: 25673 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (118944) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (120709) receiver: Stats: 24891 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (120710) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (122475) receiver: Stats: 23929 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (122480) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (124134) receiver: Stats: 22152 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (124136) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (125609) receiver: Stats: 18423 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (125611) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (127309) receiver: Stats: 22906 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (127309) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (129416) receiver: Stats: 31654 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (129417) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (131341) receiver: Stats: 27882 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (131342) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (133441) receiver: Stats: 31733 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (133442) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (135479) receiver: Stats: 29971 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (135484) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (137433) receiver: Stats: 28215 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (137433) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (139363) receiver: Stats: 27521 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (139368) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (141500) receiver: Stats: 32133 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (141501) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (143425) receiver: Stats: 27527 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (143425) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (145377) receiver: Stats: 28217 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (145377) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (146948) receiver: Stats: 20153 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (146952) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (149000) receiver: Stats: 30201 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (149001) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (150974) receiver: Stats: 28792 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (150977) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (152977) receiver: Stats: 29201 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (152979) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (154743) receiver: Stats: 24181 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (154746) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (156543) receiver: Stats: 25281 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (156544) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (158497) receiver: Stats: 28717 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (158498) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (160354) receiver: Stats: 26362 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (160357) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (162233) receiver: Stats: 26829 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (162238) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (164306) receiver: Stats: 30437 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (164310) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (166040) receiver: Stats: 23931 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (166041) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (167861) receiver: Stats: 25465 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (167867) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (169562) receiver: Stats: 23850 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (169563) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (171238) receiver: Stats: 22431 pkts/sec | Last RSSI: -66 | Throttle: 0[0m
+[0;32mI (171240) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (173250) receiver: Stats: 29540 pkts/sec | Last RSSI: -73 | Throttle: 0[0m
+[0;32mI (173251) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (175143) receiver: Stats: 27466 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (175144) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (177031) receiver: Stats: 27666 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (177032) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (178933) receiver: Stats: 27679 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (178934) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (181007) receiver: Stats: 30733 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (181010) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (183126) receiver: Stats: 32181 pkts/sec | Last RSSI: -87 | Throttle: 0[0m
+[0;32mI (183126) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (185129) receiver: Stats: 29604 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (185130) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (186878) receiver: Stats: 24028 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (186878) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (188735) receiver: Stats: 26706 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (188737) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (190723) receiver: Stats: 28901 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (190726) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (192592) receiver: Stats: 27450 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (192598) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (194332) receiver: Stats: 23920 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (194334) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (196223) receiver: Stats: 27135 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (196224) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (198077) receiver: Stats: 26194 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (198078) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (199889) receiver: Stats: 24606 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (199892) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (201792) receiver: Stats: 26963 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (201795) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (203699) receiver: Stats: 27331 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (203703) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (205403) receiver: Stats: 22976 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (205404) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (207034) receiver: Stats: 20900 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (207036) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (208932) receiver: Stats: 26843 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (208933) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (210722) receiver: Stats: 24917 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (210724) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (212563) receiver: Stats: 25898 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (212564) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (214325) receiver: Stats: 24142 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (214328) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (216019) receiver: Stats: 22643 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (216020) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (217808) receiver: Stats: 25113 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (217811) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (219586) receiver: Stats: 24963 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (219588) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (221413) receiver: Stats: 26033 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (221415) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (223166) receiver: Stats: 24402 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (223166) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (225004) receiver: Stats: 25685 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (225010) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (226572) receiver: Stats: 20504 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (226573) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (228313) receiver: Stats: 23741 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (228313) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (230080) receiver: Stats: 24401 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (230081) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (231870) receiver: Stats: 25244 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (231871) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (233718) receiver: Stats: 26661 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (233719) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (235454) receiver: Stats: 23976 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (235455) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (237151) receiver: Stats: 22521 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (237152) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (238861) receiver: Stats: 23558 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (238862) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (240722) receiver: Stats: 26436 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (240723) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (242627) receiver: Stats: 27214 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (242628) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (244420) receiver: Stats: 25257 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (244421) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (246017) receiver: Stats: 20257 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (246019) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (247583) receiver: Stats: 21165 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (247584) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (249425) receiver: Stats: 25654 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (249426) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (251299) receiver: Stats: 26085 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (251300) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (252969) receiver: Stats: 22663 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (252972) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (254674) receiver: Stats: 22827 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (254675) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (256409) receiver: Stats: 24055 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (256413) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (258097) receiver: Stats: 22760 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (258097) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (259988) receiver: Stats: 26507 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (259991) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (261967) receiver: Stats: 28577 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (261972) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (263832) receiver: Stats: 26271 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (263834) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (265558) receiver: Stats: 23468 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (265561) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (267310) receiver: Stats: 24192 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (267314) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (269170) receiver: Stats: 26198 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (269172) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (271160) receiver: Stats: 29292 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (271161) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (273060) receiver: Stats: 27246 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (273062) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (274789) receiver: Stats: 23902 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (274791) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (276491) receiver: Stats: 22694 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (276492) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (278247) receiver: Stats: 24176 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (278250) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (280210) receiver: Stats: 27864 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (280212) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (282093) receiver: Stats: 26923 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (282094) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (283910) receiver: Stats: 25435 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (283910) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (285697) receiver: Stats: 24551 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (285700) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (287510) receiver: Stats: 25710 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (287515) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (289459) receiver: Stats: 28219 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (289462) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (291291) receiver: Stats: 25689 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (291292) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (293234) receiver: Stats: 27712 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (293235) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (295163) receiver: Stats: 28450 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (295165) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (297145) receiver: Stats: 29556 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (297146) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (299049) receiver: Stats: 27180 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (299052) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (301091) receiver: Stats: 30808 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (301092) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (303396) receiver: Stats: 35400 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (303398) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (305576) receiver: Stats: 33434 pkts/sec | Last RSSI: -80 | Throttle: 0[0m
+[0;32mI (305577) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (307342) receiver: Stats: 24330 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (307346) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (309481) receiver: Stats: 32198 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (309482) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (311390) receiver: Stats: 28113 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (311391) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (313430) receiver: Stats: 30774 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (313431) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (315411) receiver: Stats: 29317 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (315412) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (317385) receiver: Stats: 28802 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (317388) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (319262) receiver: Stats: 27416 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (319263) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (321430) receiver: Stats: 32927 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (321433) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (323621) receiver: Stats: 33631 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (323623) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (325634) receiver: Stats: 29447 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (325638) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (327545) receiver: Stats: 27816 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (327549) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (329540) receiver: Stats: 29605 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (329542) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (331642) receiver: Stats: 31403 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (331647) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (333769) receiver: Stats: 32231 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (333772) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (335648) receiver: Stats: 27521 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (335649) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (337674) receiver: Stats: 29273 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (337677) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (339478) receiver: Stats: 25861 pkts/sec | Last RSSI: -56 | Throttle: 0[0m
+[0;32mI (339480) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (341649) receiver: Stats: 32791 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (341652) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (343883) receiver: Stats: 33710 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (343886) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (345691) receiver: Stats: 25290 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (345694) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (347489) receiver: Stats: 24841 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (347493) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (349490) receiver: Stats: 29535 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (349494) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (351533) receiver: Stats: 30075 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (351537) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (353672) receiver: Stats: 32398 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (353673) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (355716) receiver: Stats: 29851 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (355718) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (357775) receiver: Stats: 30586 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (357777) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (359875) receiver: Stats: 30883 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (359877) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (361963) receiver: Stats: 31602 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (361965) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (364076) receiver: Stats: 31416 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (364079) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (365725) receiver: Stats: 22994 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (365729) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (367536) receiver: Stats: 25864 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (367537) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (369489) receiver: Stats: 28288 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (369493) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (371289) receiver: Stats: 25272 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (371293) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (373348) receiver: Stats: 30418 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (373349) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (375377) receiver: Stats: 29901 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (375378) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (377310) receiver: Stats: 27140 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (377311) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (379162) receiver: Stats: 26148 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (379163) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (381111) receiver: Stats: 28464 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (381112) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (383090) receiver: Stats: 29236 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (383093) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (385115) receiver: Stats: 29905 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (385115) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (386747) receiver: Stats: 22086 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (386747) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (388776) receiver: Stats: 29860 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (388782) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (390648) receiver: Stats: 26807 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (390648) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (392552) receiver: Stats: 27506 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (392553) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (394529) receiver: Stats: 29523 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (394530) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (396529) receiver: Stats: 28988 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (396532) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (398558) receiver: Stats: 29883 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (398562) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (400646) receiver: Stats: 31167 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (400647) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (402819) receiver: Stats: 32764 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (402820) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (404837) receiver: Stats: 29804 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (404839) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (406670) receiver: Stats: 26035 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (406672) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (408616) receiver: Stats: 28347 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (408617) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (410590) receiver: Stats: 28817 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (410594) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (412709) receiver: Stats: 31342 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (412711) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (414788) receiver: Stats: 30839 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (414793) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (416721) receiver: Stats: 28438 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (416722) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (418750) receiver: Stats: 29371 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (418753) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (420867) receiver: Stats: 31690 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (420869) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (423146) receiver: Stats: 34681 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (423150) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (425222) receiver: Stats: 31067 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (425225) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (426794) receiver: Stats: 20775 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (426795) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (428866) receiver: Stats: 30790 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (428867) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (430930) receiver: Stats: 30761 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (430931) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (432984) receiver: Stats: 30830 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (432987) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (435077) receiver: Stats: 31427 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (435078) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (436830) receiver: Stats: 24208 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (436831) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (438901) receiver: Stats: 30854 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (438903) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (440891) receiver: Stats: 29141 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (440896) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (443152) receiver: Stats: 34974 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (443153) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (445288) receiver: Stats: 32344 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (445293) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (447147) receiver: Stats: 26104 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (447150) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (449211) receiver: Stats: 30693 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (449212) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (451359) receiver: Stats: 32358 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (451359) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (453562) receiver: Stats: 33630 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (453564) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (455647) receiver: Stats: 31464 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (455649) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (457699) receiver: Stats: 30171 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (457702) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (459688) receiver: Stats: 28943 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (459689) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (461799) receiver: Stats: 32209 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (461799) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (463957) receiver: Stats: 33132 pkts/sec | Last RSSI: -55 | Throttle: 0[0m
+[0;32mI (463958) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (465784) receiver: Stats: 26362 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (465785) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (467669) receiver: Stats: 27054 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (467671) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (469527) receiver: Stats: 26394 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (469529) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (471693) receiver: Stats: 33120 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (471694) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (473890) receiver: Stats: 33612 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (473892) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (475985) receiver: Stats: 31208 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (475989) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (478069) receiver: Stats: 31103 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (478069) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (479974) receiver: Stats: 27407 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (479976) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (482089) receiver: Stats: 31866 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (482093) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (484362) receiver: Stats: 34912 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (484368) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (486142) receiver: Stats: 24688 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (486148) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (488225) receiver: Stats: 30999 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (488226) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (490337) receiver: Stats: 31729 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (490339) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (492415) receiver: Stats: 31078 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (492416) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (494620) receiver: Stats: 33502 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (494622) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (496447) receiver: Stats: 26088 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (496448) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (498535) receiver: Stats: 31201 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (498539) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (500608) receiver: Stats: 31026 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (500609) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (502862) receiver: Stats: 34685 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (502864) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (504849) receiver: Stats: 29156 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (504855) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (506650) receiver: Stats: 25474 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (506651) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (508665) receiver: Stats: 29520 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (508668) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (510744) receiver: Stats: 31317 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (510745) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (512799) receiver: Stats: 30318 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (512800) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (514842) receiver: Stats: 30052 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (514843) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (516694) receiver: Stats: 26353 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (516695) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (518787) receiver: Stats: 31242 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (518788) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (520742) receiver: Stats: 28465 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (520745) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (522771) receiver: Stats: 30080 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (522774) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (524694) receiver: Stats: 28392 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (524695) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (526369) receiver: Stats: 22850 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (526371) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (528180) receiver: Stats: 25259 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (528185) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (530156) receiver: Stats: 28440 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (530158) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (532136) receiver: Stats: 28508 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (532141) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (534102) receiver: Stats: 29226 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (534103) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (535906) receiver: Stats: 25038 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (535910) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (537748) receiver: Stats: 26552 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (537753) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (539532) receiver: Stats: 25181 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (539534) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (541527) receiver: Stats: 29159 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (541528) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (543516) receiver: Stats: 28812 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (543517) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (545449) receiver: Stats: 27550 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (545453) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (547014) receiver: Stats: 20187 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (547017) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (548982) receiver: Stats: 28894 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (548983) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (550841) receiver: Stats: 26666 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (550843) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (552732) receiver: Stats: 27610 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (552733) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (554778) receiver: Stats: 30075 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (554779) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (556490) receiver: Stats: 23361 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (556491) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (558363) receiver: Stats: 26762 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (558364) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (560413) receiver: Stats: 30026 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (560414) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (562492) receiver: Stats: 30959 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (562493) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (564588) receiver: Stats: 31053 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (564594) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (566454) receiver: Stats: 26351 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (566455) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (568345) receiver: Stats: 27170 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (568346) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (570471) receiver: Stats: 31778 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (570472) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (572452) receiver: Stats: 29050 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (572454) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (574476) receiver: Stats: 29587 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (574477) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (576437) receiver: Stats: 28584 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (576439) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (578410) receiver: Stats: 28732 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (578413) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (580405) receiver: Stats: 29354 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (580407) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (582691) receiver: Stats: 34871 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (582693) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (584621) receiver: Stats: 27947 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (584622) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (586385) receiver: Stats: 24140 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (586388) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (588296) receiver: Stats: 27952 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (588299) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (590317) receiver: Stats: 29280 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (590318) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (592406) receiver: Stats: 31447 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (592409) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (594459) receiver: Stats: 30000 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (594460) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (596260) receiver: Stats: 25342 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (596261) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (598290) receiver: Stats: 29576 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (598295) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (600248) receiver: Stats: 29037 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (600248) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (602292) receiver: Stats: 29990 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (602294) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (604261) receiver: Stats: 28769 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (604262) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (606018) receiver: Stats: 24747 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (606019) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (607867) receiver: Stats: 26141 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (607868) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (609768) receiver: Stats: 27482 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (609769) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (611854) receiver: Stats: 30738 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (611859) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (613965) receiver: Stats: 31750 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (613965) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (615887) receiver: Stats: 27391 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (615890) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (617965) receiver: Stats: 30691 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (617966) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (619901) receiver: Stats: 27665 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (619902) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (621975) receiver: Stats: 30868 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (621979) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (624077) receiver: Stats: 31123 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (624079) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (625836) receiver: Stats: 24141 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (625838) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (627613) receiver: Stats: 24618 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (627616) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (629565) receiver: Stats: 27897 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (629570) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (631417) receiver: Stats: 26474 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (631418) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (633449) receiver: Stats: 29741 pkts/sec | Last RSSI: -82 | Throttle: 0[0m
+[0;32mI (633450) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (635466) receiver: Stats: 29676 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (635468) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (637306) receiver: Stats: 25241 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (637307) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (639250) receiver: Stats: 27647 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (639253) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (641268) receiver: Stats: 29375 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (641271) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (643359) receiver: Stats: 30965 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (643360) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (645315) receiver: Stats: 27931 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (645318) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (647098) receiver: Stats: 24251 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (647099) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (649088) receiver: Stats: 28835 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (649089) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (651092) receiver: Stats: 29172 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (651097) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (652988) receiver: Stats: 27527 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (652994) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (655130) receiver: Stats: 31856 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (655130) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (656977) receiver: Stats: 26063 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (656978) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (658892) receiver: Stats: 28176 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (658893) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (660714) receiver: Stats: 26021 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (660715) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (662558) receiver: Stats: 26128 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (662561) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (664446) receiver: Stats: 26897 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (664447) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (666026) receiver: Stats: 20470 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (666027) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (667912) receiver: Stats: 27217 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (667917) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (669768) receiver: Stats: 26634 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (669769) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (671656) receiver: Stats: 27190 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (671662) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (673544) receiver: Stats: 26847 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (673549) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (675404) receiver: Stats: 26752 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (675405) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (677310) receiver: Stats: 27029 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (677316) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (679241) receiver: Stats: 28019 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (679244) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (681159) receiver: Stats: 28112 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (681162) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (683343) receiver: Stats: 32494 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (683347) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (685349) receiver: Stats: 29508 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (685351) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (687081) receiver: Stats: 23432 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (687081) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (689129) receiver: Stats: 30418 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (689130) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (691355) receiver: Stats: 33098 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (691359) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (693590) receiver: Stats: 33873 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (693595) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (695517) receiver: Stats: 28252 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (695518) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (697600) receiver: Stats: 30141 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (697602) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (699489) receiver: Stats: 26653 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (699490) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (701207) receiver: Stats: 23198 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (701208) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (703307) receiver: Stats: 31644 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (703311) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (705302) receiver: Stats: 29426 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (705303) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (707043) receiver: Stats: 23932 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (707045) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (709156) receiver: Stats: 31702 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (709157) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (711200) receiver: Stats: 29638 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (711204) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (713223) receiver: Stats: 30091 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (713225) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (715403) receiver: Stats: 33235 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (715404) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (717485) receiver: Stats: 30456 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (717486) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (719492) receiver: Stats: 29299 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (719494) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (721586) receiver: Stats: 31376 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (721587) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (723727) receiver: Stats: 31895 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (723727) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (725563) receiver: Stats: 26088 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (725567) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (727214) receiver: Stats: 21095 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (727217) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (729286) receiver: Stats: 30792 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (729287) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (731357) receiver: Stats: 30642 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (731362) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (733407) receiver: Stats: 30779 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (733408) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (735439) receiver: Stats: 30140 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (735440) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (737295) receiver: Stats: 26676 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (737299) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (739399) receiver: Stats: 31591 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (739402) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (741697) receiver: Stats: 35433 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (741703) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (743622) receiver: Stats: 27963 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (743628) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (745724) receiver: Stats: 31529 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (745726) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (747633) receiver: Stats: 27832 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (747638) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (749999) receiver: Stats: 36964 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (750002) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (752168) receiver: Stats: 33161 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (752169) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (754556) receiver: Stats: 37410 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (754558) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (756889) receiver: Stats: 37275 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (756890) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (759158) receiver: Stats: 35163 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (759160) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (761739) receiver: Stats: 41731 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (761744) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (764357) receiver: Stats: 42670 pkts/sec | Last RSSI: -48 | Throttle: 0[0m
+[0;32mI (764359) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (766599) receiver: Stats: 34386 pkts/sec | Last RSSI: -49 | Throttle: 0[0m
+[0;32mI (766604) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (768617) receiver: Stats: 29499 pkts/sec | Last RSSI: -54 | Throttle: 0[0m
+[0;32mI (768618) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (770565) receiver: Stats: 28277 pkts/sec | Last RSSI: -52 | Throttle: 0[0m
+[0;32mI (770567) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (772681) receiver: Stats: 32268 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (772682) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (774678) receiver: Stats: 29146 pkts/sec | Last RSSI: -51 | Throttle: 0[0m
+[0;32mI (774682) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (776560) receiver: Stats: 27318 pkts/sec | Last RSSI: -50 | Throttle: 0[0m
+[0;32mI (776561) receiver: Vector: 0.000000, 0.000000[0m
+[0;32mI (778450) receiver: Stats: 27433 pkts/sec | Last RSSI: -53 | Throttle: 0[0m
+[0;32mI (778451) receiver: Vector: 0.000000, 0.000000[0m

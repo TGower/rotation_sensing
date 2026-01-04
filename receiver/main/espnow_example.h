@@ -17,6 +17,8 @@
 #endif
 
 #define ESPNOW_QUEUE_SIZE 6
+#define APP_ROTATION_SOURCE_CSI 0
+#define APP_ROTATION_SOURCE_ESPNOW 1
 
 // --- Application Protocol ---
 
@@ -24,7 +26,9 @@ typedef enum {
   APP_PACKET_TYPE_CONTROL = 0x10,
   APP_PACKET_TYPE_CONFIG_SET = 0x20,   // Command to Set Config
   APP_PACKET_TYPE_CONFIG_STATE = 0x21, // Report Current Config
-  APP_PACKET_TYPE_STATS = 0x30
+  APP_PACKET_TYPE_STATS = 0x30,
+  APP_PACKET_TYPE_CMD_DUMP = 0x40, // Command to Dump Buffer
+  APP_PACKET_TYPE_CMD_ACK = 0x41   // Acknowledge Dump
 } app_packet_type_t;
 
 typedef struct __attribute__((packed)) {
@@ -58,10 +62,8 @@ typedef struct __attribute__((packed)) {
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_STATS
-  float csi_mean;
-  float csi_var;
-  float espnow_mean;
-  float espnow_var;
+  float rssi_mean;
+  float rssi_var;
   int32_t pkts_per_sec;
   int8_t last_rssi;
   // New Fields

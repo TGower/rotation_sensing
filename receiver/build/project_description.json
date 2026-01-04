@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "espnow_example",
-    "project_version":    "b85be72-dirty",
+    "project_version":    "5fa02ef-dirty",
     "project_path":       "/home/t/esp/rotation_sensing/receiver",
     "idf_path":           "/home/t/esp/esp-idf",
     "build_dir":          "/home/t/esp/rotation_sensing/receiver/build",
@@ -1180,7 +1180,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__led_strip" ],
             "file": "/home/t/esp/rotation_sensing/receiver/build/esp-idf/main/libmain.a",
-            "sources": [ "/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c", "/home/t/esp/rotation_sensing/receiver/main/dshot_esc_encoder.c" ],
+            "sources": [ "/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c", "/home/t/esp/rotation_sensing/receiver/main/dshot_esc_encoder.c", "/home/t/esp/rotation_sensing/receiver/main/simd.S" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {

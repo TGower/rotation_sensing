@@ -1,0 +1,15 @@
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /home/t/esp/rotation_sensing/sender/build/bootloader/esp-idf/esptool_py && /home/t/.espressif/python_env/idf5.3_py3.13_env/bin/python /home/t/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/t/esp/rotation_sensing/sender/build/bootloader/bootloader.bin
+Bootloader binary size 0x51c0 bytes. 0x2e40 bytes (36%) free.
+[2/9] No install step for 'bootloader'
+[3/9] Completed 'bootloader'
+[4/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/espnow_example_main.c.obj
+/home/t/esp/rotation_sensing/sender/main/espnow_example_main.c: In function 'example_espnow_init':
+/home/t/esp/rotation_sensing/sender/main/espnow_example_main.c:345:7: warning: 'esp_wifi_config_espnow_rate' is deprecated: This API can be only used when rate is non-HE rate,                                 please use esp_now_set_peer_rate_config if you want full support of the rate. [-Wdeprecated-declarations]
+  345 |       esp_wifi_config_espnow_rate(ESPNOW_WIFI_IF, WIFI_PHY_RATE_24M);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /home/t/esp/rotation_sensing/sender/main/espnow_example_main.c:11:
+/home/t/esp/esp-idf/components/esp_wifi/include/esp_now.h:270:11: note: declared here
+  270 | esp_err_t esp_wifi_config_espnow_rate(wifi_interface_t ifx, wifi_phy_rate_t rate)
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+[5/9] Linking C static library esp-idf/main/libmain.a

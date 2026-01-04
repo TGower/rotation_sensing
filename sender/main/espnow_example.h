@@ -24,7 +24,9 @@ typedef enum {
   APP_PACKET_TYPE_CONTROL = 0x10,
   APP_PACKET_TYPE_CONFIG_SET = 0x20,   // Command to Set Config
   APP_PACKET_TYPE_CONFIG_STATE = 0x21, // Report Current Config
-  APP_PACKET_TYPE_STATS = 0x30
+  APP_PACKET_TYPE_STATS = 0x30,
+  APP_PACKET_TYPE_CMD_DUMP = 0x40, // Command to Dump Buffer
+  APP_PACKET_TYPE_CMD_ACK = 0x41   // Acknowledge Dump
 } app_packet_type_t;
 
 typedef struct __attribute__((packed)) {
@@ -55,6 +57,11 @@ typedef struct __attribute__((packed)) {
   uint16_t smoothing_window;
   float phase_offset;
 } app_config_packet_t;
+
+_Static_assert(sizeof(app_config_packet_t) == 25,
+               "app_config_packet_t size mismatch! Check alignment/packing.");
+_Static_assert(sizeof(control_packet_t) == 11,
+               "control_packet_t size mismatch!");
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_STATS

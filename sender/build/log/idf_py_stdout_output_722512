@@ -1,0 +1,44 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40048de8
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (1106) receiver: Stats: 2514 pkts/sec | Last RSSI: -38 | Throttle: 0[0m
+[0;32mI (1108) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (2469) receiver: Stats: 16104 pkts/sec | Last RSSI: -38 | Throttle: 0[0m
+[0;32mI (2470) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (4130) receiver: Stats: 22053 pkts/sec | Last RSSI: -40 | Throttle: 0[0m
+[0;32mI (4131) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (5633) receiver: Stats: 19408 pkts/sec | Last RSSI: -42 | Throttle: 0[0m
+[0;32mI (5636) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (7271) receiver: Stats: 21620 pkts/sec | Last RSSI: -42 | Throttle: 0[0m
+[0;32mI (7272) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (866) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (867) wifi:enable tsf[0m
+[0;32mI (869) wifi:ic_enable_sniffer[0m
+[0;32mI (870) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (871) main_task: Returned from app_main()[0m
+[0;32mI (872) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (879) receiver: Added Target as Peer[0m
+[0;32mI (1092) receiver: Stats: 2888 pkts/sec | Last RSSI: -28 | Throttle: 0[0m
+[0;32mI (1094) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (2499) receiver: Stats: 17096 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (2500) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (4036) receiver: Stats: 19490 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (4038) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (5622) receiver: Stats: 20196 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (5625) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (7261) receiver: Stats: 21669 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (7263) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (8829) receiver: Stats: 20280 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (8831) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (10650) receiver: Stats: 24990 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (10651) receiver: Vector: -0.008164, -0.002945[0m
+[0;32mI (12397) receiver: Stats: 23462 pkts/sec | Last RSSI: -25 | Throttle: 0[0m
+[0;32mI (12398) receiver: Vector: -0.008164, -0.002945[0m

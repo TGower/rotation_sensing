@@ -1,0 +1,180 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x20 (DOWNLOAD(USB/UART0))
+Saved PC:0x40041a76
+waiting for download
+[0;33mW (815) phy_init: failed to load RF calibration data (0x1102), falling back to full calibration[0m
+[0;33mW (863) phy_init: saving new calibration data because of checksum failure, mode(2)[0m
+[0;32mI (875) wifi:mode : sta (98:3d:ae:f1:ec:b0)[0m
+[0;32mI (876) wifi:enable tsf[0m
+[0;32mI (878) wifi:ic_enable_sniffer[0m
+[0;32mI (881) ESPNOW: espnow [version: 1.0] init[0m
+[0;32mI (881) receiver: Discovered Target MAC: e4:b3:23:f7:f3:f0[0m
+[0;32mI (884) receiver: Added Target as Peer[0m
+[0;32mI (890) main_task: Returned from app_main()[0m
+[0;32mI (1096) receiver: Stats: 1882 pkts/sec | Last RSSI: -40 | Throttle: 0[0m
+[0;32mI (1097) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (2010) receiver: Stats: 6455 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (2011) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (2939) receiver: Stats: 6343 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (2939) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (3838) receiver: Stats: 6069 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (3839) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (4849) receiver: Stats: 7912 pkts/sec | Last RSSI: -78 | Throttle: 0[0m
+[0;32mI (4850) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (5866) receiver: Stats: 7647 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (5868) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (6869) receiver: Stats: 8296 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (6870) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (7894) receiver: Stats: 7929 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (7895) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (8771) receiver: Stats: 5510 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (8773) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (9773) receiver: Stats: 8282 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (9774) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (10788) receiver: Stats: 8289 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (10789) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (11755) receiver: Received DUMP Command[0m
+[0;32mI (11769) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (11771) receiver: Starting Buffer Dump for Slot 0 at Offset 0x0...[0m
+[0;32mI (12871) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (13001) receiver: Stats: 11366 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (13002) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (13955) receiver: Stats: 7164 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (13956) receiver: Vector: 0.010422, -0.026169[0m
+[0;32mI (14735) receiver: Received DUMP Command[0m
+[0;32mI (14753) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (14754) receiver: Starting Buffer Dump for Slot 1 at Offset 0x20000...[0m
+[0;32mI (15861) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (16196) receiver: Stats: 11328 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (16198) receiver: Vector: 0.010422, -0.026535[0m
+[0;32mI (17421) receiver: Stats: 12619 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (17422) receiver: Vector: 0.010422, -0.026535[0m
+[0;32mI (18545) receiver: Stats: 10191 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (18546) receiver: Vector: 0.010422, -0.026535[0m
+[0;32mI (19602) receiver: Stats: 9182 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (19603) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (20649) receiver: Stats: 9129 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (20650) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (21720) receiver: Stats: 9384 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (21722) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (22816) receiver: Stats: 10010 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (22818) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (23899) receiver: Stats: 9407 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (23900) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (24811) receiver: Stats: 6794 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (24812) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (25794) receiver: Stats: 8446 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (25795) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (26920) receiver: Stats: 10162 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (26921) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (27993) receiver: Stats: 9957 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (27995) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (28907) receiver: Stats: 6210 pkts/sec | Last RSSI: -79 | Throttle: 0[0m
+[0;32mI (28908) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (29842) receiver: Stats: 6448 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (29845) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (30842) receiver: Stats: 8464 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (30843) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (31877) receiver: Stats: 8288 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (31878) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (32982) receiver: Stats: 10000 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (32983) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (33047) receiver: Received DUMP Command[0m
+[0;32mI (33049) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (33051) receiver: Starting Buffer Dump for Slot 2 at Offset 0x40000...[0m
+[0;32mI (34147) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (35061) receiver: Received DUMP Command[0m
+[0;32mI (35064) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (35065) receiver: Starting Buffer Dump for Slot 3 at Offset 0x60000...[0m
+[0;32mI (36128) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (36281) receiver: Stats: 12631 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (36282) receiver: Vector: 0.010422, -0.019577[0m
+[0;32mI (37345) receiver: Received DUMP Command[0m
+[0;32mI (37353) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (37353) receiver: Starting Buffer Dump for Slot 4 at Offset 0x80000...[0m
+[0;32mI (38332) receiver: Received DUMP Command[0m
+[0;32mI (38448) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (38458) receiver: Received DUMP Command[0m
+[0;32mI (38468) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (38470) receiver: Starting Buffer Dump for Slot 5 at Offset 0xa0000...[0m
+[0;32mI (39168) receiver: Received DUMP Command[0m
+[0;32mI (39561) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (39576) receiver: Received DUMP Command[0m
+[0;32mI (39587) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (39589) receiver: Starting Buffer Dump for Slot 6 at Offset 0xc0000...[0m
+[0;32mI (40648) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (40796) receiver: Stats: 17141 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (40797) receiver: Vector: 0.007248, -0.019577[0m
+[0;32mI (40947) receiver: Received DUMP Command[0m
+[0;32mI (40957) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (40958) receiver: Starting Buffer Dump for Slot 7 at Offset 0xe0000...[0m
+[0;32mI (42034) receiver: Received DUMP Command[0m
+[0;32mI (42046) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (42058) receiver: Received DUMP Command[0m
+[0;32mI (42064) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (42065) receiver: Starting Buffer Dump for Slot 8 at Offset 0x100000...[0m
+[0;32mI (43128) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (43199) receiver: Received DUMP Command[0m
+[0;32mI (43203) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (43204) receiver: Starting Buffer Dump for Slot 9 at Offset 0x120000...[0m
+[0;32mI (44263) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (44306) receiver: Received DUMP Command[0m
+[0;32mI (44309) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (44310) receiver: Starting Buffer Dump for Slot 10 at Offset 0x140000...[0m
+[0;32mI (45258) receiver: Received DUMP Command[0m
+[0;32mI (45372) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (45422) receiver: Received DUMP Command[0m
+[0;32mI (45426) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (45427) receiver: Starting Buffer Dump for Slot 11 at Offset 0x160000...[0m
+[0;32mI (45464) receiver: Received DUMP Command[0m
+[0;32mI (46476) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (46480) receiver: Received DUMP Command[0m
+[0;32mI (46576) receiver: Received DUMP Command[0m
+[0;32mI (46579) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (46580) receiver: Starting Buffer Dump for Slot 12 at Offset 0x180000...[0m
+[0;32mI (47640) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (48322) receiver: Stats: 16020 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (48324) receiver: Vector: 0.007248, -0.008103[0m
+[0;32mI (49504) receiver: Stats: 11875 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (49506) receiver: Vector: 0.007248, -0.008103[0m
+[0;32mI (50132) receiver: Received DUMP Command[0m
+[0;32mI (50137) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (50138) receiver: Starting Buffer Dump for Slot 13 at Offset 0x1a0000...[0m
+[0;32mI (50367) receiver: Received DUMP Command[0m
+[0;32mI (51020) receiver: Received DUMP Command[0m
+[0;32mI (51183) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (51197) receiver: Received DUMP Command[0m
+[0;32mI (51209) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (51212) receiver: Starting Buffer Dump for Slot 14 at Offset 0x1c0000...[0m
+[0;32mI (52047) receiver: Received DUMP Command[0m
+[0;32mI (52189) receiver: Received DUMP Command[0m
+[0;32mI (52277) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (52331) receiver: Received DUMP Command[0m
+[0;32mI (52338) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (52339) receiver: Starting Buffer Dump for Slot 15 at Offset 0x1e0000...[0m
+[0;32mI (53394) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (53930) receiver: Stats: 16093 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (53931) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (55100) receiver: Stats: 11202 pkts/sec | Last RSSI: -45 | Throttle: 0[0m
+[0;32mI (55103) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (56062) receiver: Stats: 8085 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (56065) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (56550) receiver: Received DUMP Command[0m
+[0;32mI (56560) receiver: Starting Buffer Dump to Flash...[0m
+[0;32mI (56562) receiver: Starting Buffer Dump for Slot 16 at Offset 0x0...[0m
+[0;32mI (57620) receiver: Buffer Dumped. Sending ACK.[0m
+[0;32mI (58376) receiver: Stats: 14651 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (58378) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (59476) receiver: Stats: 10056 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (59477) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (60602) receiver: Stats: 10468 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (60603) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (61701) receiver: Stats: 9870 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (61702) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (62896) receiver: Stats: 11813 pkts/sec | Last RSSI: -46 | Throttle: 0[0m
+[0;32mI (62897) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (64048) receiver: Stats: 11021 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (64050) receiver: Vector: 0.007248, -0.019211[0m
+[0;32mI (65180) receiver: Stats: 10154 pkts/sec | Last RSSI: -47 | Throttle: 0[0m
+[0;32mI (65182) receiver: Vector: 0.007248, -0.019211[0m

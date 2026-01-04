@@ -389,6 +389,8 @@ static void motor_task(void *pvParameter) {
     rmt_transmit(esc_chan_b, dshot_encoder_b, &rightDShot, sizeof(rightDShot),
                  &((rmt_transmit_config_t){.loop_count = 0}));
 
+    ESP_LOGI(TAG, "Left DShot: %d, Right DShot: %d", leftDShot, rightDShot);
+
     // --- Update LED ---
     // Green in 45 deg arc opposite peak.
     if (phase > HEADING_START && phase < HEADING_END) {
