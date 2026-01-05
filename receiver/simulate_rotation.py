@@ -1,9 +1,11 @@
 import csv
 import math
 import matplotlib.pyplot as plt
+import sys
+import os
+import argparse
 
 # Configuration
-CSV_FILE = 'dump_slot03.csv'
 INTERPOLATION_INTERVAL_US = 100
 START_LAG = 200
 END_LAG = 1000
@@ -11,27 +13,40 @@ STEP_LAG = 5
 CORR_WINDOW = 1000
 LAG_WINDOW = 1
 
-def load_data(filename):
-    timestamps = []
-    smoothed_rssi = []
+class RotationState:
+    def __init__(self):
+        self.rotation_rate = 0.5 # Default 0.5 Hz
+        self.estimated_period_us = 2000000 # 2 seconds
+        self.valid_lock = False
+
+def load_raw_data(filename):
+    _raw_timestamps = []
+    _raw_rssi = []
+    
     with open(filename, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            timestamps.append(int(row['Timestamp_US']))
-            smoothed_rssi.append(int(row['RSSI']))
+            try:
+                ts = int(row['Timestamp_US'])
+                rssi = int(row['RSSI'])
+                if ts > 0:
+                   _raw_timestamps.append(ts)
+                   _raw_rssi.append(rssi)
+            except ValueError:
+                continue
+
+    if not _raw_timestamps:
+        return [], []
             
     # Sort by timestamp to handle circular buffer wrapping
-    combined = sorted(zip(timestamps, smoothed_rssi))
-    timestamps = [x[0] for x in combined]
-    smoothed_rssi = [x[1] for x in combined]
+    combined = sorted(zip(_raw_timestamps, _raw_rssi))
+    _raw_timestamps = [x[0] for x in combined]
+    _raw_rssi = [x[1] for x in combined]
     
-    return timestamps, smoothed_rssi
+    return _raw_timestamps, _raw_rssi
 
 def calculate_autocorr_error(data, head, lag, window):
     # data is a list. head is the index "after" the last element (len(data)).
-    # We want to compare range [head-window, head) with [head-window-lag, head-lag)
-    
-    # Python slicing: [start:end]
     start_A = head - window
     end_A = head
     
@@ -48,10 +63,6 @@ def calculate_autocorr_error(data, head, lag, window):
     return diff_sum
 
 def calculate_iq_phase(data, head, period_samples):
-    # Perform I/Q Demodulation (Single Bin DFT) over 4 periods looking back from head
-    # Window size = 4 * period_samples
-    # Frequency = 1 / period_samples
-    
     window_samples = period_samples * 4
     
     if head < window_samples:
@@ -63,11 +74,9 @@ def calculate_iq_phase(data, head, period_samples):
     I = 0.0
     Q = 0.0
     
-    # Angular frequency for the target period
     omega = 2.0 * math.pi / period_samples
     
     for k in range(window_samples):
-        # delta ranges from -window_samples to -1 relative to head
         delta = k - window_samples
         val = window_data[k]
         
@@ -78,25 +87,14 @@ def calculate_iq_phase(data, head, period_samples):
     if I == 0 and Q == 0:
         return 0.0
         
-    # Phase phi such that Signal ~ cos(omega*t + phi)
     phi = math.atan2(-Q, I)
     
-    # Normalize to 0..2pi
     if phi < 0:
         phi += 2.0 * math.pi
         
     return phi
 
-# State Machine
-class RotationState:
-    def __init__(self):
-        self.rotation_rate = 0.5 # Default 0.5 Hz
-        self.estimated_period_us = 2000000 # 2 seconds
-        # self.last_peak_timestamp = 0 # Removed
-        self.valid_lock = False
-
-def run_rotation_task(data, timestamps, head, state):
-    # Check for enough data
+def run_rotation_task(data, head, state):
     count = head
     if count < CORR_WINDOW * 2:
         return
@@ -108,8 +106,6 @@ def run_rotation_task(data, timestamps, head, state):
     lags = []
     errors = []
     
-    # Simple Python loop (could be optimized but sufficient for 10000 ops)
-    # We only check specific steps
     curr_lag_list = range(START_LAG, END_LAG + 1, STEP_LAG)
     
     for lag in curr_lag_list:
@@ -120,7 +116,6 @@ def run_rotation_task(data, timestamps, head, state):
         if err > max_diff: max_diff = err
 
     # 2. Process Slopes
-    # Need at least a few points
     if len(lags) < 4: return
 
     slopes = []
@@ -169,10 +164,6 @@ def run_rotation_task(data, timestamps, head, state):
     final_lag = best_lag
     
     if not found_valid:
-        # Loss of lock logic?
-        # The C code sets defaults if NO valid found throughout sweep
-        # But we only reset if we fail. 
-        # C code: if (!found_valid) { ... defaults ... }
         state.rotation_rate = 0.5
         state.estimated_period_us = 2000000
         state.valid_lock = False
@@ -193,63 +184,127 @@ def run_rotation_task(data, timestamps, head, state):
         state.valid_lock = True
         state.estimated_period_us = final_lag * INTERPOLATION_INTERVAL_US
         state.rotation_rate = 1000000.0 / state.estimated_period_us
-        
-        # Note: We no longer look for Phase Peak here. 
-        # Phase is calculated continuously using IQ.
 
 def main():
-    import sys
-    import os
-
-    if len(sys.argv) > 1:
-        csv_filename = sys.argv[1]
-    else:
-        csv_filename = 'dump_slot00.csv' # Default to 00 if not specified
-        
+    parser = argparse.ArgumentParser(description='Simulate rotation tracking with interpolation strategies.')
+    parser.add_argument('file', help='CSV dump file')
+    parser.add_argument('--strategy', choices=['baseline', 'linear', 'smart'], default='baseline', help='Interpolation strategy')
+    
+    args = parser.parse_args()
+    csv_filename = args.file
+    strategy = args.strategy
+    
     print(f"Loading {csv_filename}...")
     try:
-        timestamps, smoothed_rssi = load_data(csv_filename)
+        raw_ts, raw_rssi = load_raw_data(csv_filename)
+        if not raw_ts:
+            print("No data loaded")
+            return
     except FileNotFoundError:
         print(f"Error: {csv_filename} not found.")
         return
         
-    print(f"Loaded {len(smoothed_rssi)} samples.")
+    print(f"Loaded {len(raw_rssi)} raw samples. Running {strategy} strategy...")
     
     state = RotationState()
     
-    # Output arrays
+    # Output buffer (we build this incrementally)
+    interp_timestamps = []
+    interp_rssi = []
+    
+    # Analysis outputs
     out_timestamps = []
-    out_rssi = []
     out_rate = []
     out_phase = []
     out_lock = []
     
-    # Simulation Parameters
-    UPDATE_INTERVAL = 100 # Run frequency task every 100 samples (10ms)
+    start_time = raw_ts[0]
+    end_time = raw_ts[-1]
     
-    print("Running Simulation Loop...")
+    current_time = start_time
+    raw_idx = 0
     
-    for i in range(len(timestamps)):
-        current_ts = timestamps[i]
+    # Current simulation buffer (growing)
+    # Note: interp_rssi IS the buffer
+    
+    UPDATE_INTERVAL = 100 # run algo every 100 samples (10ms)
+    
+    while current_time <= end_time:
+        # 1. INTERPOLATION LOGIC
         
-        # Run Task
-        if i >= 2000 and i % UPDATE_INTERVAL == 0:
-             run_rotation_task(smoothed_rssi, timestamps, i, state)
-             
-        # Calculate Phase
+        # Advance raw_idx such that we know the surrounding raw points
+        # raw_idx points to the last sample <= current_time
+        while raw_idx < len(raw_ts) - 1 and raw_ts[raw_idx + 1] <= current_time:
+            raw_idx += 1
+            
+        this_val = raw_rssi[raw_idx]
+        
+        if strategy == 'baseline':
+            # Sample and Hold
+            val = this_val
+            
+        elif strategy == 'linear' or strategy == 'smart':
+            # Need next sample
+            if raw_idx < len(raw_ts) - 1:
+                prev_ts = raw_ts[raw_idx]
+                prev_val = raw_rssi[raw_idx]
+                next_ts = raw_ts[raw_idx+1]
+                next_val = raw_rssi[raw_idx+1]
+                
+                gap = next_ts - prev_ts
+                
+                # Check for Smart Healing condition
+                is_gap = gap > 300
+                healed = False
+                
+                if strategy == 'smart' and is_gap and state.valid_lock:
+                     # Try to heal from history
+                     period_samples = int(state.estimated_period_us / INTERPOLATION_INTERVAL_US)
+                     # We need history at current_time - period
+                     # Since interp_rssi is filled up to current index (which effectively maps to current_time - step)
+                     # We are calculating the value FOR current_time.
+                     # Index 0 corresponds to start_time. 
+                     # Current index is len(interp_rssi).
+                     curr_idx = len(interp_rssi)
+                     hist_idx = curr_idx - period_samples
+                     
+                     if hist_idx >= 0 and hist_idx < len(interp_rssi):
+                         val = interp_rssi[hist_idx]
+                         healed = True
+                
+                if not healed:
+                     # Linear Interpolation
+                     if next_ts > prev_ts: # Avoid div/0
+                        ratio = (current_time - prev_ts) / (next_ts - prev_ts)
+                        val = prev_val + (next_val - prev_val) * ratio
+                     else:
+                        val = prev_val
+            else:
+                val = this_val
+        
+        interp_timestamps.append(current_time)
+        interp_rssi.append(val)
+        
+        # 2. ALGO EXECUTION
+        curr_idx = len(interp_timestamps) - 1
+        
+        if curr_idx >= 2000 and curr_idx % UPDATE_INTERVAL == 0:
+            run_rotation_task(interp_rssi, curr_idx, state)
+            
+        # 3. PHASE CALCULATION
         phase = 0.0
         if state.valid_lock:
-             # Calculate IQ Phase over one estimated period
-             period_samples = int(state.estimated_period_us / INTERPOLATION_INTERVAL_US)
-             if i >= period_samples:
-                 phase = calculate_iq_phase(smoothed_rssi, i, period_samples)
-        
-        # Store
-        out_timestamps.append(current_ts)
-        out_rssi.append(smoothed_rssi[i])
+            period_samples = int(state.estimated_period_us / INTERPOLATION_INTERVAL_US)
+            if curr_idx >= period_samples:
+                phase = calculate_iq_phase(interp_rssi, curr_idx, period_samples)
+                
+        # Store output
+        out_timestamps.append(current_time)
         out_rate.append(state.rotation_rate)
         out_phase.append(phase)
         out_lock.append(1 if state.valid_lock else 0)
+        
+        current_time += INTERPOLATION_INTERVAL_US
 
     print("Simulation Complete. Plotting...")
     
@@ -257,9 +312,13 @@ def main():
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
     
     # 1. RSSI
-    ax1.plot(out_timestamps, out_rssi, 'b-', label='RSSI')
+    ax1.plot(interp_timestamps, interp_rssi, 'b-', label='Interpolated RSSI', linewidth=0.5)
+    # Overlay raw points 
+    ax1.plot(raw_ts, raw_rssi, 'r.', label='Raw Samples', markersize=2, alpha=0.5)
+    
     ax1.set_ylabel('RSSI (dBm)')
-    ax1.set_title(f'Tracked Rotation Parameters ({os.path.basename(csv_filename)}) - IQ Demodulation')
+    ax1.set_title(f'Tracking ({os.path.basename(csv_filename)}) - {strategy.upper()}')
+    ax1.legend(loc='upper right')
     ax1.grid(True)
     
     # 2. Rate
@@ -274,26 +333,18 @@ def main():
     ax3.grid(True)
     
     # Overlay phase 0 crossings
-    peak_pred_timestamps = []
     for k in range(1, len(out_phase)):
         if out_phase[k] < out_phase[k-1] - math.pi:
-            # Wrap around
-            peak_pred_timestamps.append(out_timestamps[k])
+            ax1.axvline(x=out_timestamps[k], color='orange', alpha=0.3, linestyle='--')
             
-    # Visualize predicted peaks on RSSI graph
-    for ts in peak_pred_timestamps:
-        ax1.axvline(x=ts, color='orange', alpha=0.3, linestyle='--')
-        
     ax3.set_xlabel('Timestamp (us)')
     plt.tight_layout()
     
-    # Derive output filename
     base_name = os.path.splitext(os.path.basename(csv_filename))[0]
-    out_png = f"simulation_tracking_{base_name}_iq.png"
+    out_png = f"simulation_{base_name}_{strategy}.png"
     
     plt.savefig(out_png)
     print(f"Saved {out_png}")
-
 
 if __name__ == "__main__":
     main()

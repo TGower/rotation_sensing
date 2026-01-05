@@ -66,7 +66,6 @@ typedef struct __attribute__((packed)) {
   float rssi_var;
   int32_t pkts_per_sec;
   int8_t last_rssi;
-  // New Fields
   float rotation_rate;
   float vector_x;
   float vector_y;

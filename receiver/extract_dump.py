@@ -15,12 +15,11 @@ PARTITION_OFFSET = 0x187000
 
 # C Struct Layout
 # int8_t rssi[6000]
-# int8_t smoothed[6000]
 # int64_t timestamp[6000]
 # int32_t head
 # int32_t tail
 # int64_t last_timestamp
-STRUCT_FMT = f"<{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}qiiq"
+STRUCT_FMT = f"<{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}qiiq"
 EXPECTED_SIZE = struct.calcsize(STRUCT_FMT)
 
 def run_esptool_read(port, baud, output_file):
@@ -57,11 +56,10 @@ def parse_slot(slot_index, data):
         unpacked = struct.unpack(STRUCT_FMT, data[:EXPECTED_SIZE])
         
         rssi_arr = unpacked[0 : RSSI_BUF_SIZE]
-        smoothed_arr = unpacked[RSSI_BUF_SIZE : 2 * RSSI_BUF_SIZE]
-        ts_arr = unpacked[2 * RSSI_BUF_SIZE : 3 * RSSI_BUF_SIZE]
-        head = unpacked[3 * RSSI_BUF_SIZE]
-        tail = unpacked[3 * RSSI_BUF_SIZE + 1]
-        last_ts = unpacked[3 * RSSI_BUF_SIZE + 2]
+        ts_arr = unpacked[RSSI_BUF_SIZE : 2 * RSSI_BUF_SIZE]
+        head = unpacked[2 * RSSI_BUF_SIZE]
+        tail = unpacked[2 * RSSI_BUF_SIZE + 1]
+        last_ts = unpacked[2 * RSSI_BUF_SIZE + 2]
 
         # Basic validation
         if head < -1 or head >= RSSI_BUF_SIZE:
@@ -78,22 +76,19 @@ def parse_slot(slot_index, data):
 
         with open(csv_filename, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["Index", "Timestamp_US", "RSSI", "Smoothed_RSSI"])
+            writer.writerow(["Index", "Timestamp_US", "RSSI"])
 
             current = tail
             written = 0
             
-            # Loop from tail to head
-            while True:
+            # Loop from tail to head (excluding head)
+            while current != head:
                 t = ts_arr[current]
                 # Only write existing data (non-zero timestamp usually good indicator)
                 if t != 0:
-                    writer.writerow([written, t, rssi_arr[current], smoothed_arr[current]])
+                    writer.writerow([written, t, rssi_arr[current]])
                     written += 1
                 
-                if current == head:
-                    break
-                    
                 current = (current + 1) % RSSI_BUF_SIZE
         
         return csv_filename

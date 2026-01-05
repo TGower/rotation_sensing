@@ -1,0 +1,6 @@
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM1 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x4037ef31: [0;33mspinlock_initialize[0m[0m at [0;32m/home/t/esp/esp-idf/components/esp_hw_support/include/spinlock.h[0m[0m:[1;31m56[0m
+[0m--- (inlined by) [0;33mxEventGroupCreate[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/event_groups.c[0m[0m:[1;31m193[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 52155156c4312a1622952a37b12eb38e9beb0f8ede0fa2c7073d7ad2c427b8d0[0m
+[0m

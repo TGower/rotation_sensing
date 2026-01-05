@@ -190,6 +190,9 @@ static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
   g_raw_rssi_buf.timestamp[g_raw_rssi_buf.head] = timestamp;
   g_raw_rssi_buf.last_timestamp = timestamp;
   g_raw_rssi_buf.head = (g_raw_rssi_buf.head + 1) % RSSI_BUF_SIZE;
+  if (g_raw_rssi_buf.head == g_raw_rssi_buf.tail) {
+    g_raw_rssi_buf.tail = (g_raw_rssi_buf.tail + 1) % RSSI_BUF_SIZE;
+  }
 
   // If buffer is empty, just add the first point
   if (buf->last_timestamp == 0) {
@@ -522,6 +525,12 @@ static void rotation_task(void *pvParameter) {
                  "Starting Buffer Dump for Slot %" PRIu32
                  " at Offset 0x%" PRIx32 "...",
                  dump_index, offset);
+
+        // Log Buffer Info
+        ESP_LOGI(TAG, "Buffer Head: %d, Tail: %d, Count: %d",
+                 g_raw_rssi_buf.head, g_raw_rssi_buf.tail,
+                 (g_raw_rssi_buf.head - g_raw_rssi_buf.tail + RSSI_BUF_SIZE) %
+                     RSSI_BUF_SIZE);
 
         // 3. Erase ONLY the target slot (64KB)
         esp_partition_erase_range(part, offset, slot_size);

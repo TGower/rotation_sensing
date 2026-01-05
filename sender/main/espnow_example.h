@@ -65,13 +65,10 @@ _Static_assert(sizeof(control_packet_t) == 11,
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_STATS
-  float csi_mean;
-  float csi_var;
-  float espnow_mean;
-  float espnow_var;
+  float rssi_mean;
+  float rssi_var;
   int32_t pkts_per_sec;
   int8_t last_rssi;
-  // New Fields
   float rotation_rate;
   float vector_x;
   float vector_y;
