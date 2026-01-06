@@ -84,6 +84,7 @@ typedef struct {
   int head;
   int tail;
   int64_t last_timestamp;
+  int8_t last_rssi;
 } rssi_circular_buffer_t;
 
 typedef struct {
@@ -199,16 +200,16 @@ static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
     buf->rssi[buf->head] = rssi;
     buf->timestamp[buf->head] = timestamp;
     buf->last_timestamp = timestamp;
+    buf->last_rssi = rssi;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     // Tail stays 0 until full? Or just 0.
     return;
   }
 
-  int64_t target_ts = buf->last_timestamp + INTERPOLATION_INTERVAL_US;
-
   // Safety: If gap is too large (> 100ms), reset
   if (timestamp - buf->last_timestamp > 100000) {
     buf->last_timestamp = timestamp;
+    buf->last_rssi = rssi;
     buf->rssi[buf->head] = rssi;
     buf->timestamp[buf->head] = timestamp;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
@@ -218,18 +219,31 @@ static void interpolate_rssi(rssi_circular_buffer_t *buf, int64_t timestamp,
     return;
   }
 
+  if (timestamp <= buf->last_timestamp) {
+    ESP_LOGW(TAG, "Timestamp out of order");
+    return;
+  }
+
+  int8_t prev_rssi = buf->last_rssi;
+  int64_t prev_ts = buf->last_timestamp;
+  int last_idx = (buf->head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+  int64_t target_ts = buf->timestamp[last_idx] + INTERPOLATION_INTERVAL_US;
+
   while (target_ts <= timestamp) {
-    // Nearest neighbor
-    int8_t val = rssi;
+    // linear interpolate from prev_rssi to rssi
+    float ratio = (float)(target_ts - prev_ts) / (float)(timestamp - prev_ts);
+    int8_t val = (int8_t)(prev_rssi + (float)(rssi - prev_rssi) * ratio);
+
     buf->rssi[buf->head] = val;
     buf->timestamp[buf->head] = target_ts;
     buf->head = (buf->head + 1) % RSSI_BUF_SIZE;
     if (buf->head == buf->tail) {
       buf->tail = (buf->tail + 1) % RSSI_BUF_SIZE;
     }
-    buf->last_timestamp = target_ts;
     target_ts += INTERPOLATION_INTERVAL_US;
   }
+  buf->last_timestamp = timestamp;
+  buf->last_rssi = rssi;
 }
 
 static int compare_int8(const void *a, const void *b) {

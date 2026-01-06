@@ -1,482 +1,615 @@
 import csv
 import math
 import matplotlib.pyplot as plt
+import numpy as np
 import sys
 import os
-import argparse
-import numpy as np
-import finufft
 
-# Configuration
+# --- Configuration & Constants (Matching Firmware) ---
+RSSI_BUF_SIZE = 6000
 INTERPOLATION_INTERVAL_US = 100
-START_LAG = 200
-END_LAG = 1000
-STEP_LAG = 5
-CORR_WINDOW = 1000
-LAG_WINDOW = 1
+DSHOT_ESC_RESOLUTION_HZ = 40000000
+M_PI = math.pi
+M_PI_2 = math.pi / 2.0
+
+class PhysicsConfig:
+    def __init__(self):
+        # Disc
+        self.disc_diameter_m = 0.350
+        self.disc_radius_m = self.disc_diameter_m / 2.0
+        self.disc_mass_kg = 0.500
+        self.disc_height_m = 0.040
+        
+        # Motors/Wheels ("Opposite ends" -> mounted at Disc Radius)
+        self.motor_mount_radius_m = self.disc_radius_m
+        # Combined mass of motor + wheel assembly
+        self.motor_assembly_mass_kg = 0.050 
+        
+        # Wheels
+        self.wheel_diameter_m = 0.050
+        self.wheel_radius_m = self.wheel_diameter_m / 2.0
+        self.wheel_width_m = 0.020
+        
+        # Calculated Inertia
+        # I_disc = 0.5 * M * R^2
+        self.I_disc = 0.5 * self.disc_mass_kg * (self.disc_radius_m ** 2)
+        # I_motors = 2 * (m * R^2) (Point mass approximation at rim)
+        self.I_motors = 2 * (self.motor_assembly_mass_kg * (self.motor_mount_radius_m ** 2))
+        self.I_total = self.I_disc + self.I_motors
+        
+        # Tuning: Throttle 400 -> 35.97 Hz Bot Rotation
+        # 35.97 Hz Bot = 226.0 rad/s
+        # V_wheel_linear = 226.0 * 0.175 = 39.55 m/s
+        # Omega_wheel = 39.55 / 0.025 = 1582.0 rad/s
+        # RPM_wheel = 1582.0 * 60 / 2pi = 15107 RPM
+        # Ratio = 15107 / 400 = 37.77 RPM/ThrottleUnit
+        
+        self.motor_kv_rpm_per_unit = 37.77
+        
+        # Physics Parameters
+        self.drag_coeff = 0.0001 # Small linear drag
+        self.motor_torque_k = 1.0 # Stiffness of motor loop (response speed)
+
+class PhysicsState:
+    def __init__(self):
+        self.angular_velocity_rad_s = 0.0
+        self.angle_rad = 0.0
+
+class RSSICircularBuffer:
+    def __init__(self):
+        # Using numpy arrays for fixed size simulation or just list
+        self.rssi = [0] * RSSI_BUF_SIZE
+        self.timestamp = [0] * RSSI_BUF_SIZE
+        self.head = 0
+        self.tail = 0
+        self.last_timestamp = 0
+        self.last_rssi = 0
+        
+class ControlInput:
+    def __init__(self):
+        self.throttle = 0
+        self.vector_x = 0.0
+        self.vector_y = 0.0
 
 class RotationState:
     def __init__(self):
-        self.rotation_rate = 0.5 # Default 0.5 Hz
-        self.estimated_period_us = 2000000 # 2 seconds
-        self.valid_lock = False
+        self.rotation_rate = 0.5 # Default 0.5 Hz to match C fallback
+        self.phase_offset = 0.0
+        self.last_peak_timestamp = 0
+        self.estimated_period_us = 2000000.0 # 2 seconds
 
-def load_raw_data(filename):
-    _raw_timestamps = []
-    _raw_rssi = []
-    
+class AppConfig:
+    def __init__(self):
+        self.dshot_pin_a = 8
+        self.dshot_pin_b = 9
+        self.led_pin = 48
+        self.rotation_source = 1 # ESPNOW
+        self.step_lag = 5
+        self.step_window = 5
+        self.smoothing_window = 20
+        self.throttle_multiplier = 1.0
+        self.translation_multiplier = 4.0
+        self.correlation_window = 1000
+        self.phase_offset = 0.0
+
+# --- Global / System State ---
+# In a real system these are static/globals. Here they are part of the Sim class but we can treat them as "system" state.
+
+class ESPFirmwareSimulation:
+    def __init__(self):
+        self.g_interpolated_rssi_buf = RSSICircularBuffer()
+        self.g_raw_rssi_buf = RSSICircularBuffer() # Used for dumping in C, we simulate it too
+        self.g_control_input = ControlInput()
+        self.g_rotation_state = RotationState()
+        self.g_config = AppConfig()
+        
+        # Physics Engine
+        self.phys_config = PhysicsConfig()
+        self.phys_state = PhysicsState()
+        
+        # Simulation State
+        self.current_time_us = 0
+        
+        # Rotation Task Internal Static State
+        self.rot_errors = [0] * 1000 # Max Lags size approx
+        self.rot_lags = [0] * 1000
+        
+        # Logs for Plotting
+        self.log_time = []
+        self.log_rssi_sample = [] # Sample from head
+        self.log_dshot_a = []
+        self.log_dshot_b = []
+        self.log_led_r = []
+        self.log_led_g = []
+        self.log_led_b = []
+        self.log_rate = []
+        self.log_phase = []
+        self.log_phys_rate_hz = [] # Physics Truth
+        self.log_peak = [] # Boolean for peak detected frame
+        
+        # Set some default control input to see motor action
+        self.g_control_input.throttle = 400
+        self.g_control_input.vector_x = 0.5
+        self.g_control_input.vector_y = 0.5
+
+    def update_physics(self, dt_sec, dshot_a, dshot_b):
+        # 1. Determine Target Wheel RPMs
+        # 48 is min throttle (stop), < 48 is specialized
+        
+        ta = dshot_a if dshot_a >= 48 else 0
+        tb = dshot_b if dshot_b >= 48 else 0
+        
+        # If both motors spin to ROTATE the bot, they must push in opposite directions relative to the hub?
+        # Actually, "Motors spin in opposite directions" -> They create a couple.
+        # If mounted +Y and -Y.
+        # Motor A at +Y pushes -X (CW torque?). Motor B at -Y pushes +X (CW torque?).
+        # So they cooperate.
+        # Let's average the throttle for the rotational component.
+        # (Differential throttle causes translation, but for simple rotation physics we can take the mean common mode)
+        
+        avg_throttle = (ta + tb) / 2.0
+        
+        # Target Wheel Speed (no slip)
+        target_wheel_rpm = avg_throttle * self.phys_config.motor_kv_rpm_per_unit
+        target_wheel_rad_s = target_wheel_rpm * 2 * M_PI / 60.0
+        
+        # Kinematic relationship to Bot Speed
+        # Omega_bot * R_bot = Omega_wheel * R_wheel
+        target_bot_rad_s = target_wheel_rad_s * self.phys_config.wheel_radius_m / self.phys_config.motor_mount_radius_m
+        
+        # Dynamics
+        # Torque = (Target - Current) * K
+        error_rad_s = target_bot_rad_s - self.phys_state.angular_velocity_rad_s
+        
+        drive_torque = error_rad_s * self.phys_config.motor_torque_k
+        
+        # Drag
+        drag_torque = self.phys_config.drag_coeff * self.phys_state.angular_velocity_rad_s
+        
+        net_torque = drive_torque - drag_torque
+        
+        alpha = net_torque / self.phys_config.I_total
+        
+        self.phys_state.angular_velocity_rad_s += alpha * dt_sec
+        self.phys_state.angle_rad += self.phys_state.angular_velocity_rad_s * dt_sec
+        self.phys_state.angle_rad %= (2 * M_PI)
+
+    def interpolate_rssi(self, buf, timestamp, rssi):
+        # Implementation of interpolate_rssi from C
+        
+        # 1. Add to Raw Buffer (Logic from C)
+        self.g_raw_rssi_buf.rssi[self.g_raw_rssi_buf.head] = rssi
+        self.g_raw_rssi_buf.timestamp[self.g_raw_rssi_buf.head] = timestamp
+        self.g_raw_rssi_buf.last_timestamp = timestamp
+        self.g_raw_rssi_buf.head = (self.g_raw_rssi_buf.head + 1) % RSSI_BUF_SIZE
+        if self.g_raw_rssi_buf.head == self.g_raw_rssi_buf.tail:
+            self.g_raw_rssi_buf.tail = (self.g_raw_rssi_buf.tail + 1) % RSSI_BUF_SIZE
+            
+        # 2. Main Interpolation Logic
+        if buf.last_timestamp == 0:
+            buf.rssi[buf.head] = rssi
+            buf.timestamp[buf.head] = timestamp
+            buf.last_timestamp = timestamp
+            buf.last_rssi = rssi
+            buf.head = (buf.head + 1) % RSSI_BUF_SIZE
+            return
+            
+        if timestamp - buf.last_timestamp > 100000:
+            # Gap reset
+            buf.last_timestamp = timestamp
+            buf.last_rssi = rssi
+            buf.rssi[buf.head] = rssi
+            buf.timestamp[buf.head] = timestamp
+            buf.head = (buf.head + 1) % RSSI_BUF_SIZE
+            if buf.head == buf.tail:
+                buf.tail = (buf.tail + 1) % RSSI_BUF_SIZE
+            return
+            
+        if timestamp <= buf.last_timestamp:
+            return # out of order
+            
+        prev_rssi = buf.last_rssi
+        prev_ts = buf.last_timestamp
+        
+        # Reconstruct logical "last_idx" from head
+        last_idx = (buf.head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+        # In C: target_ts = buf->timestamp[last_idx] + INTERPOLATION_INTERVAL_US
+        # Note: if buf->head was just incremented, last_idx points to the last written.
+        # But if we just started, head might be 1. last_idx 0.
+        
+        # Initial target logic correction:
+        # If we have only 1 point, target is that point + 100us.
+        target_ts = buf.timestamp[last_idx] + INTERPOLATION_INTERVAL_US
+        
+        while target_ts <= timestamp:
+            ratio = (target_ts - prev_ts) / (timestamp - prev_ts)
+            val = int(prev_rssi + (rssi - prev_rssi) * ratio)
+            
+            buf.rssi[buf.head] = val
+            buf.timestamp[buf.head] = target_ts
+            buf.head = (buf.head + 1) % RSSI_BUF_SIZE
+            if buf.head == buf.tail:
+                buf.tail = (buf.tail + 1) % RSSI_BUF_SIZE
+            
+            target_ts += INTERPOLATION_INTERVAL_US
+            
+        buf.last_timestamp = timestamp
+        buf.last_rssi = rssi
+
+    def calculate_autocorr_error(self, buf, head, lag, corr_window):
+        total_diff = 0
+        
+        # C uses start_idx = (head - corr_window + SIZE) % SIZE
+        start_idx = (head - corr_window + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+        cur_idx = start_idx
+        idx_B = (cur_idx - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+        
+        # Python implementation of sum(|A - B|)
+        # Slower than C but logic is same
+        # We can optimize slightly by slicing if array isn't circular, but here it wraps.
+        
+        for _ in range(corr_window):
+            val_a = buf.rssi[cur_idx]
+            val_b = buf.rssi[idx_B]
+            total_diff += abs(val_a - val_b)
+            
+            cur_idx = (cur_idx + 1) % RSSI_BUF_SIZE
+            idx_B = (idx_B + 1) % RSSI_BUF_SIZE
+            
+        return total_diff
+
+    def task_rotation(self):
+        # Mimic rotation_task loop body
+        # 1. Check data availability
+        head = self.g_interpolated_rssi_buf.head
+        tail = self.g_interpolated_rssi_buf.tail
+        count = (head - tail + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+        corr_window = self.g_config.correlation_window
+        
+        if count < corr_window * 2:
+            return
+            
+        start_lag = 200
+        end_lag = 1000
+        step_lag = self.g_config.step_lag
+        
+        # Coarse Search
+        min_diff = float('inf')
+        max_diff = float('-inf')
+        
+        count_lags = 0
+        # Re-use buffer arrays
+        errors = self.rot_errors
+        lags = self.rot_lags
+        
+        curr_lag = start_lag
+        while curr_lag < end_lag:
+            diff = self.calculate_autocorr_error(self.g_interpolated_rssi_buf, head, curr_lag, corr_window)
+            errors[count_lags] = diff
+            lags[count_lags] = curr_lag
+            
+            if diff < min_diff: min_diff = diff
+            if diff > max_diff: max_diff = diff
+            
+            count_lags += 1
+            curr_lag += step_lag
+            
+        # Process Slopes
+        best_lag = 0
+        found_valid = False
+        
+        if count_lags > 3:
+            slopes = [] 
+            max_slope = 0
+            
+            for i in range(count_lags - 1):
+                s = errors[i+1] - errors[i]
+                slopes.append(s)
+                if abs(s) > max_slope: max_slope = abs(s)
+                
+            if max_slope < 1.0: max_slope = 1.0
+            
+            LAG_WINDOW = 1
+            
+            for i in range(count_lags - 2):
+                if i >= len(slopes) - 1: break # Safety
+                
+                norm_curr = slopes[i] / max_slope
+                norm_next = slopes[i+1] / max_slope
+                
+                if norm_curr < 0 and norm_next > 0:
+                    valley_idx = i + 1
+                    
+                    norm_error = (errors[valley_idx] - min_diff) / (max_diff - min_diff)
+                    
+                    if norm_error < 0.5:
+                        d2_sum = 0
+                        count_d2 = 0
+                        
+                        # Look back
+                        # for (int k = i; k >= i - (2 * LAG_WINDOW); k--)
+                        for k in range(i, i - (2 * LAG_WINDOW) - 1, -1):
+                            if k < 0: continue
+                            d2 = (slopes[k+1] - slopes[k]) / max_slope
+                            d2_sum += d2
+                            count_d2 += 1
+                            
+                        if count_d2 > 0:
+                            avg_d2 = d2_sum / count_d2
+                            if avg_d2 > 0.05:
+                                best_lag = lags[valley_idx]
+                                found_valid = True
+                                break
+                                
+        final_lag = best_lag
+        
+        if not found_valid:
+            self.g_rotation_state.estimated_period_us = 2000000.0
+            self.g_rotation_state.rotation_rate = 0.5
+            final_lag = 0
+        else:
+            # Fine Search
+            fine_min_diff = float('inf')
+            
+            for i in range(-step_lag, step_lag + 1):
+                lag = best_lag + i
+                if lag < start_lag or lag > end_lag: continue
+                diff = self.calculate_autocorr_error(self.g_interpolated_rssi_buf, head, lag, corr_window)
+                if diff < fine_min_diff:
+                    fine_min_diff = diff
+                    final_lag = lag
+                    
+        if final_lag > 0:
+            self.g_rotation_state.estimated_period_us = float(final_lag * INTERPOLATION_INTERVAL_US)
+            self.g_rotation_state.rotation_rate = 1000000.0 / self.g_rotation_state.estimated_period_us
+            
+            # IQ Demodulation
+            period_us = self.g_rotation_state.estimated_period_us
+            window_duration = 4.0 * period_us
+            
+            # Limit window
+            max_win = RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US
+            if window_duration > max_win: window_duration = max_win
+            
+            samples_to_process = int(window_duration / INTERPOLATION_INTERVAL_US)
+            if samples_to_process > RSSI_BUF_SIZE: samples_to_process = RSSI_BUF_SIZE
+            
+            sum_I = 0.0
+            sum_Q = 0.0
+            omega = 2.0 * M_PI / period_us
+            
+            # Ref time: timestamp[ref_idx] where ref_idx = head - 1
+            ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+            t_ref = self.g_interpolated_rssi_buf.timestamp[ref_idx]
+            
+            for i in range(samples_to_process):
+                idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+                val = self.g_interpolated_rssi_buf.rssi[idx]
+                t = self.g_interpolated_rssi_buf.timestamp[idx]
+                
+                dt = float(t - t_ref)
+                angle = omega * dt
+                
+                sum_I += val * math.cos(angle)
+                sum_Q += val * math.sin(angle)
+                
+            phi = math.atan2(sum_Q, sum_I)
+            
+            # t_target = t_ref + (phi + PI) / omega
+            dt_pi = (phi + M_PI) / omega
+            self.g_rotation_state.last_peak_timestamp = t_ref + int(dt_pi)
+
+    def task_motor(self):
+        # Mimic motor_task loop body
+        now = self.current_time_us
+        
+        time_since_peak = now - self.g_rotation_state.last_peak_timestamp
+        phase = 2.0 * M_PI * float(time_since_peak) / self.g_rotation_state.estimated_period_us
+        
+        # Apply Offset
+        phase += self.g_config.phase_offset
+        
+        # Normalize 0..2PI
+        phase = phase % (2.0 * M_PI)
+        if phase < 0: phase += 2.0 * M_PI
+        
+        # Determine LED Color
+        # Green for 45 deg arc opposite peak (Heading) -> Peak is at phase=0?
+        # In IQ code: "t_target" is where phase would be PI? 
+        # C Code Line 766: "Find time where phase would be PI... last_peak_timestamp = ... "
+        # So last_peak_timestamp is effectively checking PI intersection.
+        # So at last_peak_timestamp, phase should be PI.
+        # But calculation `phase = 2PI * dt / period` implies phase grows linearly from last_peak_timestamp.
+        # If last_peak_timestamp is "PI", then at `now` == `last_peak`, `phase` calc gives 0 (since dt=0).
+        # This seems inconsistent or strictly defined: `time_since_peak` is 0 at `last_peak_timestamp`.
+        # So `phase` variable here starts at 0 at `last_peak_timestamp`.
+        # C code `HEADING_START` is `PI - PI/8`.
+        
+        # LED Logic
+        r, g, b = 0, 0, 0
+        max_intensity = 255
+        
+        if phase < M_PI:
+             ratio = phase / M_PI
+             r = int(max_intensity * ratio)
+             b = int(max_intensity * (1.0 - ratio))
+        else:
+             ratio = (phase - M_PI) / M_PI
+             r = max_intensity
+             g = int(max_intensity * ratio)
+             b = int(max_intensity * ratio) # Wait, C code says g and b both ratio? 
+             # C Line 415: b = (uint8_t)(max_intensity * ratio);
+             # Red -> White
+             
+        HEADING_START = M_PI - M_PI / 8.0
+        HEADING_END = M_PI + M_PI / 8.0
+        
+        if phase > HEADING_START and phase < HEADING_END:
+            r, g, b = 0, max_intensity, 0
+            
+        # Motor Mixing
+        TRANSLATION_BASE_STRENGTH = 100
+        throttle = self.g_control_input.throttle
+        leftDShot = throttle
+        rightDShot = throttle
+        
+        if throttle >= 48:
+            throttle_rescaled = int(throttle * self.g_config.throttle_multiplier)
+            
+            vx = self.g_control_input.vector_x
+            vy = self.g_control_input.vector_y
+            mag = math.sqrt(vx*vx + vy*vy)
+            
+            if mag > 0.1:
+                target_angle = math.atan2(-vy, vx) + M_PI_2
+                if target_angle < 0: target_angle += 2.0 * M_PI
+                if target_angle >= 2.0 * M_PI: target_angle -= 2.0 * M_PI
+                
+                diff = phase - target_angle
+                while diff <= -M_PI: diff += 2.0 * M_PI
+                while diff > M_PI: diff -= 2.0 * M_PI
+                
+                if abs(diff) < (M_PI / 8.0):
+                    strength = TRANSLATION_BASE_STRENGTH * self.g_config.translation_multiplier * mag
+                    leftDShot = throttle_rescaled + strength
+                    rightDShot = throttle_rescaled - strength
+                else:
+                    leftDShot = throttle_rescaled
+                    rightDShot = throttle_rescaled
+                    
+            if leftDShot < 48: leftDShot = 48
+            if leftDShot > 2047: leftDShot = 2047
+            if rightDShot < 48: rightDShot = 48
+            if rightDShot > 2047: rightDShot = 2047
+            
+        # Log outputs
+        self.log_dshot_a.append(leftDShot)
+        self.log_dshot_b.append(rightDShot)
+        self.log_led_r.append(r)
+        self.log_led_g.append(g)
+        self.log_led_b.append(b)
+        self.log_phase.append(phase)
+        
+        # Step Physics using these DShot values
+        # They are applied for the NEXT millisecond
+        # Note: In C this runs in parallel.
+        self.update_physics(0.001, leftDShot, rightDShot)
+        
+    def run_simulation(self, raw_ts, raw_rssi):
+        if not raw_ts: return
+        
+        start_time = raw_ts[0]
+        end_time = raw_ts[-1]
+        
+        self.current_time_us = start_time
+        curr_raw_idx = 0
+        total_len = len(raw_ts)
+        
+        # 1ms Tick Loop (1000us)
+        TICK_US = 1000
+        
+        while self.current_time_us <= end_time + TICK_US: # Run a bit past
+            # 1. Ingest Data for this tick
+            # Find all raw points <= current_time_us that haven't been processed
+            # Actually, interpolate_rssi is called ON ARRIVAL.
+            # So as we step time, we check if any new packets "arrived".
+            
+            while curr_raw_idx < total_len and raw_ts[curr_raw_idx] <= self.current_time_us:
+                self.interpolate_rssi(self.g_interpolated_rssi_buf, raw_ts[curr_raw_idx], raw_rssi[curr_raw_idx])
+                curr_raw_idx += 1
+                
+            # 2. Run Tasks
+            self.task_rotation() # C: vTaskDelay(1) -> once per tick
+            self.task_motor()    # C: vTaskDelay(1) -> once per tick
+            
+            # 3. Log
+            self.log_time.append(self.current_time_us)
+            
+            # Log current interpolated value for vis (take head-1)
+            idx = (self.g_interpolated_rssi_buf.head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+            self.log_rssi_sample.append(self.g_interpolated_rssi_buf.rssi[idx])
+            
+            self.log_rate.append(self.g_rotation_state.rotation_rate)
+            
+            # Log Physics Truth
+            self.log_phys_rate_hz.append(self.phys_state.angular_velocity_rad_s / (2 * M_PI))
+            
+            # Advance
+            self.current_time_us += TICK_US
+            
+        print("Simulation Complete.")
+
+def load_data(filename):
+    ts = []
+    rssi = []
     with open(filename, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            try:
-                ts = int(row['Timestamp_US'])
-                rssi = int(row['RSSI'])
-                if ts > 0:
-                   _raw_timestamps.append(ts)
-                   _raw_rssi.append(rssi)
-            except ValueError:
-                continue
-
-    if not _raw_timestamps:
-        return [], []
-            
-    # Sort by timestamp to handle circular buffer wrapping
-    combined = sorted(zip(_raw_timestamps, _raw_rssi))
-    _raw_timestamps = [x[0] for x in combined]
-    _raw_rssi = [x[1] for x in combined]
-    
-    return _raw_timestamps, _raw_rssi
-
-def calculate_autocorr_error(data, head, lag, window):
-    # data is a list. head is the index "after" the last element (len(data)).
-    start_A = head - window
-    end_A = head
-    
-    start_B = head - window - lag
-    end_B = head - lag
-    
-    if start_B < 0:
-        raise ValueError("Not enough data for lag calculation")
-        
-    vec_A = data[start_A : end_A]
-    vec_B = data[start_B : end_B]
-    
-    diff_sum = sum(abs(a - b) for a, b in zip(vec_A, vec_B))
-    return diff_sum
-
-def calculate_iq_phase(data, head, period_samples):
-    # period_samples can be float.
-    # Window size should be approx 4 periods.
-    window_samples = int(period_samples * 4)
-    
-    if head < window_samples:
-        return 0.0
-        
-    start_idx = head - window_samples
-    window_data = data[start_idx : head]
-    
-    I = 0.0
-    Q = 0.0
-    
-    # Omega must be exact based on the sub-sample period
-    omega = 2.0 * math.pi / period_samples
-    
-    for k in range(window_samples):
-        # delta ranges from -window_samples to -1 relative to head
-        delta = k - window_samples
-        val = window_data[k]
-        
-        angle = omega * delta
-        I += val * math.cos(angle)
-        Q += val * math.sin(angle)
-        
-    if I == 0 and Q == 0:
-        return 0.0
-        
-    phi = math.atan2(-Q, I)
-    
-    if phi < 0:
-        phi += 2.0 * math.pi
-        
-    return phi
-
-def run_rotation_task(data, head, state):
-    count = head
-    if count < CORR_WINDOW * 2:
-        return
-
-    # 1. Coarse Search
-    min_diff = float('inf')
-    max_diff = float('-inf')
-    
-    lags = []
-    errors = []
-    
-    curr_lag_list = range(START_LAG, END_LAG + 1, STEP_LAG)
-    
-    for lag in curr_lag_list:
-        err = calculate_autocorr_error(data, head, lag, CORR_WINDOW)
-        lags.append(lag)
-        errors.append(err)
-        if err < min_diff: min_diff = err
-        if err > max_diff: max_diff = err
-
-    # 2. Process Slopes
-    if len(lags) < 4: return
-
-    slopes = []
-    max_slope = 0.0
-    
-    for i in range(len(errors) - 1):
-        s = errors[i+1] - errors[i]
-        slopes.append(s)
-        if abs(s) > max_slope:
-            max_slope = abs(s)
-            
-    if max_slope < 1.0: max_slope = 1.0
-    
-    best_lag = 0
-    found_valid = False
-    
-    # Scan for zero crossings
-    for i in range(len(slopes) - 1):
-        norm_curr = slopes[i] / max_slope
-        norm_next = slopes[i+1] / max_slope
-        
-        if norm_curr < 0 and norm_next > 0:
-            valley_idx = i + 1
-            
-            # 1. Norm Error Check
-            norm_error = (errors[valley_idx] - min_diff) / (max_diff - min_diff)
-            if norm_error < 0.5:
-                # 2. Curvature (d2)
-                d2_sum = 0
-                count_d2 = 0
-                # Look back
-                for k in range(i, i - (2 * LAG_WINDOW) - 1, -1):
-                    if k < 0: continue
-                    d2 = (slopes[k+1] - slopes[k]) / max_slope
-                    d2_sum += d2
-                    count_d2 += 1
-                
-                avg_d2 = 0
-                if count_d2 > 0: avg_d2 = d2_sum / count_d2
-                
-                if avg_d2 > 0.05:
-                    best_lag = lags[valley_idx]
-                    found_valid = True
-                    break # First valid
-                    
-    final_lag = best_lag
-    
-    if not found_valid:
-        state.rotation_rate = 0.5
-        state.estimated_period_us = 2000000
-        state.valid_lock = False
-        final_lag = 0
-    else:
-        # Fine search
-        fine_min = float('inf')
-        real_final_lag = final_lag
-        
-        for lag in range(best_lag - STEP_LAG, best_lag + STEP_LAG + 1):
-            if lag < START_LAG or lag > END_LAG: continue
-            err = calculate_autocorr_error(data, head, lag, CORR_WINDOW)
-            if err < fine_min:
-                fine_min = err
-                real_final_lag = lag
-        
-        final_lag = real_final_lag
-        
-        # Sub-sample interpolation
-        # Using Parabolic Interpolation:
-        # y = ax^2 + bx + c
-        # We have 3 points: (x-1, y_minus), (x, y_0), (x+1, y_plus)
-        # The minimum is at x - (y_plus - y_minus) / (2 * (y_plus - 2*y_0 + y_minus))
-        
-        delta = 0.0
-        if real_final_lag > START_LAG and real_final_lag < END_LAG:
-            err_minus = calculate_autocorr_error(data, head, real_final_lag - 1, CORR_WINDOW)
-            err_plus = calculate_autocorr_error(data, head, real_final_lag + 1, CORR_WINDOW)
-            
-            numerator = err_minus - err_plus
-            denominator = 2 * (err_minus - 2 * fine_min + err_plus)
-            
-            if denominator != 0:
-                delta = numerator / denominator
-                
-        state.valid_lock = True
-        state.estimated_period_us = (final_lag + delta) * INTERPOLATION_INTERVAL_US
-        state.rotation_rate = 1000000.0 / state.estimated_period_us
-
-def run_rotation_task_nufft(raw_ts_window, raw_rssi_window, state):
-    # raw_ts_window: list of timestamps in us
-    # raw_rssi_window: list of RSSI values
-    
-    if len(raw_ts_window) < 100:
-        return
-
-    # Convert to numpy arrays
-    t = np.array(raw_ts_window, dtype=np.float64)
-    y = np.array(raw_rssi_window, dtype=np.complex128) # Signal is real, but finufft takes complex
-    
-    # Normalize time to start at 0 for phase consistency relative to window start
-    # t = (t - t[0]) / 1000000.0 # seconds
-    # Actually, keep it absolute but scaled to seconds for frequency calculation
-    # But usually for Type 3, we want the "target frequencies"
-    t_sec = t / 1_000_000.0
-    
-    # Define candidate frequencies
-    # Lags: 200us to 1000us -> Periods: 20ms to 100ms
-    # Freqs: 10Hz to 50Hz
-    # Step lag 5us is approx fine.
-    # We will search the same "lag" space as the time-domain algo for consistency
-    
-    lags = np.arange(START_LAG, END_LAG + 1, STEP_LAG) # in 100us units (from original algo)
-    # Original algo lags are effectively indices into a 100us sampled array.
-    # So lag=200 means 200 * 100us = 20000us = 20ms.
-    periods_us = lags * INTERPOLATION_INTERVAL_US
-    periods_sec = periods_us / 1_000_000.0
-    freqs_hz = 1.0 / periods_sec
-    omegas = 2 * np.pi * freqs_hz
-    
-    # NUFFT Type 3: inputs (t, y), request transform at frequencies (omegas)
-    # F[k] = sum(c[j] * exp(1i * s[k] * x[j]))
-    # Here x[j] is time t, s[k] is omega. 
-    # Usually Fourier transform is sum(f(t) * exp(-i * omega * t))
-    # finufft sign convention: +i (default) or -i
-    # We'll use -1 (isign) for standard forward transform convention if we want physical meaning,
-    # but for magnitude peak it doesn't matter much. Let's use -1.
-    
-    f = finufft.nufft1d3(t_sec, y, omegas, isign=-1, eps=1e-6)
-    
-    # Find peak magnitude
-    mags = np.abs(f)
-    peak_idx = np.argmax(mags)
-    peak_omega = omegas[peak_idx]
-    
-    # Refine peak using parabolic interpolation on the magnitude spectrum?
-    # Or just take the max for now. Let's start with max.
-    
-    # Update State
-    state.rotation_rate = peak_omega / (2 * np.pi)
-    state.estimated_period_us = 1_000_000.0 / state.rotation_rate
-    state.valid_lock = True # Assuming we always find "some" peak
-    
-    # Only trust it if peak is significant? (Skip for now, simplistic)
-    if mags[peak_idx] < 100: # Arbitrary threshold
-         state.valid_lock = False
-
-
+           try:
+               t = int(row['Timestamp_US'])
+               r = int(row['RSSI'])
+               if t > 0:
+                   ts.append(t)
+                   rssi.append(r)
+           except: continue
+           
+    # Sort
+    combined = sorted(zip(ts, rssi))
+    if not combined: return [], []
+    return [x[0] for x in combined], [x[1] for x in combined]
 
 def main():
-    parser = argparse.ArgumentParser(description='Simulate rotation tracking with interpolation strategies.')
-    parser.add_argument('file', help='CSV dump file')
-    parser.add_argument('--strategy', choices=['baseline', 'linear', 'smart', 'nufft'], default='baseline', help='Interpolation strategy')
-    
-    args = parser.parse_args()
-    csv_filename = args.file
-    strategy = args.strategy
-    
-    print(f"Loading {csv_filename}...")
-    try:
-        raw_ts, raw_rssi = load_raw_data(csv_filename)
-        if not raw_ts:
-            print("No data loaded")
-            return
-    except FileNotFoundError:
-        print(f"Error: {csv_filename} not found.")
+    if len(sys.argv) < 2:
+        print("Usage: python simulate_rotation.py <csv_file>")
         return
         
-    print(f"Loaded {len(raw_rssi)} raw samples. Running {strategy} strategy...")
-    
-    state = RotationState()
-    
-    # Output buffer (we build this incrementally)
-    interp_timestamps = []
-    interp_rssi = []
-    
-    # Analysis outputs
-    out_timestamps = []
-    out_rate = []
-    out_phase = []
-    out_lock = []
-    
-    start_time = raw_ts[0]
-    end_time = raw_ts[-1]
-    
-    current_time = start_time
-    raw_idx = 0
-    
-    # Current simulation buffer (growing)
-    # Note: interp_rssi IS the buffer
-    
-    UPDATE_INTERVAL = 100 # run algo every 100 samples (10ms)
-    
-    while current_time <= end_time:
-        # 1. INTERPOLATION LOGIC
+    filename = sys.argv[1]
+    if not os.path.exists(filename):
+        print("File not found")
+        return
         
-        # Advance raw_idx such that we know the surrounding raw points
-        # raw_idx points to the last sample <= current_time
-        while raw_idx < len(raw_ts) - 1 and raw_ts[raw_idx + 1] <= current_time:
-            raw_idx += 1
-            
-        this_val = raw_rssi[raw_idx]
-        
-        if strategy == 'baseline':
-            # Sample and Hold
-            val = this_val
-            
-        elif strategy == 'linear' or strategy == 'smart':
-            # Need next sample
-            if raw_idx < len(raw_ts) - 1:
-                prev_ts = raw_ts[raw_idx]
-                prev_val = raw_rssi[raw_idx]
-                next_ts = raw_ts[raw_idx+1]
-                next_val = raw_rssi[raw_idx+1]
-                
-                gap = next_ts - prev_ts
-                
-                # Check for Smart Healing condition
-                is_gap = gap > 300
-                healed = False
-                
-                if strategy == 'smart' and is_gap and state.valid_lock:
-                     # Try to heal from history
-                     period_samples = int(state.estimated_period_us / INTERPOLATION_INTERVAL_US)
-                     # We need history at current_time - period
-                     # Since interp_rssi is filled up to current index (which effectively maps to current_time - step)
-                     # We are calculating the value FOR current_time.
-                     # Index 0 corresponds to start_time. 
-                     # Current index is len(interp_rssi).
-                     curr_idx = len(interp_rssi)
-                     hist_idx = curr_idx - period_samples
-                     
-                     if hist_idx >= 0 and hist_idx < len(interp_rssi):
-                         val = interp_rssi[hist_idx]
-                         healed = True
-                
-                if not healed:
-                     # Linear Interpolation
-                     if next_ts > prev_ts: # Avoid div/0
-                        ratio = (current_time - prev_ts) / (next_ts - prev_ts)
-                        val = prev_val + (next_val - prev_val) * ratio
-                     else:
-                        val = prev_val
-            else:
-                val = this_val
-        
-        elif strategy == 'nufft':
-            # For NUFFT, we don't strictly need interpolation for the RATE estimation,
-            # but we still need to plot "something" or at least advance time.
-            # We'll just replicate baseline (sample-and-hold) for the visualization RSSI trace.
-            val = this_val
-        
-        interp_timestamps.append(current_time)
-        interp_rssi.append(val)
-        
-        # 2. ALGO EXECUTION
-        curr_idx = len(interp_timestamps) - 1
-        
-        if curr_idx >= 2000 and curr_idx % UPDATE_INTERVAL == 0:
-            if strategy == 'nufft':
-                # Pass the raw window relative to current time
-                # We need raw samples within [current_time - window, current_time]
-                # Window size 2000 * 100us = 200ms? 
-                # OR user said "window size of 2000" -- usually means 2000 samples in the interpolated array?
-                # The interpolated array has 100us step. So 2000 * 100us = 0.2s = 200ms.
-                # Let's find raw samples in the last 200ms.
-                
-                win_duration_us = 2000 * INTERPOLATION_INTERVAL_US
-                win_start_time = current_time - win_duration_us
-                
-                # Extract raw slice (inefficient linear search, but fine for sim)
-                # raw_ts is sorted.
-                
-                # Find range
-                # Bisect would be faster, but let's just create a view
-                
-                # We need to efficiently grab the slice.
-                # Since raw_idx tracks current_time, we can scan backwards from raw_idx
-                
-                slice_ts = []
-                slice_rssi = []
-                
-                # Scan backwards from raw_idx
-                # raw_idx points to sample <= current_time
-                k = raw_idx
-                while k >= 0:
-                    t = raw_ts[k]
-                    if t < win_start_time:
-                        break
-                    slice_ts.append(t)
-                    slice_rssi.append(raw_rssi[k])
-                    k -= 1
-                
-                # Re-reverse to be chronological
-                slice_ts.reverse()
-                slice_rssi.reverse()
-                
-                run_rotation_task_nufft(slice_ts, slice_rssi, state)
-                
-            else:
-                run_rotation_task(interp_rssi, curr_idx, state)
-            
-        # 3. PHASE CALCULATION
-        phase = 0.0
-        if state.valid_lock:
-            # Pass float for precision
-            period_samples_float = state.estimated_period_us / INTERPOLATION_INTERVAL_US
-            if curr_idx >= int(period_samples_float):
-                phase = calculate_iq_phase(interp_rssi, curr_idx, period_samples_float)
-                
-        # Store output
-        out_timestamps.append(current_time)
-        out_rate.append(state.rotation_rate)
-        out_phase.append(phase)
-        out_lock.append(1 if state.valid_lock else 0)
-        
-        current_time += INTERPOLATION_INTERVAL_US
-
-    print("Simulation Complete. Plotting...")
+    ts, rssi = load_data(filename)
+    sim = ESPFirmwareSimulation()
+    sim.run_simulation(ts, rssi)
+    
+    # Calculate Midway Rate
+    mid_idx = len(sim.log_rate) // 2
+    if 0 <= mid_idx < len(sim.log_rate):
+        print(f"Index {mid_idx}/{len(sim.log_rate)}")
+        print(f"Midway Estimated Rate: {sim.log_rate[mid_idx]} Hz")
     
     # Plotting
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
+    fig, axes = plt.subplots(4, 1, figsize=(12, 12), sharex=True)
     
-    # 1. RSSI
-    ax1.plot(interp_timestamps, interp_rssi, 'b-', label='Interpolated RSSI', linewidth=0.5)
-    # Overlay raw points 
-    ax1.plot(raw_ts, raw_rssi, 'r.', label='Raw Samples', markersize=2, alpha=0.5)
+    # RSSI
+    axes[0].plot(sim.log_time, sim.log_rssi_sample, label='Interpolated RSSI', color='blue', linewidth=0.5)
+    axes[0].scatter(ts, rssi, label='Raw', color='red', s=2, alpha=0.5)
+    axes[0].set_ylabel('RSSI')
+    axes[0].legend()
+    axes[0].set_title(f'Simulation: {os.path.basename(filename)}')
     
-    ax1.set_ylabel('RSSI (dBm)')
-    ax1.set_title(f'Tracking ({os.path.basename(csv_filename)}) - {strategy.upper()}')
-    ax1.legend(loc='upper right')
-    ax1.grid(True)
+    # Rate
+    axes[1].plot(sim.log_time, sim.log_rate, label='Estimated Rate (Hz)', color='green')
+    axes[1].plot(sim.log_time, sim.log_phys_rate_hz, label='Physics Rate (Hz)', color='black',  linestyle='--')
+    axes[1].set_ylabel('Hz')
+    axes[1].legend()
     
-    # 2. Rate
-    ax2.plot(out_timestamps, out_rate, 'g-', label='Estimated Rate (Hz)')
-    ax2.set_ylabel('Rate (Hz)')
-    ax2.grid(True)
+    # Phase
+    axes[2].plot(sim.log_time, sim.log_phase, label='Phase (rad)', color='purple', linewidth=0.5)
+    axes[2].set_ylabel('Rad')
+    axes[2].legend()
     
-    # 3. Phase
-    ax3.plot(out_timestamps, out_phase, 'r.', markersize=1, label='Phase (rad)')
-    ax3.set_ylabel('Phase (0-2pi)')
-    ax3.set_ylim(0, 2*math.pi)
-    ax3.grid(True)
+    # DShot / Motor
+    axes[3].plot(sim.log_time, sim.log_dshot_a, label='Left DShot', color='orange')
+    axes[3].plot(sim.log_time, sim.log_dshot_b, label='Right DShot', color='cyan')
+    axes[3].set_ylabel('DShot')
+    axes[3].legend()
+    axes[3].set_xlabel('Time (us)')
     
-    # Overlay phase 0 crossings
-    for k in range(1, len(out_phase)):
-        if out_phase[k] < out_phase[k-1] - math.pi:
-            ax1.axvline(x=out_timestamps[k], color='orange', alpha=0.3, linestyle='--')
-            
-    ax3.set_xlabel('Timestamp (us)')
+    out_png = f"sim_aligned_{os.path.basename(filename)}.png"
     plt.tight_layout()
-    
-    base_name = os.path.splitext(os.path.basename(csv_filename))[0]
-    out_png = f"simulation_{base_name}_{strategy}.png"
-    
-    plt.savefig(out_png, dpi=300)
-    print(f"Saved {out_png}")
+    plt.savefig(out_png)
+    print(f"Saved plot to {out_png}")
 
 if __name__ == "__main__":
     main()
