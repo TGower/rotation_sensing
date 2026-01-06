@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import sys
 import os
 import argparse
+import numpy as np
+import finufft
 
 # Configuration
 INTERPOLATION_INTERVAL_US = 100
@@ -63,7 +65,9 @@ def calculate_autocorr_error(data, head, lag, window):
     return diff_sum
 
 def calculate_iq_phase(data, head, period_samples):
-    window_samples = period_samples * 4
+    # period_samples can be float.
+    # Window size should be approx 4 periods.
+    window_samples = int(period_samples * 4)
     
     if head < window_samples:
         return 0.0
@@ -74,9 +78,11 @@ def calculate_iq_phase(data, head, period_samples):
     I = 0.0
     Q = 0.0
     
+    # Omega must be exact based on the sub-sample period
     omega = 2.0 * math.pi / period_samples
     
     for k in range(window_samples):
+        # delta ranges from -window_samples to -1 relative to head
         delta = k - window_samples
         val = window_data[k]
         
@@ -181,14 +187,92 @@ def run_rotation_task(data, head, state):
                 real_final_lag = lag
         
         final_lag = real_final_lag
+        
+        # Sub-sample interpolation
+        # Using Parabolic Interpolation:
+        # y = ax^2 + bx + c
+        # We have 3 points: (x-1, y_minus), (x, y_0), (x+1, y_plus)
+        # The minimum is at x - (y_plus - y_minus) / (2 * (y_plus - 2*y_0 + y_minus))
+        
+        delta = 0.0
+        if real_final_lag > START_LAG and real_final_lag < END_LAG:
+            err_minus = calculate_autocorr_error(data, head, real_final_lag - 1, CORR_WINDOW)
+            err_plus = calculate_autocorr_error(data, head, real_final_lag + 1, CORR_WINDOW)
+            
+            numerator = err_minus - err_plus
+            denominator = 2 * (err_minus - 2 * fine_min + err_plus)
+            
+            if denominator != 0:
+                delta = numerator / denominator
+                
         state.valid_lock = True
-        state.estimated_period_us = final_lag * INTERPOLATION_INTERVAL_US
+        state.estimated_period_us = (final_lag + delta) * INTERPOLATION_INTERVAL_US
         state.rotation_rate = 1000000.0 / state.estimated_period_us
+
+def run_rotation_task_nufft(raw_ts_window, raw_rssi_window, state):
+    # raw_ts_window: list of timestamps in us
+    # raw_rssi_window: list of RSSI values
+    
+    if len(raw_ts_window) < 100:
+        return
+
+    # Convert to numpy arrays
+    t = np.array(raw_ts_window, dtype=np.float64)
+    y = np.array(raw_rssi_window, dtype=np.complex128) # Signal is real, but finufft takes complex
+    
+    # Normalize time to start at 0 for phase consistency relative to window start
+    # t = (t - t[0]) / 1000000.0 # seconds
+    # Actually, keep it absolute but scaled to seconds for frequency calculation
+    # But usually for Type 3, we want the "target frequencies"
+    t_sec = t / 1_000_000.0
+    
+    # Define candidate frequencies
+    # Lags: 200us to 1000us -> Periods: 20ms to 100ms
+    # Freqs: 10Hz to 50Hz
+    # Step lag 5us is approx fine.
+    # We will search the same "lag" space as the time-domain algo for consistency
+    
+    lags = np.arange(START_LAG, END_LAG + 1, STEP_LAG) # in 100us units (from original algo)
+    # Original algo lags are effectively indices into a 100us sampled array.
+    # So lag=200 means 200 * 100us = 20000us = 20ms.
+    periods_us = lags * INTERPOLATION_INTERVAL_US
+    periods_sec = periods_us / 1_000_000.0
+    freqs_hz = 1.0 / periods_sec
+    omegas = 2 * np.pi * freqs_hz
+    
+    # NUFFT Type 3: inputs (t, y), request transform at frequencies (omegas)
+    # F[k] = sum(c[j] * exp(1i * s[k] * x[j]))
+    # Here x[j] is time t, s[k] is omega. 
+    # Usually Fourier transform is sum(f(t) * exp(-i * omega * t))
+    # finufft sign convention: +i (default) or -i
+    # We'll use -1 (isign) for standard forward transform convention if we want physical meaning,
+    # but for magnitude peak it doesn't matter much. Let's use -1.
+    
+    f = finufft.nufft1d3(t_sec, y, omegas, isign=-1, eps=1e-6)
+    
+    # Find peak magnitude
+    mags = np.abs(f)
+    peak_idx = np.argmax(mags)
+    peak_omega = omegas[peak_idx]
+    
+    # Refine peak using parabolic interpolation on the magnitude spectrum?
+    # Or just take the max for now. Let's start with max.
+    
+    # Update State
+    state.rotation_rate = peak_omega / (2 * np.pi)
+    state.estimated_period_us = 1_000_000.0 / state.rotation_rate
+    state.valid_lock = True # Assuming we always find "some" peak
+    
+    # Only trust it if peak is significant? (Skip for now, simplistic)
+    if mags[peak_idx] < 100: # Arbitrary threshold
+         state.valid_lock = False
+
+
 
 def main():
     parser = argparse.ArgumentParser(description='Simulate rotation tracking with interpolation strategies.')
     parser.add_argument('file', help='CSV dump file')
-    parser.add_argument('--strategy', choices=['baseline', 'linear', 'smart'], default='baseline', help='Interpolation strategy')
+    parser.add_argument('--strategy', choices=['baseline', 'linear', 'smart', 'nufft'], default='baseline', help='Interpolation strategy')
     
     args = parser.parse_args()
     csv_filename = args.file
@@ -282,6 +366,12 @@ def main():
             else:
                 val = this_val
         
+        elif strategy == 'nufft':
+            # For NUFFT, we don't strictly need interpolation for the RATE estimation,
+            # but we still need to plot "something" or at least advance time.
+            # We'll just replicate baseline (sample-and-hold) for the visualization RSSI trace.
+            val = this_val
+        
         interp_timestamps.append(current_time)
         interp_rssi.append(val)
         
@@ -289,14 +379,56 @@ def main():
         curr_idx = len(interp_timestamps) - 1
         
         if curr_idx >= 2000 and curr_idx % UPDATE_INTERVAL == 0:
-            run_rotation_task(interp_rssi, curr_idx, state)
+            if strategy == 'nufft':
+                # Pass the raw window relative to current time
+                # We need raw samples within [current_time - window, current_time]
+                # Window size 2000 * 100us = 200ms? 
+                # OR user said "window size of 2000" -- usually means 2000 samples in the interpolated array?
+                # The interpolated array has 100us step. So 2000 * 100us = 0.2s = 200ms.
+                # Let's find raw samples in the last 200ms.
+                
+                win_duration_us = 2000 * INTERPOLATION_INTERVAL_US
+                win_start_time = current_time - win_duration_us
+                
+                # Extract raw slice (inefficient linear search, but fine for sim)
+                # raw_ts is sorted.
+                
+                # Find range
+                # Bisect would be faster, but let's just create a view
+                
+                # We need to efficiently grab the slice.
+                # Since raw_idx tracks current_time, we can scan backwards from raw_idx
+                
+                slice_ts = []
+                slice_rssi = []
+                
+                # Scan backwards from raw_idx
+                # raw_idx points to sample <= current_time
+                k = raw_idx
+                while k >= 0:
+                    t = raw_ts[k]
+                    if t < win_start_time:
+                        break
+                    slice_ts.append(t)
+                    slice_rssi.append(raw_rssi[k])
+                    k -= 1
+                
+                # Re-reverse to be chronological
+                slice_ts.reverse()
+                slice_rssi.reverse()
+                
+                run_rotation_task_nufft(slice_ts, slice_rssi, state)
+                
+            else:
+                run_rotation_task(interp_rssi, curr_idx, state)
             
         # 3. PHASE CALCULATION
         phase = 0.0
         if state.valid_lock:
-            period_samples = int(state.estimated_period_us / INTERPOLATION_INTERVAL_US)
-            if curr_idx >= period_samples:
-                phase = calculate_iq_phase(interp_rssi, curr_idx, period_samples)
+            # Pass float for precision
+            period_samples_float = state.estimated_period_us / INTERPOLATION_INTERVAL_US
+            if curr_idx >= int(period_samples_float):
+                phase = calculate_iq_phase(interp_rssi, curr_idx, period_samples_float)
                 
         # Store output
         out_timestamps.append(current_time)
@@ -343,7 +475,7 @@ def main():
     base_name = os.path.splitext(os.path.basename(csv_filename))[0]
     out_png = f"simulation_{base_name}_{strategy}.png"
     
-    plt.savefig(out_png)
+    plt.savefig(out_png, dpi=300)
     print(f"Saved {out_png}")
 
 if __name__ == "__main__":
