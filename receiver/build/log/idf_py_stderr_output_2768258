@@ -1,4 +1,0 @@
-[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM1 115200[0m
-[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
-[0m--- 0x4037fc4d: [0;33m_frxt_int_enter[0m[0m at [0;32m/home/t/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/portasm.S[0m[0m:[1;31m152[0m
-[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 3f49bbe22dccac8d12b111cc7e719013826200fa1c75b683824c66ac2057dfe1[0m

@@ -1,4 +1,0 @@
-[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM0 115200[0m
-[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
-[0m--- 0x4200a9c7: [0;33mcalculate_autocorr_error[0m[0m at [0;32m/home/t/esp/rotation_sensing/receiver/main/espnow_example_main.c[0m[0m:[1;31m427[0m
-[0m

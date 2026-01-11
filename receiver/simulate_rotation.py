@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 import os
+import json
+import matplotlib.animation as animation
+from matplotlib.patches import Circle, Wedge, Arrow
 
 # --- Configuration & Constants (Matching Firmware) ---
 RSSI_BUF_SIZE = 6000
@@ -49,11 +52,20 @@ class PhysicsConfig:
         # Physics Parameters
         self.drag_coeff = 0.0001 # Small linear drag
         self.motor_torque_k = 1.0 # Stiffness of motor loop (response speed)
+        
+        # Total Mass for Translation
+        # 0.5 disc + 0.1 motors + misc
+        self.total_mass_kg = 0.6 
 
 class PhysicsState:
     def __init__(self):
         self.angular_velocity_rad_s = 0.0
         self.angle_rad = 0.0
+        # Translation (World Frame)
+        self.x = 0.0
+        self.y = 0.0
+        self.vx = 0.0
+        self.vy = 0.0
 
 class RSSICircularBuffer:
     def __init__(self):
@@ -96,12 +108,22 @@ class AppConfig:
 # In a real system these are static/globals. Here they are part of the Sim class but we can treat them as "system" state.
 
 class ESPFirmwareSimulation:
-    def __init__(self):
+    def __init__(self, config_dict=None):
         self.g_interpolated_rssi_buf = RSSICircularBuffer()
         self.g_raw_rssi_buf = RSSICircularBuffer() # Used for dumping in C, we simulate it too
         self.g_control_input = ControlInput()
         self.g_rotation_state = RotationState()
         self.g_config = AppConfig()
+        
+        if config_dict:
+            print("Applying config from JSON...")
+            # Map JSON to AppConfig
+            # AppConfig keys matching JSON keys roughly
+            for k, v in config_dict.items():
+                if hasattr(self.g_config, k):
+                    setattr(self.g_config, k, v)
+                    print(f"  {k} = {v}")
+        
         
         # Physics Engine
         self.phys_config = PhysicsConfig()
@@ -125,6 +147,9 @@ class ESPFirmwareSimulation:
         self.log_rate = []
         self.log_phase = []
         self.log_phys_rate_hz = [] # Physics Truth
+        self.log_phys_angle = [] # Physics Truth (Orientation)
+        self.log_phys_x = []
+        self.log_phys_y = []
         self.log_peak = [] # Boolean for peak detected frame
         
         # Set some default control input to see motor action
@@ -163,16 +188,160 @@ class ESPFirmwareSimulation:
         
         drive_torque = error_rad_s * self.phys_config.motor_torque_k
         
+        # --- Torque to Force Breakdown ---
+        # drive_torque is the NET torque.
+        # Assume it's distributed based on the throttle ratio?
+        # Actually, "Target Wheel Speed" was based on AVERAGE throttle.
+        # But real physics: Each motor has its own Target RPM -> Own Force.
+        
+        # Let's refine:
+        # Motor A Target Speed:
+        ta_rpm = ta * self.phys_config.motor_kv_rpm_per_unit
+        ta_rad_s = ta_rpm * 2 * M_PI / 60.0
+        # Motor B Target Speed:
+        tb_rpm = tb * self.phys_config.motor_kv_rpm_per_unit
+        tb_rad_s = tb_rpm * 2 * M_PI / 60.0
+        
+        # Current Wheel Speed (Assuming no slip, tied to bot angular vel for now? No, that's coupling.)
+        # If we assume perfect grip, Wheel Speed = Bot Angular Speed * Ratio.
+        # But if we differentiate:
+        # Force A = K * (Target_A_Wheel_Linear_Vel - Current_Wheel_Linear_Vel) ?
+        
+        # Let's simplify:
+        # We calculated `drive_torque` based on the Loop of "Target Bot Rate".
+        # Let's split this torque back into forces.
+        # Or better: Calculate Force A and Force B independently.
+        
+        # Force = Torque_at_wheel / Wheel_Radius?
+        # Torque_at_wheel approx proportional to (TargetRPM - CurrentRPM).
+        # Linear Speed at Rim = Bot_Omega * Disc_Radius.
+        # Wheel Linear Speed (ground) = Wheel_Omega * Wheel_Radius.
+        # No slip -> Linear Speed at Rim == Wheel Linear Speed (ground)?
+        # Actually, if bot rotates CW:
+        # Rim at Motor A moves "Forward" relative to ground?
+        # Velocity_Rim_A = Omega_Bot * R_Mount (Tangential).
+        # Wheel A must spin to match that?
+        
+        # Effective Linear Velocity of Motor Mount:
+        v_mount_mag = self.phys_state.angular_velocity_rad_s * self.phys_config.motor_mount_radius_m
+        
+        # Motor A (Left, +Y in body if X is fwd? No, earlier we said A pushes -X).
+        # Let's stick to the "Torque" model we tuned.
+        # Torque_A = K_motor * (Target_A - Current_Speed_A)
+        # Torque_B = K_motor * (Target_B - Current_Speed_B)
+        # Net Torque = (Torque_A + Torque_B) * Leverage?
+        
+        # Let's infer Force from the tuned `drive_torque`.
+        # `drive_torque` was derived from `avg_throttle`.
+        # Let `force_magnitude_per_throttle` be implied.
+        
+        # Re-derive Force A and B consistent with the tuned torque:
+        # If ta == tb, Net Torque = drive_torque. Net Force = ?
+        # If ta == tb, we want PURE ROTATION -> Net Force = 0?
+        # NO. The user says "Motors pulsing... translational drift".
+        # If A and B oppose each other for Torque, do they ADD for Force?
+        # Setup:
+        # Disc. Motor A at 9 o'clock. Motor B at 3 o'clock.
+        # To spin CCW: A pushes DOWN. B pushes UP. -> Couple. Net Force 0.
+        # To Translate UP: A pushes UP. B pushes UP. -> Net Force UP. Torque 0.
+        # So:
+        # Force_A ~ Throttle_A. Direction? 
+        # For Rotation (CCW): A needs to push "Back". B needs to push "Forward".
+        # So Vector A is "Back". Vector B is "Forward".
+        # If Throttle A > Throttle B (Pulse):
+        # Result: More "Back" force. Net Force is "Back".
+        # Net Torque is CCW (since A contributes to CCW).
+        # So `Force_A` contributes to CCW Torque AND "Back" Translation.
+        # `Force_B` contributes to CCW Torque (if positive?) No.
+        # If B pushes "Forward", it helps CCW Torque.
+        # So BOTH A and B help CCW Torque?
+        # Yes, standard differential drive on rim:
+        # Left Wheel pushes Back -> Bot turns Left (CCW).
+        # Right Wheel pushes Fwd -> Bot turns Left (CCW).
+        # So "Forward" rotation requires A(Back) + B(Fwd).
+        # Net Force = B(Fwd) + A(Back) = B - A.
+        
+        # So:
+        # Force_A_mag = calc_force(ta)
+        # Force_B_mag = calc_force(tb)
+        # Torque = (Force_A_mag + Force_B_mag) * Radius.
+        # Net Linear Force (Body Framework X-axis) = Force_B_mag - Force_A_mag.
+        
+        # We need to preserve the Tuned Torque behavior.
+        # In tuned model: drive_torque ~ (Target - Current).
+        # Let's split `drive_torque` into A and B components based on Throttle ratio.
+        # Or calculate explicitly:
+        
+        # Current Linear Speed (Virtual) for Motor Loop:
+        v_current = self.phys_state.angular_velocity_rad_s * self.phys_config.motor_mount_radius_m
+        
+        # Target Linear Speeds
+        v_target_a = ta_rpm * (2*M_PI/60) * 0.025 * (0.175/0.175) # ... simplify
+        # actually target_wheel_rad_s * wheel_radius = target_linear_v_rim
+        v_target_a = ta_rad_s * self.phys_config.wheel_radius_m
+        v_target_b = tb_rad_s * self.phys_config.wheel_radius_m
+        
+        # K_force (Linear version of torque k)
+        # Torque = Force * R_mount.
+        # Force = Torque / R_mount.
+        # K_force = K_torque / (R_mount^2) ? Dimensional analysis...
+        # Let's just use a scaling factor `k_f`
+        
+        # We know `drive_torque = K * (v_target_avg_ang - v_curr_ang)`.
+        # approx `K * (v_target_lin - v_curr_lin) / R_mount` * R_mount?
+        # Let's calculate Force A and B directly using a `k_force`.
+        
+        k_force = self.phys_config.motor_torque_k / self.phys_config.motor_mount_radius_m
+        
+        # Note: v_target are speeds "along the torque generation direction".
+        # For A: "Back". For B: "Forward".
+        # But `v_current` is scalar rotational speed (tangential).
+        # So `v_current` corresponds to "Forward at B" and "Back at A".
+        
+        f_a = k_force * (v_target_a - v_current) # Positive f_a means "Pushing Back harder than current speed"
+        f_b = k_force * (v_target_b - v_current)
+        
+        drive_torque_new = (f_a + f_b) * self.phys_config.motor_mount_radius_m
+        
+        # Check consistency: if ta=tb=400, v_target_a=v_target_b. f_a=f_b. 
+        # Torque = 2 * f_a * R.
+        # Matches logic? Yes.
+        
+        # Net Linear Force (Body Frame)
+        # B pushes Forward (+X body). A pushes Back (-X body).
+        # F_body = f_b - f_a
+        
+        f_net_body = f_b - f_a
+        
         # Drag
         drag_torque = self.phys_config.drag_coeff * self.phys_state.angular_velocity_rad_s
-        
-        net_torque = drive_torque - drag_torque
+        net_torque = drive_torque_new - drag_torque
         
         alpha = net_torque / self.phys_config.I_total
-        
         self.phys_state.angular_velocity_rad_s += alpha * dt_sec
         self.phys_state.angle_rad += self.phys_state.angular_velocity_rad_s * dt_sec
         self.phys_state.angle_rad %= (2 * M_PI)
+        
+        # Translational Dynamics
+        # Rotate F_net_body to World Frame
+        # Bot Angle 0 -> Body X aligns with World X?
+        # Let's assume Angle 0 means Heading +X.
+        theta = self.phys_state.angle_rad
+        fx_world = f_net_body * math.cos(theta)
+        fy_world = f_net_body * math.sin(theta)
+        
+        # Linear Drag (Translation)
+        lin_drag_k = 0.5 
+        fx_world -= lin_drag_k * self.phys_state.vx
+        fy_world -= lin_drag_k * self.phys_state.vy
+        
+        ax = fx_world / self.phys_config.total_mass_kg
+        ay = fy_world / self.phys_config.total_mass_kg
+        
+        self.phys_state.vx += ax * dt_sec
+        self.phys_state.vy += ay * dt_sec
+        self.phys_state.x += self.phys_state.vx * dt_sec
+        self.phys_state.y += self.phys_state.vy * dt_sec
 
     def interpolate_rssi(self, buf, timestamp, rssi):
         # Implementation of interpolate_rssi from C
@@ -455,6 +624,8 @@ class ESPFirmwareSimulation:
         
         if throttle >= 48:
             throttle_rescaled = int(throttle * self.g_config.throttle_multiplier)
+            leftDShot = throttle_rescaled
+            rightDShot = throttle_rescaled
             
             vx = self.g_control_input.vector_x
             vy = self.g_control_input.vector_y
@@ -469,13 +640,12 @@ class ESPFirmwareSimulation:
                 while diff <= -M_PI: diff += 2.0 * M_PI
                 while diff > M_PI: diff -= 2.0 * M_PI
                 
-                if abs(diff) < (M_PI / 8.0):
-                    strength = TRANSLATION_BASE_STRENGTH * self.g_config.translation_multiplier * mag
-                    leftDShot = throttle_rescaled + strength
-                    rightDShot = throttle_rescaled - strength
-                else:
-                    leftDShot = throttle_rescaled
-                    rightDShot = throttle_rescaled
+                # Smooth Sinusoidal Modulation
+                modulation = math.cos(diff)
+                strength = TRANSLATION_BASE_STRENGTH * self.g_config.translation_multiplier * mag * modulation
+                
+                leftDShot = throttle_rescaled + strength
+                rightDShot = throttle_rescaled - strength
                     
             if leftDShot < 48: leftDShot = 48
             if leftDShot > 2047: leftDShot = 2047
@@ -495,7 +665,51 @@ class ESPFirmwareSimulation:
         # Note: In C this runs in parallel.
         self.update_physics(0.001, leftDShot, rightDShot)
         
-    def run_simulation(self, raw_ts, raw_rssi):
+    def load_data(self, filename):
+        print(f"Loading data from {filename}...")
+        raw_ts = []
+        raw_rssi = []
+        raw_throttle = []
+        raw_vx = []
+        raw_vy = []
+        
+        try:
+            with open(filename, 'r') as f:
+                reader = csv.reader(f)
+                header = next(reader)
+                # Check for new columns
+                has_control = "Throttle" in header
+
+                for row in reader:
+                    if not row: continue
+                    try:
+                        # Index, Timestamp_US, RSSI
+                        t = int(row[1])
+                        r = int(row[2])
+                        raw_ts.append(t)
+                        raw_rssi.append(r)
+                        
+                        if has_control and len(row) >= 6:
+                            raw_throttle.append(int(row[3]))
+                            raw_vx.append(float(row[4]))
+                            raw_vy.append(float(row[5]))
+                        else:
+                            # Default or previous logic
+                            raw_throttle.append(400)
+                            raw_vx.append(0.5)
+                            raw_vy.append(0.5)
+                            
+                    except ValueError:
+                        continue
+                        
+        except FileNotFoundError:
+            print(f"Error: File {filename} not found.")
+            return None, None, None, None, None
+            
+        print(f"Loaded {len(raw_ts)} samples.")
+        return raw_ts, raw_rssi, raw_throttle, raw_vx, raw_vy
+
+    def run_simulation(self, raw_ts, raw_rssi, raw_throttle, raw_vx, raw_vy):
         if not raw_ts: return
         
         start_time = raw_ts[0]
@@ -516,6 +730,12 @@ class ESPFirmwareSimulation:
             
             while curr_raw_idx < total_len and raw_ts[curr_raw_idx] <= self.current_time_us:
                 self.interpolate_rssi(self.g_interpolated_rssi_buf, raw_ts[curr_raw_idx], raw_rssi[curr_raw_idx])
+                
+                # Update Control Input from CSV
+                self.g_control_input.throttle = raw_throttle[curr_raw_idx]
+                self.g_control_input.vector_x = raw_vx[curr_raw_idx]
+                self.g_control_input.vector_y = raw_vy[curr_raw_idx]
+                
                 curr_raw_idx += 1
                 
             # 2. Run Tasks
@@ -533,30 +753,178 @@ class ESPFirmwareSimulation:
             
             # Log Physics Truth
             self.log_phys_rate_hz.append(self.phys_state.angular_velocity_rad_s / (2 * M_PI))
+            self.log_phys_angle.append(self.phys_state.angle_rad)
+            self.log_phys_x.append(self.phys_state.x)
+            self.log_phys_y.append(self.phys_state.y)
             
             # Advance
             self.current_time_us += TICK_US
             
         print("Simulation Complete.")
 
-def load_data(filename):
-    ts = []
-    rssi = []
-    with open(filename, 'r') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-           try:
-               t = int(row['Timestamp_US'])
-               r = int(row['RSSI'])
-               if t > 0:
-                   ts.append(t)
-                   rssi.append(r)
-           except: continue
-           
-    # Sort
-    combined = sorted(zip(ts, rssi))
-    if not combined: return [], []
-    return [x[0] for x in combined], [x[1] for x in combined]
+    def render_video(self, filename="simulation_video.mp4", fps=60, slowdown=100):
+        print(f"Rendering video to {filename} (Slowdown: {slowdown}x)...")
+        
+        # Resample data to FPS
+        total_time_us = self.log_time[-1] - self.log_time[0]
+        total_time_s = total_time_us / 1e6
+        total_frames = int(total_time_s * fps * slowdown)
+        ts_step = 1e6 / (fps * slowdown)
+        
+        # Create figure
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.set_aspect('equal')
+        ax.set_xlim(-0.3, 0.3)
+        ax.set_ylim(-0.3, 0.3)
+        ax.set_title("Physics Simulation")
+        
+        # Elements
+        # 1. Disc Body
+        disc_radius = self.phys_config.disc_radius_m # 0.175
+        disc_patch = Circle((0, 0), disc_radius, color='gray', alpha=0.3)
+        ax.add_patch(disc_patch)
+        
+        # 2. Orientation Line (Black line from center to edge)
+        # We will update its data
+        line_orientation, = ax.plot([], [], 'k-', linewidth=2)
+        
+        # Trajectory
+        line_traj, = ax.plot([], [], 'g-', linewidth=1, alpha=0.5)
+        
+        # Grid
+        ax.grid(True, which='both', linestyle='--', alpha=0.3)
+        
+        # 3. LED Indicator (Big colored circle in center or arc?)
+        # User asked for "render the physics simulation".
+        # Let's put a colored circle in the center representing the LED
+        led_radius = 0.05
+        led_patch = Circle((0, 0), led_radius, color='black')
+        ax.add_patch(led_patch)
+        
+        # 4. Motors (Arrows)
+        # Motor A at +R (relative to angle), pushing tangentially?
+        # Motors are "opposite ends, 90 deg offset from heading".
+        # If Heading is 0 (X axis?), Motors at +Y and -Y?
+        # Or if Heading is +Y, Motors at +X and -X?
+        # Let's assume Heading is +X (Angle 0).
+        # Motors at 90 deg (Y) and 270 deg (-Y).
+        # Motor A at +90 deg. Force direction?
+        # To spin Positive (CCW), A (at +90) should push -X (CW?? Wait).
+        # CCW Rotation: Torque is +Z. 
+        # Force at +Y must be pointing -X to create +Z torque? (r x F) -> (0, R, 0) x (-1, 0, 0) = (0, 0, R) -> Positive Torque. Correct.
+        # So Motor A at 90 deg point Left relative to heading.
+        # Motor B at -90 deg point Right relative to heading.
+        
+        # Re-do arrows using plot for speed/simplicity
+        line_motor_a, = ax.plot([], [], 'r-', linewidth=3, label='Motor A')
+        line_motor_b, = ax.plot([], [], 'b-', linewidth=3, label='Motor B')
+        
+        # Helper to get interpolated sample
+        # We have ~1000 Hz logs.
+        time_map = np.array(self.log_time)
+        
+        # Unwrap angles for smooth interpolation
+        unwrapped_angles = np.unwrap(self.log_phys_angle)
+        
+        def update_simple(frame):
+            t_target = self.log_time[0] + frame * ts_step
+            # Find index
+            idx = np.searchsorted(time_map, t_target)
+            if idx >= len(self.log_time): idx = len(self.log_time) - 1
+            
+            # Get State
+            angle = self.log_phys_angle[idx]
+            
+            # Update Orientation Line
+            # End point
+            ex = disc_radius * math.cos(angle)
+            ey = disc_radius * math.sin(angle)
+            line_orientation.set_data([0, ex], [0, ey])
+            
+            # Update LED
+            r = self.log_led_r[idx] / 255.0
+            g = self.log_led_g[idx] / 255.0
+            b = self.log_led_b[idx] / 255.0
+            led_patch.set_color((r, g, b))
+            
+            
+            # Interpolate Angle
+            angle = np.interp(t_target, time_map, unwrapped_angles)
+            
+            # Interpolate Position
+            x = np.interp(t_target, time_map, self.log_phys_x)
+            y = np.interp(t_target, time_map, self.log_phys_y)
+            
+            # Update View Limit (Camera Follow)
+            window = 0.5
+            ax.set_xlim(x - window, x + window)
+            ax.set_ylim(y - window, y + window)
+            
+            # Trajectory
+            # For efficiency, just draw path up to current time? 
+            # Or simplified: just tail?
+            # Let's map 'idx' roughly
+            idx = np.searchsorted(time_map, t_target)
+            if idx > 1:
+                # Downsample trajectory logging for speed?
+                # Just plot log_phys_x[:idx]
+                line_traj.set_data(self.log_phys_x[:idx:10], self.log_phys_y[:idx:10])
+
+            # Orientation
+            ex = disc_radius * math.cos(angle)
+            ey = disc_radius * math.sin(angle)
+            line_orientation.set_data([x, x + ex], [y, y + ey])
+            
+            # Body
+            disc_patch.center = (x, y)
+            
+            # LED (Interpolate Colors)
+            r = np.interp(t_target, time_map, self.log_led_r) / 255.0
+            g = np.interp(t_target, time_map, self.log_led_g) / 255.0
+            b = np.interp(t_target, time_map, self.log_led_b) / 255.0
+            led_patch.set_color((r, g, b))
+            led_patch.center = (x, y)
+            
+            # Motor A (Left/Red)
+            angle_a = angle + M_PI_2
+            px_a = x + disc_radius * math.cos(angle_a)
+            py_a = y + disc_radius * math.sin(angle_a)
+            
+            thr_a = np.interp(t_target, time_map, self.log_dshot_a)
+            len_a = (thr_a / 2047.0) * 0.1
+            
+            angle_f_a = angle_a + M_PI_2
+            fx_a = px_a + len_a * math.cos(angle_f_a)
+            fy_a = py_a + len_a * math.sin(angle_f_a)
+            line_motor_a.set_data([px_a, fx_a], [py_a, fy_a])
+
+            # Motor B (Right/Blue)
+            angle_b = angle - M_PI_2
+            px_b = x + disc_radius * math.cos(angle_b)
+            py_b = y + disc_radius * math.sin(angle_b)
+             
+            thr_b = np.interp(t_target, time_map, self.log_dshot_b)
+            len_b = (thr_b / 2047.0) * 0.1
+            # Wait, CCW torque. R x F.
+            # Pos B: (0, -R). Force vector F?
+            # (0, -R, 0) x (Fx, Fy, 0) = (0, 0, R*Fx) (if Fy=0).
+            # We want +Z torque. So Fx must be positive.
+            # Direction 0 (Right).
+            # Radial B: Angle - 90.
+            # Tangent B: Angle - 90 + 90 = Angle.
+            # So Force B is along Angle.
+            
+            angle_f_b = angle_b + M_PI_2
+            fx_b = px_b + len_b * math.cos(angle_f_b)
+            fy_b = py_b + len_b * math.sin(angle_f_b)
+            
+            line_motor_b.set_data([px_b, fx_b], [py_b, fy_b])
+            
+            return [line_orientation, led_patch, line_motor_a, line_motor_b, disc_patch, line_traj]
+        ani = animation.FuncAnimation(fig, update_simple, frames=total_frames, blit=True)
+        ani.save(filename, writer='ffmpeg', fps=fps)
+        print("Video saved.")
+
 
 def main():
     if len(sys.argv) < 2:
@@ -566,11 +934,18 @@ def main():
     filename = sys.argv[1]
     if not os.path.exists(filename):
         print("File not found")
-        return
-        
-    ts, rssi = load_data(filename)
-    sim = ESPFirmwareSimulation()
-    sim.run_simulation(ts, rssi)
+    
+    # Load Config if exists
+    json_file = os.path.splitext(filename)[0] + ".json"
+    config_dict = None
+    if os.path.exists(json_file):
+        with open(json_file, 'r') as f:
+            config_dict = json.load(f)
+            
+    sim = ESPFirmwareSimulation(config_dict=config_dict)
+    raw_ts, raw_rssi, raw_th, raw_vx, raw_vy = sim.load_data(filename)
+    
+    sim.run_simulation(raw_ts, raw_rssi, raw_th, raw_vx, raw_vy)
     
     # Calculate Midway Rate
     mid_idx = len(sim.log_rate) // 2
@@ -583,7 +958,7 @@ def main():
     
     # RSSI
     axes[0].plot(sim.log_time, sim.log_rssi_sample, label='Interpolated RSSI', color='blue', linewidth=0.5)
-    axes[0].scatter(ts, rssi, label='Raw', color='red', s=2, alpha=0.5)
+    axes[0].scatter(raw_ts, raw_rssi, label='Raw', color='red', s=2, alpha=0.5)
     axes[0].set_ylabel('RSSI')
     axes[0].legend()
     axes[0].set_title(f'Simulation: {os.path.basename(filename)}')
@@ -610,6 +985,11 @@ def main():
     plt.tight_layout()
     plt.savefig(out_png)
     print(f"Saved plot to {out_png}")
+    
+    # Render Video
+    base = os.path.splitext(os.path.basename(filename))[0]
+    vid_name = f"sim_video_{base}.mp4"
+    sim.render_video(vid_name, slowdown=100)
 
 if __name__ == "__main__":
     main()

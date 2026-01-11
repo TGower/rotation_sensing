@@ -7,6 +7,8 @@ import os
 import subprocess
 from datetime import datetime
 
+import json
+
 # Configuration matching Receiver Firmware
 RSSI_BUF_SIZE = 6000
 SLOT_SIZE = 0x20000     # 128KB
@@ -14,13 +16,44 @@ PARTITION_SIZE = 0x200000 # 2MB
 PARTITION_OFFSET = 0x187000
 
 # C Struct Layout
-# int8_t rssi[6000]
-# int64_t timestamp[6000]
-# int32_t head
-# int32_t tail
-# int64_t last_timestamp
-STRUCT_FMT = f"<{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}qiiq"
+# typedef struct {
+#   int8_t rssi[RSSI_BUF_SIZE];              // 6000 bytes
+#   int64_t timestamp[RSSI_BUF_SIZE];        // 6000 * 8 = 48000 bytes
+#   control_packet_t control[RSSI_BUF_SIZE]; // 6000 * 11 = 66000 bytes
+#                                            // (packed: u8(1) + u16(2) + f(4) + f(4) = 11 bytes)
+#   int head;                                // 4 bytes
+#   int tail;                                // 4 bytes
+#   int64_t last_timestamp;                  // 8 bytes
+#   int8_t last_rssi;                        // 1 byte
+#   app_config_packet_t config;              // 26 bytes
+# } control_circular_buffer_t;
+
+# app_config_packet_t (packed):
+# uint8_t type; (1)
+# uint8_t dshot_pin_a; (1)
+# uint8_t dshot_pin_b; (1)
+# uint8_t led_pin; (1)
+# uint8_t rotation_source; (1)
+# uint16_t step_lag; (2)
+# uint16_t step_window; (2)
+# float throttle_multiplier; (4)
+# float translation_multiplier; (4)
+# uint16_t correlation_window; (2)
+# uint16_t smoothing_window; (2)
+# float phase_offset; (4)
+# uint8_t translation_method; (1)
+CONFIG_SIZE = 26
+CONFIG_FMT = "<BBBBBHHffHHfB"
+
+CONTROL_PKT_SIZE = 11 # 1 + 2 + 4 + 4
+CONTROL_ARR_SIZE = RSSI_BUF_SIZE * CONTROL_PKT_SIZE
+
+STRUCT_FMT = f"<{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}q{CONTROL_ARR_SIZE}siiqb{CONFIG_SIZE}s"
 EXPECTED_SIZE = struct.calcsize(STRUCT_FMT)
+
+# Control Packet Unpacker
+# uint8_t type; uint16_t throttle; float vector_x; float vector_y;
+CONTROL_PKT_FMT = "<BHff"
 
 def run_esptool_read(port, baud, output_file):
     print(f"Reading full flash partition ({PARTITION_SIZE} bytes) from offset 0x{PARTITION_OFFSET:X}...")
@@ -50,6 +83,7 @@ def parse_slot(slot_index, data):
         return None
 
     if len(data) < EXPECTED_SIZE:
+        print(f"  Slot {slot_index}: Data too short ({len(data)} < {EXPECTED_SIZE})")
         return None
 
     try:
@@ -57,9 +91,13 @@ def parse_slot(slot_index, data):
         
         rssi_arr = unpacked[0 : RSSI_BUF_SIZE]
         ts_arr = unpacked[RSSI_BUF_SIZE : 2 * RSSI_BUF_SIZE]
-        head = unpacked[2 * RSSI_BUF_SIZE]
-        tail = unpacked[2 * RSSI_BUF_SIZE + 1]
-        last_ts = unpacked[2 * RSSI_BUF_SIZE + 2]
+        control_bytes = unpacked[2 * RSSI_BUF_SIZE] # This is a bytestring
+        
+        head = unpacked[2 * RSSI_BUF_SIZE + 1]
+        tail = unpacked[2 * RSSI_BUF_SIZE + 2]
+        last_ts = unpacked[2 * RSSI_BUF_SIZE + 3]
+        # last_rssi
+        config_bytes = unpacked[2 * RSSI_BUF_SIZE + 5]
 
         # Basic validation
         if head < -1 or head >= RSSI_BUF_SIZE:
@@ -71,12 +109,34 @@ def parse_slot(slot_index, data):
         if head == -1:
             return None
 
+        # Parse Config
+        cfg_unpacked = struct.unpack(CONFIG_FMT, config_bytes)
+        config_dict = {
+            "dshot_pin_a": cfg_unpacked[1],
+            "dshot_pin_b": cfg_unpacked[2],
+            "led_pin": cfg_unpacked[3],
+            "rotation_source": cfg_unpacked[4],
+            "step_lag": cfg_unpacked[5],
+            "step_window": cfg_unpacked[6],
+            "throttle_multiplier": cfg_unpacked[7],
+            "translation_multiplier": cfg_unpacked[8],
+            "correlation_window": cfg_unpacked[9],
+            "smoothing_window": cfg_unpacked[10],
+            "phase_offset": cfg_unpacked[11],
+            "translation_method": cfg_unpacked[12]
+        }
+
+        # Save Config JSON
+        json_filename = f"dump_slot{slot_index:02d}.json"
+        with open(json_filename, 'w') as f:
+            json.dump(config_dict, f, indent=4)
+
         csv_filename = f"dump_slot{slot_index:02d}.csv"
-        print(f"  Slot {slot_index}: Found valid dump (Head {head}, Tail {tail}). Writing to {csv_filename}...")
+        print(f"  Slot {slot_index}: Found valid dump (Head {head}, Tail {tail}). Writing to {csv_filename} and {json_filename}...")
 
         with open(csv_filename, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(["Index", "Timestamp_US", "RSSI"])
+            writer.writerow(["Index", "Timestamp_US", "RSSI", "Throttle", "VectorX", "VectorY"])
 
             current = tail
             written = 0
@@ -86,7 +146,13 @@ def parse_slot(slot_index, data):
                 t = ts_arr[current]
                 # Only write existing data (non-zero timestamp usually good indicator)
                 if t != 0:
-                    writer.writerow([written, t, rssi_arr[current]])
+                    # Parse Control Packet for this index
+                    c_offset = current * CONTROL_PKT_SIZE
+                    c_data = control_bytes[c_offset : c_offset + CONTROL_PKT_SIZE]
+                    c_pkt = struct.unpack(CONTROL_PKT_FMT, c_data)
+                    # c_pkt = (type, throttle, vx, vy)
+                    
+                    writer.writerow([written, t, rssi_arr[current], c_pkt[1], c_pkt[2], c_pkt[3]])
                     written += 1
                 
                 current = (current + 1) % RSSI_BUF_SIZE
@@ -95,6 +161,8 @@ def parse_slot(slot_index, data):
 
     except Exception as e:
         print(f"  Slot {slot_index}: Parse error ({e})")
+        import traceback
+        traceback.print_exc()
         return None
 
 def main():
@@ -123,8 +191,13 @@ def main():
             offset = i * SLOT_SIZE
             f.seek(offset)
             chunk = f.read(SLOT_SIZE)
-            if parse_slot(i, chunk):
-                found_count += 1
+            # Pass a larger chunk if possible, or just SLOT_SIZE.
+            # Safety: Ensure chunk is at least EXPECTED_SIZE
+            if len(chunk) >= EXPECTED_SIZE:
+                if parse_slot(i, chunk):
+                    found_count += 1
+            else:
+                 print(f"  Slot {i}: Chunk size {len(chunk)} < Expected {EXPECTED_SIZE}")
     
     print(f"Done. Extracted {found_count} dumps.")
 

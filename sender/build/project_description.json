@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "espnow_example",
-    "project_version":    "e6f1c48-dirty",
+    "project_version":    "22c3a3a-dirty",
     "project_path":       "/home/t/esp/rotation_sensing/sender",
     "idf_path":           "/home/t/esp/esp-idf",
     "build_dir":          "/home/t/esp/rotation_sensing/sender/build",
@@ -1165,7 +1165,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "/home/t/esp/rotation_sensing/sender/build/esp-idf/main/libmain.a",
-            "sources": [ "/home/t/esp/rotation_sensing/sender/main/espnow_example_main.c" ],
+            "sources": [ "/home/t/esp/rotation_sensing/sender/main/main.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {

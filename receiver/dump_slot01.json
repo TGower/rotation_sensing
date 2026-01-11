@@ -1,0 +1,14 @@
+{
+    "dshot_pin_a": 8,
+    "dshot_pin_b": 9,
+    "led_pin": 48,
+    "rotation_source": 1,
+    "step_lag": 5,
+    "step_window": 5,
+    "throttle_multiplier": 1.0,
+    "translation_multiplier": 1.0,
+    "correlation_window": 1000,
+    "smoothing_window": 20,
+    "phase_offset": 0.0,
+    "translation_method": 1
+}

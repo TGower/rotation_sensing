@@ -1,92 +1,95 @@
 #!/usr/bin/env python3
-import csv
-import argparse
+import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
 import sys
 import os
 
 def main():
-    parser = argparse.ArgumentParser(description="Plot RSSI from dump CSV")
-    parser.add_argument("file", help="Path to CSV file (e.g., dump_slot04.csv)")
-    parser.add_argument("--sort", action="store_true", help="Sort by timestamp (fixes wrap-around visual artifacts)")
+    parser = argparse.ArgumentParser(description="Plot dump CSV with RSSI and Control data")
+    parser.add_argument("file", help="Path to CSV file", nargs='?', default="dump_slot01.csv")
     args = parser.parse_args()
 
     if not os.path.exists(args.file):
         print(f"Error: File {args.file} not found.")
         sys.exit(1)
 
-    timestamps = []
-    rssi_values = []
-
     print(f"Reading {args.file}...")
     try:
-        with open(args.file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                try:
-                    ts = float(row["Timestamp_US"])
-                    rssi = float(row["RSSI"])
-                    timestamps.append(ts)
-                    rssi_values.append(rssi)
-                except ValueError:
-                    continue
+        df = pd.read_csv(args.file)
     except Exception as e:
         print(f"Error reading CSV: {e}")
+        # Fallback hint
+        print("Ensure pandas is installed (e.g. source .venv/bin/activate)")
         sys.exit(1)
 
-    if not timestamps:
-        print("No valid data found.")
-        return
-
-    # Convert to seconds relative to start
-    # If sorting is requested
-    if args.sort:
-        combined = sorted(zip(timestamps, rssi_values))
-        timestamps, rssi_values = zip(*combined)
-
-    start_time = timestamps[0]
-    time_sec = [(t - start_time) / 1e6 for t in timestamps]
-
-    # Calculate Deltas
-    deltas = []
-    if len(timestamps) > 1:
-        for i in range(1, len(timestamps)):
-            d = timestamps[i] - timestamps[i-1]
-            # Handle wrap-around or huge gaps if not checking for them, 
-            # but usually for a dump we expect continuous-ish data.
-            # If sorted, d should be positive.
-            deltas.append(d)
-
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10), sharex=False)
-
-    # Plot 1: RSSI vs Time
-    ax1.plot(time_sec, rssi_values, label="RSSI", linewidth=1, marker='.', markersize=2)
-    ax1.set_xlabel("Time (s)")
-    ax1.set_ylabel("RSSI (dBm)")
-    ax1.set_title(f"RSSI over Time: {os.path.basename(args.file)}")
-    ax1.grid(True, linestyle='--', alpha=0.7)
-    ax1.legend()
-
-    # Plot 2: Delta vs Index
-    # We have N timestamps, N-1 deltas.
-    # Indices 1 to N-1
-    indices = range(1, len(timestamps))
-    ax2.plot(indices, deltas, label="Delta (us)", color='orange', linewidth=1, marker='.', markersize=2)
-    ax2.set_xlabel("Sample Index")
-    ax2.set_ylabel("Delta (us)")
-    ax2.set_title("Timestamp Delta vs Index")
-    ax2.grid(True, linestyle='--', alpha=0.7)
-    ax2.legend()
+    # Clean whitespace from columns
+    df.columns = df.columns.str.strip()
     
+    required_cols = ["Timestamp_US", "RSSI"]
+    for col in required_cols:
+        if col not in df.columns:
+            print(f"Error: Column {col} missing.")
+            print(f"Available columns: {df.columns.tolist()}")
+            sys.exit(1)
+
+    # Normalize time to seconds starting at 0
+    start_ts = df["Timestamp_US"].iloc[0]
+    df["Time_Sec"] = (df["Timestamp_US"] - start_ts) / 1e6
+
+    # Create figure with 3 subplots
+    fig, axes = plt.subplots(3, 1, figsize=(12, 12), sharex=True)
+    
+    # Plot 1: RSSI
+    ax1 = axes[0]
+    ax1.plot(df["Time_Sec"], df["RSSI"], label="RSSI", color='blue', linewidth=1)
+    ax1.set_ylabel("RSSI (dBm)")
+    ax1.set_title(f"Data dump: {os.path.basename(args.file)}")
+    ax1.grid(True, linestyle='--', alpha=0.7)
+    ax1.legend(loc='upper right')
+
+    # Plot 2: Throttle
+    ax2 = axes[1]
+    if "Throttle" in df.columns:
+        ax2.plot(df["Time_Sec"], df["Throttle"], label="Throttle", color='green', linewidth=1)
+        ax2.set_ylabel("Throttle")
+        ax2.grid(True, linestyle='--', alpha=0.7)
+        ax2.legend(loc='upper right')
+    else:
+        ax2.text(0.5, 0.5, "No Throttle Data", ha='center', va='center')
+        ax2.set_axis_off()
+
+    # Plot 3: Vectors
+    ax3 = axes[2]
+    has_vector = False
+    if "VectorX" in df.columns:
+        ax3.plot(df["Time_Sec"], df["VectorX"], label="VectorX", color='red', linewidth=1)
+        has_vector = True
+    if "VectorY" in df.columns:
+        ax3.plot(df["Time_Sec"], df["VectorY"], label="VectorY", color='orange', linewidth=1)
+        has_vector = True
+    
+    if has_vector:
+        ax3.set_ylabel("Vector Value")
+        ax3.grid(True, linestyle='--', alpha=0.7)
+        ax3.legend(loc='upper right')
+    else:
+        ax3.text(0.5, 0.5, "No Vector Data", ha='center', va='center')
+        ax3.set_axis_off()
+
+    ax3.set_xlabel("Time (s)")
+    
+    # Adjust layout
     plt.tight_layout()
     
-    # Save plot
-    output_png = args.file.replace(".csv", ".png")
+    output_png = args.file
+    if output_png.lower().endswith('.csv'):
+        output_png = output_png[:-4] + '.png'
+    else:
+        output_png += ".png"
+        
     plt.savefig(output_png)
     print(f"Plot saved to {output_png}")
-    
-    # Show plot (optional, might not work in headless env, but good to have)
-    # plt.show()
 
 if __name__ == "__main__":
     main()
