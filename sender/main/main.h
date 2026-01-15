@@ -26,8 +26,35 @@ typedef enum {
   APP_PACKET_TYPE_CONFIG_STATE = 0x21, // Report Current Config
   APP_PACKET_TYPE_STATS = 0x30,
   APP_PACKET_TYPE_CMD_DUMP = 0x40, // Command to Dump Buffer
-  APP_PACKET_TYPE_CMD_ACK = 0x41   // Acknowledge Dump
+  APP_PACKET_TYPE_CMD_ACK = 0x41,  // Acknowledge Dump
+  APP_PACKET_TYPE_OTA_START = 0x50,
+  APP_PACKET_TYPE_OTA_DATA = 0x51,
+  APP_PACKET_TYPE_OTA_ACK = 0x52,
+  APP_PACKET_TYPE_OTA_END = 0x53
 } app_packet_type_t;
+
+typedef struct __attribute__((packed)) {
+  uint8_t type; // APP_PACKET_TYPE_OTA_START
+  uint32_t total_size;
+  uint32_t crc32; // Entire file CRC
+} ota_start_packet_t;
+
+typedef struct __attribute__((packed)) {
+  uint8_t type; // APP_PACKET_TYPE_OTA_DATA
+  uint16_t seq;
+  uint16_t len;
+  uint8_t data[200]; // Max 250 payload in ESP-NOW.
+} ota_data_packet_t;
+
+typedef struct __attribute__((packed)) {
+  uint8_t type; // APP_PACKET_TYPE_OTA_ACK
+  uint16_t seq; // Sequence number being ACKed
+} ota_ack_packet_t;
+
+typedef struct __attribute__((packed)) {
+  uint8_t type; // APP_PACKET_TYPE_OTA_END
+  uint32_t final_crc;
+} ota_end_packet_t;
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_CONTROL
@@ -86,6 +113,10 @@ typedef union {
   control_packet_t control;
   app_config_packet_t config;
   stats_packet_t stats;
+  ota_start_packet_t ota_start;
+  ota_data_packet_t ota_data;
+  ota_ack_packet_t ota_ack;
+  ota_end_packet_t ota_end;
 } app_packet_t;
 
 #endif

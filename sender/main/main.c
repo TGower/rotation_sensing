@@ -9,6 +9,8 @@
 #include "esp_mac.h"
 #include "esp_netif.h"
 #include "esp_now.h"
+#include "esp_ota_ops.h"
+#include "esp_partition.h"
 #include "esp_random.h"
 
 #include "esp_task_wdt.h"
@@ -71,8 +73,125 @@ static void example_espnow_send_cb(const uint8_t *mac_addr,
   // ESP_LOGD(TAG, "Last Send Status: %d", status);
 }
 
+// OTA State
+typedef struct {
+  bool active;
+  const esp_partition_t *update_partition;
+  esp_ota_handle_t update_handle;
+  uint32_t total_size;
+  uint32_t current_offset;
+  uint16_t next_seq;
+} ota_state_t;
+static ota_state_t g_ota_state = {0};
+
+static void handle_ota_packet(const uint8_t *data, int len,
+                              const uint8_t *src_mac) {
+  uint8_t type = data[0];
+  esp_err_t err;
+
+  // Send ACK helper
+  ota_ack_packet_t ack = {.type = APP_PACKET_TYPE_OTA_ACK, .seq = 0};
+
+  if (type == APP_PACKET_TYPE_OTA_START) {
+    if (len < sizeof(ota_start_packet_t))
+      return;
+    const ota_start_packet_t *pkt = (const ota_start_packet_t *)data;
+
+    ESP_LOGI(TAG, "OTA START. Size: %lu", (unsigned long)pkt->total_size);
+
+    g_ota_state.update_partition = esp_ota_get_next_update_partition(NULL);
+    if (g_ota_state.update_partition == NULL) {
+      ESP_LOGE(TAG, "OTA Passive Partition not found");
+      return;
+    }
+
+    err = esp_ota_begin(g_ota_state.update_partition, OTA_SIZE_UNKNOWN,
+                        &g_ota_state.update_handle);
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "OTA Begin failed: %s", esp_err_to_name(err));
+      return;
+    }
+
+    g_ota_state.active = true;
+    g_ota_state.total_size = pkt->total_size;
+    g_ota_state.current_offset = 0;
+    g_ota_state.next_seq = 0;
+
+    // Ack Start (seq 0 used for start ack)
+    ack.seq = 0xFFFF;
+    esp_now_send(src_mac, (uint8_t *)&ack, sizeof(ack));
+
+  } else if (type == APP_PACKET_TYPE_OTA_DATA) {
+    if (!g_ota_state.active)
+      return;
+    if (len < sizeof(ota_data_packet_t))
+      return;
+
+    const ota_data_packet_t *pkt = (const ota_data_packet_t *)data;
+
+    if (pkt->seq == g_ota_state.next_seq) {
+      err = esp_ota_write(g_ota_state.update_handle, pkt->data, pkt->len);
+      if (err != ESP_OK) {
+        ESP_LOGE(TAG, "OTA Write failed: %s", esp_err_to_name(err));
+        g_ota_state.active = false; // Abort
+        return;
+      }
+      g_ota_state.current_offset += pkt->len;
+      g_ota_state.next_seq++;
+
+      // Log progress occasionally
+      if (pkt->seq % 100 == 0) {
+        ESP_LOGI(TAG, "OTA Progress: %lu / %lu",
+                 (unsigned long)g_ota_state.current_offset,
+                 (unsigned long)g_ota_state.total_size);
+      }
+    } else if (pkt->seq < g_ota_state.next_seq) {
+      // Duplicate packet, just ACK again
+    } else {
+      // Future packet? Ignore/Drop
+      return;
+    }
+
+    // Send ACK for the received sequence
+    ack.seq = pkt->seq;
+    esp_now_send(src_mac, (uint8_t *)&ack, sizeof(ack));
+
+  } else if (type == APP_PACKET_TYPE_OTA_END) {
+    if (!g_ota_state.active)
+      return;
+    ESP_LOGI(TAG, "OTA END Received. Validating...");
+
+    err = esp_ota_end(g_ota_state.update_handle);
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "OTA End failed: %s", esp_err_to_name(err));
+      return;
+    }
+
+    err = esp_ota_set_boot_partition(g_ota_state.update_partition);
+    if (err != ESP_OK) {
+      ESP_LOGE(TAG, "OTA Set Boot Partition failed: %s", esp_err_to_name(err));
+      return;
+    }
+
+    ESP_LOGI(TAG, "OTA Success. Rebooting...");
+    ack.seq = 0xFFFF; // Magic for End ACK
+    esp_now_send(src_mac, (uint8_t *)&ack, sizeof(ack));
+
+    // Delay to let ACK go out
+    vTaskDelay(pdMS_TO_TICKS(100));
+    esp_restart();
+  }
+}
+
 static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
                                    const uint8_t *data, int len) {
+  // Check for OTA Packets
+  if (data[0] >= APP_PACKET_TYPE_OTA_START &&
+      data[0] <= APP_PACKET_TYPE_OTA_END) {
+    handle_ota_packet(data, len, recv_info->src_addr);
+    return;
+  }
+
   // We expect stats packets from receiver
   if (len >= 1) { // At least type byte
     uint8_t type = data[0];
