@@ -36,7 +36,10 @@ typedef struct __attribute__((packed)) {
   uint16_t throttle;
   float vector_x;
   float vector_y;
+  uint8_t control_flags;
 } control_packet_t;
+
+#define CONTROL_FLAG_RESET_PHASE_LOCK (1 << 0)
 
 // Unified Configuration Structure
 typedef struct __attribute__((packed)) {

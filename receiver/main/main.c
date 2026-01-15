@@ -83,6 +83,7 @@ typedef struct {
   uint16_t throttle;
   float vector_x;
   float vector_y;
+  uint8_t control_flags;
 } control_input_t;
 
 typedef struct {
@@ -91,6 +92,14 @@ typedef struct {
   float phase_offset;
   int64_t last_peak_timestamp;
   float estimated_period_us;
+
+  // Phase Tracking State
+  bool is_locked;
+  int stable_count;
+  int8_t template[RSSI_BUF_SIZE];
+  int template_len;
+  int64_t template_peak_offset_time; // Time from start of template to the peak
+  float template_period_us;
 } rotation_state_t;
 
 typedef struct {
@@ -563,11 +572,29 @@ static void dump_buffer_to_flash() {
   g_req_dump = false;
 }
 
+// Helper to copy circular buffer to linear buffer
+static void get_linear_rssi(rssi_circular_buffer_t *buf, int start_idx,
+                            int8_t *out, int len) {
+  for (int i = 0; i < len; i++) {
+    int idx = (start_idx + i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    out[i] = buf->rssi[idx];
+  }
+}
+
 // Rotation Estimation Task
 static void rotation_task(void *pvParameter) {
+  static int8_t search_buffer[RSSI_BUF_SIZE]; // Static to avoid stack overflow
 
   while (1) {
     vTaskDelay(1);
+
+    // --- Check for Reset Request ---
+    if (g_control_input.control_flags & CONTROL_FLAG_RESET_PHASE_LOCK) {
+        g_rotation_state.is_locked = false;
+        g_rotation_state.stable_count = 0;
+        // Optional: Clear flag? No, it comes from packet.
+        // Logic relies on user releasing button or packet changing.
+    }
 
     int head = g_interpolated_rssi_buf.head;
     int count =
@@ -719,57 +746,147 @@ static void rotation_task(void *pvParameter) {
       g_rotation_state.rotation_rate =
           1000000.0f / g_rotation_state.estimated_period_us;
 
-      // IQ Demodulation for Phase Tracking. Not entirely happy with this,
-      // heading still jumps around sometimes, but is stable for some amount of
-      // time. Maybe dead reckoning or something else? Could store a
-      // representative sample for the period and do autocorrelation on that to
-      // get a stable phase. Window: 4x Period
-      float period_us = g_rotation_state.estimated_period_us;
-      int window_duration = (int)(4.0f * period_us);
+      // --- Phase Tracking ---
+      if (!g_rotation_state.is_locked) {
+        // Mode 1: IQ Demodulation & Stability Check
 
-      // Limit window to available data
-      if (window_duration > RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US) {
-        window_duration = RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US;
+        float period_us = g_rotation_state.estimated_period_us;
+        int window_duration = (int)(4.0f * period_us);
+        if (window_duration > RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US) {
+          window_duration = RSSI_BUF_SIZE * INTERPOLATION_INTERVAL_US;
+        }
+
+        int samples_to_process = window_duration / INTERPOLATION_INTERVAL_US;
+        if (samples_to_process > RSSI_BUF_SIZE)
+          samples_to_process = RSSI_BUF_SIZE;
+
+        double sum_I = 0;
+        double sum_Q = 0;
+        double omega = 2.0 * M_PI / period_us;
+
+        int ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        int64_t t_ref = g_interpolated_rssi_buf.timestamp[ref_idx];
+
+        for (int i = 0; i < samples_to_process; i++) {
+          int idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+          int8_t val = g_interpolated_rssi_buf.rssi[idx];
+          int64_t t = g_interpolated_rssi_buf.timestamp[idx];
+          double dt = (double)(t - t_ref);
+          double angle = omega * dt;
+          sum_I += val * cos(angle);
+          sum_Q += val * sin(angle);
+        }
+
+        double phi = atan2(sum_Q, sum_I);
+        double dt_pi = (phi + M_PI) / omega;
+        int64_t current_peak_ts = t_ref + (int64_t)dt_pi;
+
+        // Stability Check
+        int64_t expected_peak = g_rotation_state.last_peak_timestamp + (int64_t)period_us;
+        // Check closest multiple of period
+        int64_t error = llabs(current_peak_ts - expected_peak);
+        // Handle wrapping/multiples (e.g. if we missed a beat)
+        while (error > period_us / 2) {
+            if (current_peak_ts > expected_peak) expected_peak += period_us;
+            else expected_peak -= period_us;
+            error = llabs(current_peak_ts - expected_peak);
+        }
+
+        if (error < 0.05 * period_us) {
+            g_rotation_state.stable_count++;
+        } else {
+            g_rotation_state.stable_count = 0;
+        }
+
+        g_rotation_state.last_peak_timestamp = current_peak_ts;
+
+        // Transition to Locked Mode
+        if (g_rotation_state.stable_count >= 5) {
+            ESP_LOGI(TAG, "Phase Locked! Switching to Template Matching.");
+            g_rotation_state.is_locked = true;
+
+            // Save Template: 2x Period ending at head
+            int template_samples = (int)((2.0 * period_us) / INTERPOLATION_INTERVAL_US);
+            if (template_samples > RSSI_BUF_SIZE) template_samples = RSSI_BUF_SIZE;
+
+            // Copy samples
+            // Start index
+            int start_idx = (head - template_samples + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+            get_linear_rssi(&g_interpolated_rssi_buf, start_idx, g_rotation_state.template, template_samples);
+
+            g_rotation_state.template_len = template_samples;
+            g_rotation_state.template_period_us = period_us;
+
+            // Calculate Offset: Time from Start of Template to Peak
+            // Peak is at current_peak_ts. Start is at timestamp[start_idx].
+            int64_t t_start = g_interpolated_rssi_buf.timestamp[start_idx];
+            g_rotation_state.template_peak_offset_time = current_peak_ts - t_start;
+        }
+
+      } else {
+        // Mode 2: Template Matching
+
+        // Search Window: 2x Period (Template) + Margin.
+        // We match the template against the LATEST data.
+        // Template length L.
+        // We want to slide Template over the Buffer.
+        // Range: match the end of template to end of buffer +/- margin?
+        // Actually, we just assume the period is somewhat stable.
+        // We perform cross correlation between Template and a window of the same size at the end of the buffer?
+        // No, we need to find the shift.
+        // Let's take a search window of (Length Template + Search Range) from the buffer end.
+        // Then slide template inside it.
+
+        int t_len = g_rotation_state.template_len;
+        int search_range = t_len / 4; // +/- 25% of template length search
+        if (search_range < 10) search_range = 10;
+
+        int buffer_window_len = t_len + search_range;
+        if (buffer_window_len > RSSI_BUF_SIZE) buffer_window_len = RSSI_BUF_SIZE;
+
+        // Linearize search buffer
+        int start_idx = (head - buffer_window_len + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+        get_linear_rssi(&g_interpolated_rssi_buf, start_idx, search_buffer, buffer_window_len);
+
+        // Search for best match
+        // We want to find offset 'k' such that search_buffer[k...k+t_len] matches template.
+        // k ranges from 0 to search_range.
+
+        int64_t min_sad = INT64_MAX;
+        int best_k = 0;
+
+        for (int k = 0; k <= search_range; k++) {
+             // Calculate SAD
+             // search_buffer + k vs g_rotation_state.template
+             // use calculate_sad_vector if aligned, or just loop
+
+             // Check alignment for SIMD
+             // template is in struct, might be aligned if struct is.
+             // search_buffer is int8_t[], maybe aligned.
+             // We can just use a loop for safety or cast.
+             // Let's use simple loop for robustness first.
+
+             int64_t sad = 0;
+             for (int j = 0; j < t_len; j++) {
+                 sad += abs(search_buffer[k+j] - g_rotation_state.template[j]);
+             }
+
+             if (sad < min_sad) {
+                 min_sad = sad;
+                 best_k = k;
+             }
+        }
+
+        // Calculate new peak
+        // Best match starts at 'best_k' index within search_buffer.
+        // Timestamp of search_buffer[best_k] is t_start + best_k * interval.
+        // Peak is at that timestamp + template_peak_offset_time.
+
+        int64_t t_start_search = g_interpolated_rssi_buf.timestamp[start_idx];
+        int64_t match_start_ts = t_start_search + (best_k * INTERPOLATION_INTERVAL_US);
+
+        g_rotation_state.last_peak_timestamp = match_start_ts + g_rotation_state.template_peak_offset_time;
       }
-
-      int samples_to_process = window_duration / INTERPOLATION_INTERVAL_US;
-      if (samples_to_process > RSSI_BUF_SIZE)
-        samples_to_process = RSSI_BUF_SIZE;
-
-      double sum_I = 0;
-      double sum_Q = 0;
-      double omega = 2.0 * M_PI / period_us;
-
-      // Reference time: use the most recent timestamp (head-1)
-      // We process backwards from head.
-      // Phase phi is relative to cos(omega * (t - t_ref)).
-      // t_ref is the timestamp of the HEAD sample (most recent).
-
-      int ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-      int64_t t_ref = g_interpolated_rssi_buf.timestamp[ref_idx];
-
-      for (int i = 0; i < samples_to_process; i++) {
-        int idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-        int8_t val = g_interpolated_rssi_buf.rssi[idx];
-        int64_t t = g_interpolated_rssi_buf.timestamp[idx];
-
-        double dt = (double)(t - t_ref);
-        double angle = omega * dt;
-
-        sum_I += val * cos(angle);
-        sum_Q += val * sin(angle);
-      }
-
-      // Calculate Phase of the Signal
-      double phi = atan2(sum_Q, sum_I);
-
-      // Find time where phase would be PI.
-      // omega * (t_target - t_ref) - phi = PI
-      // t_target = t_ref + (phi + PI) / omega
-
-      double dt_pi = (phi + M_PI) / omega;
-
-      g_rotation_state.last_peak_timestamp = t_ref + (int64_t)dt_pi;
     }
     int64_t autocorr_end = esp_timer_get_time();
     static uint32_t last_autocorr_time = 0;
@@ -888,6 +1005,7 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
       g_control_input.throttle = pkt->throttle;
       g_control_input.vector_x = pkt->vector_x;
       g_control_input.vector_y = pkt->vector_y;
+      g_control_input.control_flags = pkt->control_flags;
       g_control_buf.control[g_control_buf.head] = *pkt;
     }
   } else if (data[0] == APP_PACKET_TYPE_CMD_DUMP) {
