@@ -117,7 +117,8 @@ static app_config_packet_t g_config = {
     .throttle_multiplier = 2.0f,
     .translation_multiplier = 4.0f,
     .correlation_window = 1000,
-    .translation_method = TRANSLATION_METHOD_SQUARE};
+    .translation_method = TRANSLATION_METHOD_SQUARE,
+    .dshot_baud_rate = 300000};
 
 static void save_config(void) {
   nvs_handle_t my_handle;
@@ -154,6 +155,8 @@ static void load_config(void) {
       g_config.throttle_multiplier = 1.0f;
     if (g_config.translation_multiplier < 0.001f)
       g_config.translation_multiplier = 1.0f;
+    if (g_config.dshot_baud_rate == 0)
+      g_config.dshot_baud_rate = 300000;
   }
   nvs_close(my_handle);
 }
@@ -331,10 +334,10 @@ static void motor_task(void *pvParameter) {
     // Motor Power = Throttle + Translation_Mag * cos(angle + Translation_Phase)
     int throttle = g_control_input.throttle;
     if (throttle < 48) {
-      // < 48 is DShot command, not sure we are actually handling that correctly
-      // in sender app, so default to 0 == STOP command.
-      leftDShot = 0;
-      rightDShot = 0;
+      // < 48 is DShot command (0-47)
+      // Pass through directly to both ESCs without mixing
+      leftDShot = throttle;
+      rightDShot = throttle;
     } else {
       // throttle is a speed
       throttle = (g_control_input.throttle * g_config.throttle_multiplier);
@@ -901,7 +904,8 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
       bool reboot_needed = false;
       if (pkt->dshot_pin_a != g_config.dshot_pin_a ||
           pkt->dshot_pin_b != g_config.dshot_pin_b ||
-          pkt->led_pin != g_config.led_pin) {
+          pkt->led_pin != g_config.led_pin ||
+          pkt->dshot_baud_rate != g_config.dshot_baud_rate) {
         reboot_needed = true;
       }
 
@@ -1045,7 +1049,7 @@ void app_main(void) {
 
   dshot_esc_encoder_config_t encoder_config = {
       .resolution = DSHOT_ESC_RESOLUTION_HZ,
-      .baud_rate = 300000,
+      .baud_rate = g_config.dshot_baud_rate,
       .post_delay_us = 50,
   };
   ESP_ERROR_CHECK(rmt_new_dshot_esc_encoder(&encoder_config, &dshot_encoder_a));

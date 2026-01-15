@@ -59,6 +59,7 @@ typedef struct __attribute__((packed)) {
   uint16_t smoothing_window;
   float phase_offset;
   uint8_t translation_method;
+  uint32_t dshot_baud_rate;
 } app_config_packet_t;
 
 #define TRANSLATION_METHOD_SQUARE 0
