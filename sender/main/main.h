@@ -57,13 +57,14 @@ typedef struct __attribute__((packed)) {
   uint16_t smoothing_window;
   float phase_offset;
   uint8_t translation_method;
+  uint32_t dshot_baud_rate;
 } app_config_packet_t;
 
 #define TRANSLATION_METHOD_SQUARE 0
 #define TRANSLATION_METHOD_SINE 1
 #define TRANSLATION_METHOD_LINEAR 2
 
-_Static_assert(sizeof(app_config_packet_t) == 26,
+_Static_assert(sizeof(app_config_packet_t) == 30,
                "app_config_packet_t size mismatch! Check alignment/packing.");
 _Static_assert(sizeof(control_packet_t) == 11,
                "control_packet_t size mismatch!");

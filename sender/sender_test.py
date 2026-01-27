@@ -34,9 +34,22 @@ def create_control_packet(throttle, vx, vy):
         
     return bytes([START_BYTE]) + payload + bytes([checksum])
 
-def create_config_packet(source, step_lag, step_window):
-    # Payload: Type(B) + Source(B) + Lag(H) + Win(H)
-    payload = struct.pack('<BBHH', APP_PACKET_TYPE_CONFIG, source, step_lag, step_window)
+def create_config_packet(source, step_lag, step_window,
+                         dshot_pin_a=8, dshot_pin_b=9, led_pin=48,
+                         throttle_multiplier=2.0, translation_multiplier=4.0,
+                         correlation_window=1000, smoothing_window=20,
+                         phase_offset=0.0, translation_method=0,
+                         dshot_baud_rate=300000):
+    # Payload
+    # Order: Type, PinA, PinB, LED, Source, Lag, Win, ThrMul, TransMul, CorrWin, SmoothWin, Phase, Method, Baud
+    payload = struct.pack('<BBBBBHHffHHfBI',
+                          APP_PACKET_TYPE_CONFIG,
+                          dshot_pin_a, dshot_pin_b, led_pin,
+                          source, step_lag, step_window,
+                          throttle_multiplier, translation_multiplier,
+                          correlation_window, smoothing_window,
+                          phase_offset, translation_method,
+                          dshot_baud_rate)
     
     checksum = 0
     for b in payload:
