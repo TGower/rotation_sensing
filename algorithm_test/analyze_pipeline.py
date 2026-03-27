@@ -15,25 +15,34 @@ def analyze_pipeline(file_path, output_name="pipeline_deltas"):
         print(f"File not found: {file_path}")
         return
 
+    chunk_size = 65536  # 64KB
+    buffer = b""
     with open(file_path, "rb") as f:
-        data = f.read()
-        
-    offset = 0
-    while offset + packet_size <= len(data):
-        magic_idx = data.find(struct.pack("<I", magic_val), offset)
-        if magic_idx == -1:
-            break
-        
-        offset = magic_idx
-        if offset + 131 > len(data):
-            break
+        while True:
+            chunk = f.read(chunk_size)
+            if not chunk:
+                break
+            buffer += chunk
             
-        chunk = data[offset:offset+131]
-        magic, local_ts, sender_ts = struct.unpack_from("<Iqq", chunk)
-        
-        local_timestamps.append(local_ts)
-        sender_timestamps.append(sender_ts)
-        offset += packet_size
+            offset = 0
+            while offset + packet_size <= len(buffer):
+                magic_idx = buffer.find(struct.pack("<I", magic_val), offset)
+                if magic_idx == -1:
+                    offset = len(buffer) - packet_size
+                    break
+
+                if magic_idx + packet_size > len(buffer):
+                    offset = magic_idx
+                    break
+
+                packet_data = buffer[magic_idx:magic_idx + packet_size]
+                magic, local_ts, sender_ts = struct.unpack_from("<Iqq", packet_data)
+
+                local_timestamps.append(local_ts)
+                sender_timestamps.append(sender_ts)
+                offset = magic_idx + packet_size
+
+            buffer = buffer[offset:]
             
     if not local_timestamps:
         print("No valid packets found.")
