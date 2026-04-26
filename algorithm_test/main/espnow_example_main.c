@@ -409,16 +409,48 @@ static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
                                         int step_win) {
   int64_t diff_sum = 0;
   int i = 0;
+
+  // Initialize starting indices
+  int idx1 = (head - 1) % RSSI_BUF_SIZE;
+  if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+
+  int idx2 = (head - 1 - lag) % RSSI_BUF_SIZE;
+  if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
+
   // Process 4 samples at a time for performance
   for (; i + 3 * step_win < corr_window; i += 4 * step_win) {
-    int idx1_0 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2_0 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx1_1 = (idx1_0 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2_1 = (idx2_0 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx1_2 = (idx1_1 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2_2 = (idx2_1 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx1_3 = (idx1_2 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2_3 = (idx2_2 - step_win + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
+    int idx1_0 = idx1;
+    int idx2_0 = idx2;
+
+    idx1 -= step_win;
+    if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+    int idx1_1 = idx1;
+
+    idx2 -= step_win;
+    if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
+    int idx2_1 = idx2;
+
+    idx1 -= step_win;
+    if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+    int idx1_2 = idx1;
+
+    idx2 -= step_win;
+    if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
+    int idx2_2 = idx2;
+
+    idx1 -= step_win;
+    if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+    int idx1_3 = idx1;
+
+    idx2 -= step_win;
+    if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
+    int idx2_3 = idx2;
+
+    idx1 -= step_win;
+    if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+
+    idx2 -= step_win;
+    if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
 
     diff_sum += abs(buf->smoothed_rssi[idx1_0] - buf->smoothed_rssi[idx2_0]);
     diff_sum += abs(buf->smoothed_rssi[idx1_1] - buf->smoothed_rssi[idx2_1]);
@@ -428,9 +460,11 @@ static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
 
   // Cleanup remainder
   for (; i < corr_window; i += step_win) {
-    int idx1 = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
-    int idx2 = (head - 1 - i - lag + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
     diff_sum += abs(buf->smoothed_rssi[idx1] - buf->smoothed_rssi[idx2]);
+    idx1 -= step_win;
+    if (idx1 < 0) idx1 += RSSI_BUF_SIZE;
+    idx2 -= step_win;
+    if (idx2 < 0) idx2 += RSSI_BUF_SIZE;
   }
   return diff_sum;
 }
