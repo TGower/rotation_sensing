@@ -748,10 +748,16 @@ static void rotation_task(void *pvParameter) {
       int ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
       int64_t t_ref = g_interpolated_rssi_buf.timestamp[ref_idx];
 
+      int idx = ref_idx;
       for (int i = 0; i < samples_to_process; i++) {
-        int idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
         int8_t val = g_interpolated_rssi_buf.rssi[idx];
         int64_t t = g_interpolated_rssi_buf.timestamp[idx];
+
+        // Update index for next iteration (backwards)
+        idx--;
+        if (idx < 0) {
+          idx += RSSI_BUF_SIZE;
+        }
 
         double dt = (double)(t - t_ref);
         double angle = omega * dt;
