@@ -113,6 +113,10 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
       buffer[idx++] = 0xAB; // Start Byte
 
       // Payload
+      if (len > sizeof(buffer) - idx - 2) {
+        ESP_LOGW(TAG, "Payload too large");
+        return;
+      }
       memcpy(&buffer[idx], data, len);
       idx += len;
 
