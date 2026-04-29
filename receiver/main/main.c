@@ -632,37 +632,33 @@ static void rotation_task(void *pvParameter) {
 
     // Need at least a few points
     if (count_lags > 3) {
-      double max_slope = 0;
-      static double slopes[MAX_LAGS]; // slope[i] is from i to i+1
+      int64_t max_slope = 0;
+      static int64_t slopes[MAX_LAGS]; // slope[i] is from i to i+1
 
       for (int i = 0; i < count_lags - 1; i++) {
-        slopes[i] = (double)(errors[i + 1] - errors[i]);
-        if (fabs(slopes[i]) > max_slope)
-          max_slope = fabs(slopes[i]);
+        slopes[i] = errors[i + 1] - errors[i];
+        int64_t abs_slope = slopes[i] >= 0 ? slopes[i] : -slopes[i];
+        if (abs_slope > max_slope)
+          max_slope = abs_slope;
       }
 
-      if (max_slope < 1.0)
-        max_slope = 1.0;
+      if (max_slope < 1)
+        max_slope = 1;
 
       // Scan for Zero Crossings
       const int LAG_WINDOW = 1; // Window for d2 check
 
       for (int i = 0; i < count_lags - 2; i++) {
-        // Normalize Slopes
-        double norm_slope_curr = slopes[i] / max_slope;
-        double norm_slope_next = slopes[i + 1] / max_slope;
-
         // Check for Negative -> Positive Slope (Valley)
-        if (norm_slope_curr < 0 && norm_slope_next > 0) {
+        if (slopes[i] < 0 && slopes[i + 1] > 0) {
           int valley_idx = i + 1;
 
           // 1. Normalized Error Check < 0.5, ensuring that the found valley's
           // error is actually low
-          double norm_error = (double)(errors[valley_idx] - min_diff) /
-                              (double)(max_diff - min_diff);
-
-          if (norm_error < 0.5) {
-            double d2_sum = 0;
+          int64_t max_min_diff = max_diff - min_diff;
+          if (max_min_diff > 0 &&
+              (errors[valley_idx] - min_diff) * 2 < max_min_diff) {
+            int64_t d2_sum = 0;
             int count_d2 = 0;
 
             // 2. Curvature Check (Avg d2), ensuring that the valley has the
@@ -670,14 +666,16 @@ static void rotation_task(void *pvParameter) {
             for (int k = i; k >= i - (2 * LAG_WINDOW); k--) {
               if (k < 0 || k >= count_lags - 1)
                 continue;
-              double d2 = (slopes[k + 1] - slopes[k]) / max_slope;
+              int64_t d2 = slopes[k + 1] - slopes[k];
               d2_sum += d2;
               count_d2++;
             }
 
             if (count_d2 > 0) {
-              double avg_d2 = d2_sum / count_d2;
-              if (avg_d2 > 0.05) {
+              // Check if avg_d2 > 0.05
+              // (d2_sum / count_d2) / max_slope > 0.05
+              // d2_sum * 20 > count_d2 * max_slope
+              if (d2_sum * 20 > (int64_t)count_d2 * max_slope) {
                 best_lag = lags[valley_idx];
                 found_valid = true;
                 break; // Found the first valid one
