@@ -448,8 +448,10 @@ static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
     while (block_len > 0 && ((uintptr_t)&buf->rssi[cur_idx] & 0xF)) {
       total_diff += abs(buf->rssi[cur_idx] - buf->rssi[idx_B]);
 
-      cur_idx = (cur_idx + 1) % RSSI_BUF_SIZE;
-      idx_B = (idx_B + 1) % RSSI_BUF_SIZE;
+      if (++cur_idx >= RSSI_BUF_SIZE)
+        cur_idx = 0;
+      if (++idx_B >= RSSI_BUF_SIZE)
+        idx_B = 0;
       block_len--;
       samples_left--;
     }
@@ -460,8 +462,12 @@ static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
       total_diff += calculate_sad_vector(&buf->rssi[cur_idx], &buf->rssi[idx_B],
                                          simd_len, aligned_ones);
 
-      cur_idx = (cur_idx + simd_len) % RSSI_BUF_SIZE;
-      idx_B = (idx_B + simd_len) % RSSI_BUF_SIZE;
+      cur_idx += simd_len;
+      if (cur_idx >= RSSI_BUF_SIZE)
+        cur_idx -= RSSI_BUF_SIZE;
+      idx_B += simd_len;
+      if (idx_B >= RSSI_BUF_SIZE)
+        idx_B -= RSSI_BUF_SIZE;
       block_len -= simd_len;
       samples_left -= simd_len;
     }
@@ -469,8 +475,10 @@ static int64_t calculate_autocorr_error(rssi_circular_buffer_t *buf, int head,
     // Handle remainder
     while (block_len > 0) {
       total_diff += abs(buf->rssi[cur_idx] - buf->rssi[idx_B]);
-      cur_idx = (cur_idx + 1) % RSSI_BUF_SIZE;
-      idx_B = (idx_B + 1) % RSSI_BUF_SIZE;
+      if (++cur_idx >= RSSI_BUF_SIZE)
+        cur_idx = 0;
+      if (++idx_B >= RSSI_BUF_SIZE)
+        idx_B = 0;
       block_len--;
       samples_left--;
     }
