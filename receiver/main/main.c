@@ -736,9 +736,9 @@ static void rotation_task(void *pvParameter) {
       if (samples_to_process > RSSI_BUF_SIZE)
         samples_to_process = RSSI_BUF_SIZE;
 
-      double sum_I = 0;
-      double sum_Q = 0;
-      double omega = 2.0 * M_PI / period_us;
+      float sum_I = 0;
+      float sum_Q = 0;
+      float omega = 2.0f * M_PI / period_us;
 
       // Reference time: use the most recent timestamp (head-1)
       // We process backwards from head.
@@ -748,26 +748,37 @@ static void rotation_task(void *pvParameter) {
       int ref_idx = (head - 1 + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
       int64_t t_ref = g_interpolated_rssi_buf.timestamp[ref_idx];
 
+      // Interpolated values step backwards by exactly INTERPOLATION_INTERVAL_US
+      float d_angle = omega * (float)(-INTERPOLATION_INTERVAL_US);
+      float cos_d = cosf(d_angle);
+      float sin_d = sinf(d_angle);
+
+      float cos_angle = 1.0f;
+      float sin_angle = 0.0f;
+
+      int idx = ref_idx;
       for (int i = 0; i < samples_to_process; i++) {
-        int idx = (ref_idx - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE;
         int8_t val = g_interpolated_rssi_buf.rssi[idx];
-        int64_t t = g_interpolated_rssi_buf.timestamp[idx];
 
-        double dt = (double)(t - t_ref);
-        double angle = omega * dt;
+        sum_I += val * cos_angle;
+        sum_Q += val * sin_angle;
 
-        sum_I += val * cos(angle);
-        sum_Q += val * sin(angle);
+        float next_cos = cos_angle * cos_d - sin_angle * sin_d;
+        float next_sin = sin_angle * cos_d + cos_angle * sin_d;
+        cos_angle = next_cos;
+        sin_angle = next_sin;
+
+        idx = (idx == 0) ? (RSSI_BUF_SIZE - 1) : (idx - 1);
       }
 
       // Calculate Phase of the Signal
-      double phi = atan2(sum_Q, sum_I);
+      float phi = atan2f(sum_Q, sum_I);
 
       // Find time where phase would be PI.
       // omega * (t_target - t_ref) - phi = PI
       // t_target = t_ref + (phi + PI) / omega
 
-      double dt_pi = (phi + M_PI) / omega;
+      float dt_pi = (phi + (float)M_PI) / omega;
 
       g_rotation_state.last_peak_timestamp = t_ref + (int64_t)dt_pi;
     }
