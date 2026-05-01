@@ -3,7 +3,6 @@ import struct
 import time
 import argparse
 import csv
-import sys
 
 # Constants from C code
 CSI_LOG_MAGIC = 0xDEADBEEF
