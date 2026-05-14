@@ -34,7 +34,10 @@ typedef struct __attribute__((packed)) {
   uint16_t throttle;
   float vector_x;
   float vector_y;
+  uint8_t control_flags;
 } control_packet_t;
+
+#define CONTROL_FLAG_RESET_PHASE_LOCK (1 << 0)
 
 // Unified Configuration Structure
 typedef struct __attribute__((packed)) {
@@ -65,7 +68,7 @@ typedef struct __attribute__((packed)) {
 
 _Static_assert(sizeof(app_config_packet_t) == 26,
                "app_config_packet_t size mismatch! Check alignment/packing.");
-_Static_assert(sizeof(control_packet_t) == 11,
+_Static_assert(sizeof(control_packet_t) == 12,
                "control_packet_t size mismatch!");
 
 typedef struct __attribute__((packed)) {
