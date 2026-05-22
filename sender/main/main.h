@@ -17,6 +17,16 @@
 #endif
 
 #define ESPNOW_QUEUE_SIZE 6
+#define APP_PROTOCOL_MAGIC 164
+#define APP_ROTATION_SOURCE_CSI 0
+#define APP_ROTATION_SOURCE_ESPNOW 1
+#define APP_ROTATION_SOURCE_CSI_DEAD_RECKONING 2
+#define APP_ROTATION_SOURCE_ESPNOW_DEAD_RECKONING 3
+
+#define APP_LED_DISPLAY_MODE_SIMPLE_ANGLE 0
+#define APP_LED_DISPLAY_MODE_RPM 1
+#define APP_LED_DISPLAY_MODE_PICTURE 2
+#define APP_LED_DISPLAY_MODE_RSSI_POV 3
 
 // --- Application Protocol ---
 
@@ -31,6 +41,7 @@ typedef enum {
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_CONTROL
+  uint8_t magic;
   uint16_t throttle;
   float vector_x;
   float vector_y;
@@ -39,6 +50,7 @@ typedef struct __attribute__((packed)) {
 // Unified Configuration Structure
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_CONFIG_SET or APP_PACKET_TYPE_CONFIG_STATE
+  uint8_t magic;
 
   // Hardware Config (Requires Reboot)
   uint8_t dshot_pin_a;
@@ -46,7 +58,8 @@ typedef struct __attribute__((packed)) {
   uint8_t led_pin;
 
   // Tuning Config (Real-time)
-  uint8_t rotation_source; // 0=CSI, 1=ESPNOW
+  // 0=CSI, 1=ESPNOW, 2=CSI_DEAD_RECKONING, 3=ESPNOW_DEAD_RECKONING
+  uint8_t rotation_source;
   uint16_t step_lag;
   uint16_t step_window;
 
@@ -57,19 +70,25 @@ typedef struct __attribute__((packed)) {
   uint16_t smoothing_window;
   float phase_offset;
   uint8_t translation_method;
+  uint8_t led_display_mode;
 } app_config_packet_t;
 
 #define TRANSLATION_METHOD_SQUARE 0
 #define TRANSLATION_METHOD_SINE 1
 #define TRANSLATION_METHOD_LINEAR 2
 
-_Static_assert(sizeof(app_config_packet_t) == 26,
+#define APP_CONFIG_PACKET_SIZE 28
+_Static_assert(sizeof(app_config_packet_t) == APP_CONFIG_PACKET_SIZE,
                "app_config_packet_t size mismatch! Check alignment/packing.");
-_Static_assert(sizeof(control_packet_t) == 11,
+_Static_assert(sizeof(control_packet_t) == 12,
                "control_packet_t size mismatch!");
+
+#define APP_CMD_DUMP_PACKET_SIZE 2
+#define APP_CMD_ACK_PACKET_SIZE 3
 
 typedef struct __attribute__((packed)) {
   uint8_t type; // APP_PACKET_TYPE_STATS
+  uint8_t magic;
   float rssi_mean;
   float rssi_var;
   int32_t pkts_per_sec;
@@ -79,6 +98,10 @@ typedef struct __attribute__((packed)) {
   float vector_y;
   uint32_t autocorrelation_time;
 } stats_packet_t;
+
+#define APP_STATS_PACKET_SIZE 31
+_Static_assert(sizeof(stats_packet_t) == APP_STATS_PACKET_SIZE,
+               "stats_packet_t size mismatch!");
 
 // Union for easy sizing/handling
 typedef union {

@@ -6,22 +6,22 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "/home/t/esp/esp-idf/components/bootloader/subproject")
-  file(MAKE_DIRECTORY "/home/t/esp/esp-idf/components/bootloader/subproject")
+if(NOT EXISTS "/Users/t/esp/esp-idf/components/bootloader/subproject")
+  file(MAKE_DIRECTORY "/Users/t/esp/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader"
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix"
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/tmp"
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp"
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/src"
-  "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/t/rotation_sensing/receiver/build/bootloader"
+  "/Users/t/rotation_sensing/receiver/build/bootloader-prefix"
+  "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/tmp"
+  "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp"
+  "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/src"
+  "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/home/t/esp/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/Users/t/rotation_sensing/receiver/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

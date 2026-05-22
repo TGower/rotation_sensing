@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader"
+			"file" : "/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

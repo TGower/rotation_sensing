@@ -6,14 +6,14 @@ import argparse
 import random
 
 # Protocol
-# Control: [START] [TYPE] [THROTTLE:2] [VX:4] [VY:4] [CHECKSUM]
-# Config:  [START] [TYPE] [SOURCE:1] [LAG:2] [WIN:2] [CHECKSUM]
+# Control: [START] [TYPE] [MAGIC] [THROTTLE:2] [VX:4] [VY:4] [CHECKSUM]
 START_BYTE = 0xAA
 RECV_START_BYTE = 0xAB
 
 APP_PACKET_TYPE_CONTROL = 0x10
 APP_PACKET_TYPE_CONFIG  = 0x20
 APP_PACKET_TYPE_STATS   = 0x30
+APP_PROTOCOL_MAGIC = 164
 
 
 
@@ -25,8 +25,8 @@ def parse_hex_string(hex_str):
         return None
 
 def create_control_packet(throttle, vx, vy):
-    # Payload: Type(B) + Throttle(H) + Vx(f) + Vy(f)
-    payload = struct.pack('<BHff', APP_PACKET_TYPE_CONTROL, throttle, vx, vy)
+    # Payload: Type(B) + Magic(B) + Throttle(H) + Vx(f) + Vy(f)
+    payload = struct.pack('<BBHff', APP_PACKET_TYPE_CONTROL, APP_PROTOCOL_MAGIC, throttle, vx, vy)
     
     checksum = 0
     for b in payload:
@@ -35,8 +35,24 @@ def create_control_packet(throttle, vx, vy):
     return bytes([START_BYTE]) + payload + bytes([checksum])
 
 def create_config_packet(source, step_lag, step_window):
-    # Payload: Type(B) + Source(B) + Lag(H) + Win(H)
-    payload = struct.pack('<BBHH', APP_PACKET_TYPE_CONFIG, source, step_lag, step_window)
+    payload = struct.pack(
+        '<BBBBBBHHffHHfBB',
+        APP_PACKET_TYPE_CONFIG,
+        APP_PROTOCOL_MAGIC,
+        13,
+        9,
+        12,
+        source,
+        step_lag,
+        step_window,
+        2.0,
+        4.0,
+        1000,
+        20,
+        0.0,
+        1,
+        3,
+    )
     
     checksum = 0
     for b in payload:
@@ -135,9 +151,11 @@ def main():
                                 if calc_sum == rx_buf[-1]:
                                     # Parse Stats
                                     ptype = payload[0]
-                                    if ptype == APP_PACKET_TYPE_STATS:
-                                        csi_m, csi_v, now_m, now_v, pkts, last_rssi = struct.unpack('<ffffib', payload[1:])
-                                        print(f"STATS: Pkts={pkts} RSSI={last_rssi} | CSI[M={csi_m:.1f} V={csi_v:.1f}] | NOW[M={now_m:.1f} V={now_v:.1f}]")
+                                    if ptype == APP_PACKET_TYPE_STATS and len(payload) == struct.calcsize('<BBffiBfffI') and payload[1] == APP_PROTOCOL_MAGIC:
+                                        _, _, rssi_mean, rssi_var, pkts, last_rssi, rotation_rate, vx, vy, autocorr = struct.unpack('<BBffiBfffI', payload)
+                                        if last_rssi > 127:
+                                            last_rssi -= 256
+                                        print(f"STATS: Pkts={pkts} RSSI={last_rssi} Rate={rotation_rate:.2f}Hz Mean={rssi_mean:.1f} Var={rssi_var:.1f} Vec=({vx:.2f},{vy:.2f}) Autocorr={autocorr}us")
                                 else:
                                     print(f"ERR: Stats checksum fail. Calc={calc_sum:02X} Recv={rx_buf[-1]:02X}")
                             else:

@@ -32,8 +32,10 @@ static uint8_t s_broadcast_mac[ESP_NOW_ETH_ALEN] = {0xFF, 0xFF, 0xFF,
                                                     0xFF, 0xFF, 0xFF};
 
 // Shared State - Global Defs
-static control_packet_t g_control_curr = {.type = APP_PACKET_TYPE_CONTROL};
-static app_config_packet_t g_config_curr = {.type = APP_PACKET_TYPE_CONFIG_SET};
+static control_packet_t g_control_curr = {.type = APP_PACKET_TYPE_CONTROL,
+                                          .magic = APP_PROTOCOL_MAGIC};
+static app_config_packet_t g_config_curr = {.type = APP_PACKET_TYPE_CONFIG_SET,
+                                            .magic = APP_PROTOCOL_MAGIC};
 static bool g_config_updated = false;
 static bool g_dump_req = false;
 static uint8_t g_target_mac[ESP_NOW_ETH_ALEN] = {0}; // Learned from stats
@@ -74,7 +76,11 @@ static void example_espnow_send_cb(const uint8_t *mac_addr,
 static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
                                    const uint8_t *data, int len) {
   // We expect stats packets from receiver
-  if (len >= 1) { // At least type byte
+  if (!recv_info || !recv_info->src_addr || !data) {
+    return;
+  }
+
+  if (len >= APP_CMD_DUMP_PACKET_SIZE && data[1] == APP_PROTOCOL_MAGIC) {
     uint8_t type = data[0];
     const char *label = NULL;
 
@@ -83,13 +89,19 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
     } else if (type == APP_PACKET_TYPE_CONFIG_STATE &&
                len == sizeof(app_config_packet_t)) {
       label = "CONFIG_DATA";
-    } else if (type == APP_PACKET_TYPE_CMD_ACK) {
+    } else if (type == APP_PACKET_TYPE_CMD_ACK &&
+               len == APP_CMD_ACK_PACKET_SIZE) {
       label = "DUMP_ACK";
     }
 
     if (label) {
+      if (g_target_known &&
+          memcmp(g_target_mac, recv_info->src_addr, ESP_NOW_ETH_ALEN) != 0) {
+        return;
+      }
+
       // Learn Target MAC
-      if (!g_target_known && recv_info->src_addr) {
+      if (!g_target_known) {
         memcpy(g_target_mac, recv_info->src_addr, ESP_NOW_ETH_ALEN);
         g_target_known = true;
 
@@ -140,8 +152,11 @@ static void example_espnow_recv_cb(const esp_now_recv_info_t *recv_info,
 
 // Packet Protocol - Serial
 #define PACKET_START_BYTE 0xAA
+#define PACKET_ESCAPE_BYTE 0x7D
+#define PACKET_ESCAPE_XOR 0x20
 // Max length for our internal buffers
 #define MAX_PACKET_LEN 32
+#define CONFIG_SEND_RETRY_COUNT 5
 
 typedef enum {
   WAIT_SYNC,
@@ -160,15 +175,33 @@ static void serial_read_task(void *pvParameter) {
   int buf_idx = 0;
   int expected_len = 0;
   uint8_t packet_type = 0;
+  bool escaped = false;
   parse_state_t state = WAIT_SYNC;
 
   while (1) {
     int len = fread(&rx_byte, 1, 1, stdin);
     if (len > 0) {
+      if (state != WAIT_SYNC) {
+        if (escaped) {
+          rx_byte ^= PACKET_ESCAPE_XOR;
+          escaped = false;
+        } else if (rx_byte == PACKET_ESCAPE_BYTE) {
+          escaped = true;
+          continue;
+        } else if (rx_byte == PACKET_START_BYTE) {
+          state = READ_TYPE;
+          buf_idx = 0;
+          expected_len = 0;
+          escaped = false;
+          continue;
+        }
+      }
+
       switch (state) {
       case WAIT_SYNC:
         if (rx_byte == PACKET_START_BYTE) {
           state = READ_TYPE;
+          escaped = false;
         }
         break;
 
@@ -182,7 +215,7 @@ static void serial_read_task(void *pvParameter) {
         } else if (packet_type == APP_PACKET_TYPE_CONFIG_SET) {
           expected_len = sizeof(app_config_packet_t);
         } else if (packet_type == APP_PACKET_TYPE_CMD_DUMP) {
-          expected_len = 1; // Type only, no payload struct
+          expected_len = APP_CMD_DUMP_PACKET_SIZE;
         } else {
           // Invalid type
           state = WAIT_SYNC;
@@ -210,7 +243,7 @@ static void serial_read_task(void *pvParameter) {
           calc_sum ^= buffer[i];
         }
 
-        if (calc_sum == rx_byte) {
+        if (calc_sum == rx_byte && buffer[1] == APP_PROTOCOL_MAGIC) {
           if (xSemaphoreTake(g_state_mutex, portMAX_DELAY)) {
             if (packet_type == APP_PACKET_TYPE_CONTROL) {
               memcpy(&g_control_curr, buffer, sizeof(control_packet_t));
@@ -224,12 +257,15 @@ static void serial_read_task(void *pvParameter) {
             xSemaphoreGive(g_state_mutex);
           }
         } else {
-          ESP_LOGW(TAG, "Checksum Fail: Calc 0x%02X vs Rx 0x%02X, Len %d",
-                   calc_sum, rx_byte, expected_len);
+          ESP_LOGW(TAG,
+                   "Packet Reject: Calc 0x%02X vs Rx 0x%02X, Magic 0x%02X, "
+                   "Len %d",
+                   calc_sum, rx_byte, buffer[1], expected_len);
           ESP_LOG_BUFFER_HEX_LEVEL(TAG, buffer, expected_len, ESP_LOG_WARN);
         }
 
         state = WAIT_SYNC;
+        escaped = false;
         break;
       }
     } else {
@@ -246,6 +282,7 @@ static void espnow_sender_task(void *pvParameter) {
 
   // Set default type
   g_control_curr.type = APP_PACKET_TYPE_CONTROL;
+  g_control_curr.magic = APP_PROTOCOL_MAGIC;
 
   while (1) {
     int64_t now = esp_timer_get_time();
@@ -275,6 +312,7 @@ static void espnow_sender_task(void *pvParameter) {
 
     // Ensure Type is correct (sanity)
     current_ctrl.type = APP_PACKET_TYPE_CONTROL;
+    current_ctrl.magic = APP_PROTOCOL_MAGIC;
 
     // Send Control Broadcast
     esp_now_send(s_broadcast_mac, (uint8_t *)&current_ctrl,
@@ -283,20 +321,32 @@ static void espnow_sender_task(void *pvParameter) {
     // Send Config Unicast (if pending)
     if (send_config) {
       uint8_t *dest_mac = g_target_known ? g_target_mac : s_broadcast_mac;
+      bool sent_any = false;
+      cfg_pkt.type = APP_PACKET_TYPE_CONFIG_SET;
+      cfg_pkt.magic = APP_PROTOCOL_MAGIC;
 
-      esp_err_t err =
-          esp_now_send(dest_mac, (uint8_t *)&cfg_pkt, sizeof(cfg_pkt));
-      if (err == ESP_OK) {
-        ESP_LOGI(TAG, "Sent Config Packet to " MACSTR, MAC2STR(dest_mac));
-      } else {
-        ESP_LOGE(TAG, "Config Send Fail: %d", err);
+      for (int i = 0; i < CONFIG_SEND_RETRY_COUNT; i++) {
+        esp_err_t err =
+            esp_now_send(dest_mac, (uint8_t *)&cfg_pkt, sizeof(cfg_pkt));
+        if (err == ESP_OK) {
+          sent_any = true;
+        } else {
+          ESP_LOGE(TAG, "Config Send Fail: %d", err);
+        }
+        vTaskDelay(1);
+      }
+
+      if (sent_any) {
+        ESP_LOGI(TAG, "Sent Config Packet x%d to " MACSTR,
+                 CONFIG_SEND_RETRY_COUNT, MAC2STR(dest_mac));
       }
     }
 
     if (send_dump) {
-      uint8_t type = APP_PACKET_TYPE_CMD_DUMP;
+      uint8_t dump_pkt[APP_CMD_DUMP_PACKET_SIZE] = {APP_PACKET_TYPE_CMD_DUMP,
+                                                    APP_PROTOCOL_MAGIC};
       // Broadcast or Unicast? Broadcast ensures it reaches.
-      esp_now_send(s_broadcast_mac, &type, 1);
+      esp_now_send(s_broadcast_mac, dump_pkt, sizeof(dump_pkt));
       ESP_LOGI(TAG, "Sent DUMP Command");
     }
 

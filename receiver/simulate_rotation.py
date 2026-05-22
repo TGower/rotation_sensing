@@ -1,12 +1,16 @@
 import csv
+import argparse
 import math
-import matplotlib.pyplot as plt
-import numpy as np
-import sys
 import os
 import json
+import tempfile
+os.environ.setdefault("MPLCONFIGDIR", os.path.join(tempfile.gettempdir(), "rotation_sensing_mpl"))
+import matplotlib
+matplotlib.use(os.environ.get("MPLBACKEND", "Agg"))
+import matplotlib.pyplot as plt
+import numpy as np
 import matplotlib.animation as animation
-from matplotlib.patches import Circle, Wedge, Arrow
+from matplotlib.patches import Circle
 
 # --- Configuration & Constants (Matching Firmware) ---
 RSSI_BUF_SIZE = 6000
@@ -14,6 +18,221 @@ INTERPOLATION_INTERVAL_US = 100
 DSHOT_ESC_RESOLUTION_HZ = 40000000
 M_PI = math.pi
 M_PI_2 = math.pi / 2.0
+DSHOT_MAX = 1023
+
+ROTATION_SOURCE_CSI = 0
+ROTATION_SOURCE_ESPNOW = 1
+ROTATION_SOURCE_CSI_DEAD_RECKONING = 2
+ROTATION_SOURCE_ESPNOW_DEAD_RECKONING = 3
+
+TRANSLATION_METHOD_SQUARE = 0
+TRANSLATION_METHOD_SINE = 1
+TRANSLATION_METHOD_LINEAR = 2
+
+LED_DISPLAY_MODE_SIMPLE_ANGLE = 0
+LED_DISPLAY_MODE_RPM = 1
+LED_DISPLAY_MODE_PICTURE = 2
+LED_DISPLAY_MODE_RSSI_POV = 3
+LED_DISPLAY_MODES = [
+    (LED_DISPLAY_MODE_SIMPLE_ANGLE, "simple_angle", "Simple Angle"),
+    (LED_DISPLAY_MODE_RPM, "rpm_display", "RPM Display"),
+    (LED_DISPLAY_MODE_PICTURE, "picture_mode", "Picture Mode"),
+    (LED_DISPLAY_MODE_RSSI_POV, "rssi_pov", "RSSI PoV"),
+]
+
+LED_STRIP_LED_COUNT = 10
+POV_RSSI_LED_COUNT = 9
+RSSI_DISPLAY_RANGE_HISTORY_COUNT = 5
+LED_FIRST_RADIUS_M = 0.01
+LED_SPACING_M = 0.01
+POV_TEXT_GLYPH_WIDTH = 5
+POV_TEXT_GLYPH_HEIGHT = 7
+POV_TEXT_CHAR_ADVANCE = 6
+POV_TEXT_MARGIN_COLUMNS = 4
+POV_TEXT_TOP_MARGIN = 1
+
+FONT_5X7 = {
+    "0": (0x0E, 0x11, 0x13, 0x15, 0x19, 0x11, 0x0E),
+    "1": (0x04, 0x0C, 0x04, 0x04, 0x04, 0x04, 0x0E),
+    "2": (0x0E, 0x11, 0x01, 0x02, 0x04, 0x08, 0x1F),
+    "3": (0x1E, 0x01, 0x01, 0x0E, 0x01, 0x01, 0x1E),
+    "4": (0x02, 0x06, 0x0A, 0x12, 0x1F, 0x02, 0x02),
+    "5": (0x1F, 0x10, 0x10, 0x1E, 0x01, 0x01, 0x1E),
+    "6": (0x06, 0x08, 0x10, 0x1E, 0x11, 0x11, 0x0E),
+    "7": (0x1F, 0x01, 0x02, 0x04, 0x08, 0x08, 0x08),
+    "8": (0x0E, 0x11, 0x11, 0x0E, 0x11, 0x11, 0x0E),
+    "9": (0x0E, 0x11, 0x11, 0x0F, 0x01, 0x02, 0x0C),
+    "M": (0x11, 0x1B, 0x15, 0x15, 0x11, 0x11, 0x11),
+    "P": (0x1E, 0x11, 0x11, 0x1E, 0x10, 0x10, 0x10),
+    "R": (0x1E, 0x11, 0x11, 0x1E, 0x14, 0x12, 0x11),
+}
+
+
+def wrap_2pi(angle):
+    angle = math.fmod(angle, 2.0 * M_PI)
+    if angle < 0.0:
+        angle += 2.0 * M_PI
+    return angle
+
+
+def phase_in_heading_arc(phase):
+    diff = phase - M_PI
+    while diff <= -M_PI:
+        diff += 2.0 * M_PI
+    while diff > M_PI:
+        diff -= 2.0 * M_PI
+    return abs(diff) < (M_PI / 8.0)
+
+
+def phase_in_forward_arc(phase):
+    diff = phase
+    while diff <= -M_PI:
+        diff += 2.0 * M_PI
+    while diff > M_PI:
+        diff -= 2.0 * M_PI
+    return abs(diff) <= (M_PI / 6.0)
+
+
+def rotation_source_uses_dead_reckoning(rotation_source):
+    return rotation_source in (
+        ROTATION_SOURCE_CSI_DEAD_RECKONING,
+        ROTATION_SOURCE_ESPNOW_DEAD_RECKONING,
+    )
+
+
+def font5x7_pixel(ch, col, row):
+    if col < 0 or col >= POV_TEXT_GLYPH_WIDTH:
+        return False
+    if row < 0 or row >= POV_TEXT_GLYPH_HEIGHT:
+        return False
+    glyph = FONT_5X7.get(ch.upper())
+    if glyph is None:
+        return False
+    return (glyph[row] & (1 << (POV_TEXT_GLYPH_WIDTH - 1 - col))) != 0
+
+
+def text_pixel(text, col, row):
+    if col < 0 or row < 0 or row >= POV_TEXT_GLYPH_HEIGHT:
+        return False
+    char_index = col // POV_TEXT_CHAR_ADVANCE
+    char_col = col % POV_TEXT_CHAR_ADVANCE
+    if char_index < 0 or char_index >= len(text):
+        return False
+    if char_col >= POV_TEXT_GLYPH_WIDTH:
+        return False
+    return font5x7_pixel(text[char_index], char_col, row)
+
+
+def render_led_strip_colors(
+    mode,
+    phase,
+    rotation_rate_hz,
+    rssi=0,
+    rssi_min=0,
+    rssi_max=0,
+):
+    if mode == LED_DISPLAY_MODE_RPM:
+        return render_rpm_led_strip(phase, rotation_rate_hz)
+    if mode == LED_DISPLAY_MODE_PICTURE:
+        return render_pokeball_led_strip(phase)
+    if mode == LED_DISPLAY_MODE_RSSI_POV:
+        return render_rssi_pov_led_strip(phase, rssi, rssi_min, rssi_max)
+    return render_simple_angle_led_strip(phase)
+
+
+def render_simple_angle_led_strip(phase):
+    color = (255, 255, 255) if phase_in_heading_arc(phase) else (0, 0, 0)
+    return [color] * LED_STRIP_LED_COUNT
+
+
+def render_rpm_led_strip(phase, rotation_rate_hz):
+    rpm = int(abs(rotation_rate_hz * 60.0) + 0.5)
+    rpm = min(rpm, 99999)
+    text = f"{rpm}RPM"
+
+    text_width = len(text) * POV_TEXT_CHAR_ADVANCE - 1
+    canvas_width = text_width + 2 * POV_TEXT_MARGIN_COLUMNS
+    display_phase = wrap_2pi(phase - M_PI)
+    canvas_col = int((display_phase / (2.0 * M_PI)) * canvas_width)
+    if canvas_col >= canvas_width:
+        canvas_col = canvas_width - 1
+    text_col = canvas_col - POV_TEXT_MARGIN_COLUMNS
+
+    colors = []
+    for led in range(LED_STRIP_LED_COUNT):
+        row = (LED_STRIP_LED_COUNT - 1 - led) - POV_TEXT_TOP_MARGIN
+        colors.append((255, 255, 255) if text_pixel(text, text_col, row) else (0, 0, 0))
+    return colors
+
+
+def pokeball_pixel(display_phase, led_index):
+    radius = (led_index + 0.5) / LED_STRIP_LED_COUNT
+    y = radius * math.cos(display_phase)
+    abs_y = abs(y)
+
+    if radius < 0.18:
+        return (255, 255, 255)
+    if radius < 0.32:
+        return (0, 0, 0)
+    if abs_y < 0.07:
+        return (0, 0, 0)
+    if y >= 0.0:
+        return (255, 255, 255)
+    return (255, 0, 0)
+
+
+def render_pokeball_led_strip(phase):
+    display_phase = wrap_2pi(phase - M_PI)
+    return [pokeball_pixel(display_phase, led) for led in range(LED_STRIP_LED_COUNT)]
+
+
+def scale_rssi_to_led_index(rssi, rssi_min, rssi_max):
+    if rssi_max <= rssi_min:
+        return POV_RSSI_LED_COUNT // 2
+    led = int(((rssi - rssi_min) * (POV_RSSI_LED_COUNT - 1) / (rssi_max - rssi_min)) + 0.5)
+    return max(0, min(POV_RSSI_LED_COUNT - 1, led))
+
+
+def render_rssi_pov_led_strip(phase, rssi, rssi_min, rssi_max):
+    colors = [(0, 0, 0)] * LED_STRIP_LED_COUNT
+    colors[scale_rssi_to_led_index(rssi, rssi_min, rssi_max)] = (0, 180, 255)
+    if phase_in_forward_arc(phase):
+        colors[LED_STRIP_LED_COUNT - 1] = (255, 0, 0)
+    return colors
+
+
+def average_visible_color(colors):
+    visible = [color for color in colors if color != (0, 0, 0)]
+    if not visible:
+        return (0, 0, 0)
+    return tuple(int(sum(color[i] for color in visible) / len(visible)) for i in range(3))
+
+
+def save_animation_with_available_writer(ani, filename, fps):
+    root, ext = os.path.splitext(filename)
+    ext = ext.lower()
+    if ext == ".gif":
+        ani.save(filename, writer="pillow", fps=fps)
+        return filename
+
+    if not animation.writers.is_available("ffmpeg"):
+        try:
+            import imageio_ffmpeg
+            plt.rcParams["animation.ffmpeg_path"] = imageio_ffmpeg.get_ffmpeg_exe()
+        except ImportError:
+            pass
+
+    if animation.writers.is_available("ffmpeg"):
+        ani.save(filename, writer="ffmpeg", fps=fps)
+        return filename
+
+    if animation.writers.is_available("pillow"):
+        fallback = root + ".gif"
+        print(f"ffmpeg not available; saving {fallback} instead.")
+        ani.save(fallback, writer="pillow", fps=fps)
+        return fallback
+
+    raise RuntimeError("No animation writer available. Install ffmpeg or Pillow.")
 
 class PhysicsConfig:
     def __init__(self):
@@ -92,10 +311,10 @@ class RotationState:
 
 class AppConfig:
     def __init__(self):
-        self.dshot_pin_a = 8
+        self.dshot_pin_a = 13
         self.dshot_pin_b = 9
-        self.led_pin = 48
-        self.rotation_source = 1 # ESPNOW
+        self.led_pin = 12
+        self.rotation_source = ROTATION_SOURCE_ESPNOW
         self.step_lag = 5
         self.step_window = 5
         self.smoothing_window = 20
@@ -103,6 +322,8 @@ class AppConfig:
         self.translation_multiplier = 4.0
         self.correlation_window = 1000
         self.phase_offset = 0.0
+        self.translation_method = TRANSLATION_METHOD_SINE
+        self.led_display_mode = LED_DISPLAY_MODE_RSSI_POV
 
 # --- Global / System State ---
 # In a real system these are static/globals. Here they are part of the Sim class but we can treat them as "system" state.
@@ -114,6 +335,14 @@ class ESPFirmwareSimulation:
         self.g_control_input = ControlInput()
         self.g_rotation_state = RotationState()
         self.g_config = AppConfig()
+        self.rssi_display_min = 0
+        self.rssi_display_max = 0
+        self.rssi_display_valid = False
+        self.rssi_display_range_history = []
+        self.rssi_display_range_history_next = 0
+        self.dead_reckoning_phase = 0.0
+        self.dead_reckoning_last_update_us = 0
+        self.dead_reckoning_valid = False
         
         if config_dict:
             print("Applying config from JSON...")
@@ -146,6 +375,7 @@ class ESPFirmwareSimulation:
         self.log_led_b = []
         self.log_rate = []
         self.log_phase = []
+        self.log_dead_reckoning_phase = []
         self.log_phys_rate_hz = [] # Physics Truth
         self.log_phys_angle = [] # Physics Truth (Orientation)
         self.log_phys_x = []
@@ -437,6 +667,9 @@ class ESPFirmwareSimulation:
         
         if count < corr_window * 2:
             return
+
+        range_window = min(count, corr_window)
+        self.update_rssi_display_range(head, range_window)
             
         start_lag = 200
         end_lag = 1000
@@ -568,54 +801,93 @@ class ESPFirmwareSimulation:
             dt_pi = (phi + M_PI) / omega
             self.g_rotation_state.last_peak_timestamp = t_ref + int(dt_pi)
 
+    def update_rssi_display_range(self, head, sample_count):
+        if sample_count <= 0:
+            self.rssi_display_valid = False
+            self.rssi_display_range_history = []
+            self.rssi_display_range_history_next = 0
+            return
+
+        values = []
+        for i in range(min(sample_count, RSSI_BUF_SIZE)):
+            idx = (head - 1 - i + RSSI_BUF_SIZE) % RSSI_BUF_SIZE
+            values.append(self.g_interpolated_rssi_buf.rssi[idx])
+
+        run_range = (min(values), max(values))
+        if len(self.rssi_display_range_history) < RSSI_DISPLAY_RANGE_HISTORY_COUNT:
+            self.rssi_display_range_history.append(run_range)
+        else:
+            self.rssi_display_range_history[
+                self.rssi_display_range_history_next
+            ] = run_range
+        self.rssi_display_range_history_next = (
+            self.rssi_display_range_history_next + 1
+        ) % RSSI_DISPLAY_RANGE_HISTORY_COUNT
+
+        self.rssi_display_min = min(
+            r[0] for r in self.rssi_display_range_history
+        )
+        self.rssi_display_max = max(
+            r[1] for r in self.rssi_display_range_history
+        )
+        self.rssi_display_valid = True
+
+    def update_dead_reckoning_heading(self, now, seed_phase, period_us):
+        if not self.dead_reckoning_valid:
+            self.dead_reckoning_phase = seed_phase
+            self.dead_reckoning_last_update_us = now
+            self.dead_reckoning_valid = True
+            return self.dead_reckoning_phase
+
+        elapsed_us = now - self.dead_reckoning_last_update_us
+        if elapsed_us < 0:
+            self.dead_reckoning_phase = seed_phase
+        else:
+            self.dead_reckoning_phase = wrap_2pi(
+                self.dead_reckoning_phase
+                + (2.0 * M_PI * float(elapsed_us) / period_us)
+            )
+        self.dead_reckoning_last_update_us = now
+        return self.dead_reckoning_phase
+
     def task_motor(self):
         # Mimic motor_task loop body
         now = self.current_time_us
-        
+
         time_since_peak = now - self.g_rotation_state.last_peak_timestamp
-        phase = 2.0 * M_PI * float(time_since_peak) / self.g_rotation_state.estimated_period_us
-        
-        # Apply Offset
-        phase += self.g_config.phase_offset
-        
-        # Normalize 0..2PI
-        phase = phase % (2.0 * M_PI)
-        if phase < 0: phase += 2.0 * M_PI
-        
-        # Determine LED Color
-        # Green for 45 deg arc opposite peak (Heading) -> Peak is at phase=0?
-        # In IQ code: "t_target" is where phase would be PI? 
-        # C Code Line 766: "Find time where phase would be PI... last_peak_timestamp = ... "
-        # So last_peak_timestamp is effectively checking PI intersection.
-        # So at last_peak_timestamp, phase should be PI.
-        # But calculation `phase = 2PI * dt / period` implies phase grows linearly from last_peak_timestamp.
-        # If last_peak_timestamp is "PI", then at `now` == `last_peak`, `phase` calc gives 0 (since dt=0).
-        # This seems inconsistent or strictly defined: `time_since_peak` is 0 at `last_peak_timestamp`.
-        # So `phase` variable here starts at 0 at `last_peak_timestamp`.
-        # C code `HEADING_START` is `PI - PI/8`.
-        
-        # LED Logic
-        r, g, b = 0, 0, 0
-        max_intensity = 255
-        
-        if phase < M_PI:
-             ratio = phase / M_PI
-             r = int(max_intensity * ratio)
-             b = int(max_intensity * (1.0 - ratio))
+        period_us = self.g_rotation_state.estimated_period_us
+        if period_us < 1.0:
+            period_us = 2000000.0
+        iq_phase = wrap_2pi(2.0 * M_PI * float(time_since_peak) / period_us)
+        use_dead_reckoning = rotation_source_uses_dead_reckoning(
+            self.g_config.rotation_source
+        )
+        selected_phase = iq_phase
+        if use_dead_reckoning:
+            selected_phase = self.update_dead_reckoning_heading(
+                now, iq_phase, period_us
+            )
         else:
-             ratio = (phase - M_PI) / M_PI
-             r = max_intensity
-             g = int(max_intensity * ratio)
-             b = int(max_intensity * ratio) # Wait, C code says g and b both ratio? 
-             # C Line 415: b = (uint8_t)(max_intensity * ratio);
-             # Red -> White
-             
-        HEADING_START = M_PI - M_PI / 8.0
-        HEADING_END = M_PI + M_PI / 8.0
-        
-        if phase > HEADING_START and phase < HEADING_END:
-            r, g, b = 0, max_intensity, 0
-            
+            self.dead_reckoning_valid = False
+            self.dead_reckoning_last_update_us = 0
+
+        # Apply Offset
+        phase = selected_phase + self.g_config.phase_offset
+
+        # Normalize 0..2PI
+        phase = wrap_2pi(phase)
+        dead_reckoning_phase = phase if use_dead_reckoning else math.nan
+
+        led_colors = render_led_strip_colors(
+            self.g_config.led_display_mode,
+            phase,
+            self.g_rotation_state.rotation_rate,
+            self.g_interpolated_rssi_buf.last_rssi,
+            self.rssi_display_min if self.rssi_display_valid else 0,
+            self.rssi_display_max if self.rssi_display_valid else 0,
+        )
+        r, g, b = average_visible_color(led_colors)
+
         # Motor Mixing
         TRANSLATION_BASE_STRENGTH = 100
         throttle = self.g_control_input.throttle
@@ -640,17 +912,26 @@ class ESPFirmwareSimulation:
                 while diff <= -M_PI: diff += 2.0 * M_PI
                 while diff > M_PI: diff -= 2.0 * M_PI
                 
-                # Smooth Sinusoidal Modulation
-                modulation = math.cos(diff)
-                strength = TRANSLATION_BASE_STRENGTH * self.g_config.translation_multiplier * mag * modulation
-                
-                leftDShot = throttle_rescaled + strength
-                rightDShot = throttle_rescaled - strength
+                strength = TRANSLATION_BASE_STRENGTH * self.g_config.translation_multiplier * mag
+
+                if self.g_config.translation_method == TRANSLATION_METHOD_SQUARE:
+                    if abs(diff) < (M_PI / 8.0):
+                        leftDShot = throttle_rescaled + strength
+                        rightDShot = throttle_rescaled - strength
+                elif self.g_config.translation_method == TRANSLATION_METHOD_LINEAR:
+                    factor = 1.0 - (2.0 * abs(diff) / M_PI)
+                    modulation = factor * strength
+                    leftDShot = throttle_rescaled + modulation
+                    rightDShot = throttle_rescaled - modulation
+                else:
+                    modulation = math.cos(diff) * strength
+                    leftDShot = throttle_rescaled + modulation
+                    rightDShot = throttle_rescaled - modulation
                     
             if leftDShot < 48: leftDShot = 48
-            if leftDShot > 2047: leftDShot = 2047
+            if leftDShot > DSHOT_MAX: leftDShot = DSHOT_MAX
             if rightDShot < 48: rightDShot = 48
-            if rightDShot > 2047: rightDShot = 2047
+            if rightDShot > DSHOT_MAX: rightDShot = DSHOT_MAX
             
         # Log outputs
         self.log_dshot_a.append(leftDShot)
@@ -659,6 +940,7 @@ class ESPFirmwareSimulation:
         self.log_led_g.append(g)
         self.log_led_b.append(b)
         self.log_phase.append(phase)
+        self.log_dead_reckoning_phase.append(dead_reckoning_phase)
         
         # Step Physics using these DShot values
         # They are applied for the NEXT millisecond
@@ -891,7 +1173,7 @@ class ESPFirmwareSimulation:
             py_a = y + disc_radius * math.sin(angle_a)
             
             thr_a = np.interp(t_target, time_map, self.log_dshot_a)
-            len_a = (thr_a / 2047.0) * 0.1
+            len_a = (thr_a / DSHOT_MAX) * 0.1
             
             angle_f_a = angle_a + M_PI_2
             fx_a = px_a + len_a * math.cos(angle_f_a)
@@ -904,7 +1186,7 @@ class ESPFirmwareSimulation:
             py_b = y + disc_radius * math.sin(angle_b)
              
             thr_b = np.interp(t_target, time_map, self.log_dshot_b)
-            len_b = (thr_b / 2047.0) * 0.1
+            len_b = (thr_b / DSHOT_MAX) * 0.1
             # Wait, CCW torque. R x F.
             # Pos B: (0, -R). Force vector F?
             # (0, -R, 0) x (Fx, Fy, 0) = (0, 0, R*Fx) (if Fy=0).
@@ -922,18 +1204,192 @@ class ESPFirmwareSimulation:
             
             return [line_orientation, led_patch, line_motor_a, line_motor_b, disc_patch, line_traj]
         ani = animation.FuncAnimation(fig, update_simple, frames=total_frames, blit=True)
-        ani.save(filename, writer='ffmpeg', fps=fps)
-        print("Video saved.")
+        saved_filename = save_animation_with_available_writer(ani, filename, fps)
+        plt.close(fig)
+        print(f"Video saved to {saved_filename}.")
+
+    def render_led_trace_videos(self, base_name, output_dir=".", fps=60, slowdown=20, persistence_ms=120):
+        for mode, slug, title in LED_DISPLAY_MODES:
+            filename = os.path.join(output_dir, f"sim_led_{slug}_{base_name}.mp4")
+            self.render_led_trace_video(
+                mode=mode,
+                title=title,
+                filename=filename,
+                fps=fps,
+                slowdown=slowdown,
+                persistence_ms=persistence_ms,
+            )
+
+    def render_led_trace_video(self, mode, title, filename, fps=60, slowdown=20, persistence_ms=120):
+        if len(self.log_time) < 2:
+            print(f"Skipping {title} LED video: not enough simulated samples.")
+            return None
+
+        print(
+            f"Rendering {title} LED trace to {filename} "
+            f"(Slowdown: {slowdown}x, persistence: {persistence_ms} ms)..."
+        )
+
+        total_time_us = self.log_time[-1] - self.log_time[0]
+        total_time_s = total_time_us / 1e6
+        total_frames = max(1, int(total_time_s * fps * slowdown))
+        ts_step = 1e6 / (fps * slowdown)
+        persistence_us = max(1000.0, persistence_ms * 1000.0)
+
+        time_map = np.array(self.log_time, dtype=float)
+        angle_map = np.unwrap(np.array(self.log_phys_angle, dtype=float))
+        phase_map = np.unwrap(np.array(self.log_phase, dtype=float))
+        rate_map = np.array(self.log_rate, dtype=float)
+        rssi_map = np.array(self.log_rssi_sample, dtype=float)
+        rssi_min = float(np.min(rssi_map)) if len(rssi_map) else 0.0
+        rssi_max = float(np.max(rssi_map)) if len(rssi_map) else 0.0
+        x_map = np.array(self.log_phys_x, dtype=float)
+        y_map = np.array(self.log_phys_y, dtype=float)
+        led_radii = np.array(
+            [LED_FIRST_RADIUS_M + led * LED_SPACING_M for led in range(LED_STRIP_LED_COUNT)],
+            dtype=float,
+        )
+
+        fig, ax = plt.subplots(figsize=(7, 7))
+        ax.set_aspect("equal")
+        ax.grid(True, which="both", linestyle="--", alpha=0.25)
+        ax.set_title(f"LED POV Trace: {title}")
+        ax.set_xlabel("World X (m)")
+        ax.set_ylabel("World Y (m)")
+
+        view_radius = max(self.phys_config.disc_radius_m, led_radii[-1]) + 0.08
+        disc_patch = Circle((0, 0), self.phys_config.disc_radius_m, color="gray", alpha=0.18)
+        ax.add_patch(disc_patch)
+        heading_line, = ax.plot([], [], "k-", linewidth=1.8, alpha=0.75, label="heading")
+        strip_line, = ax.plot([], [], color="tab:blue", linewidth=1.2, alpha=0.7, label="LED strip")
+        led_trace = ax.scatter([], [], s=30, edgecolors="none")
+        status_text = ax.text(
+            0.02,
+            0.98,
+            "",
+            transform=ax.transAxes,
+            va="top",
+            ha="left",
+            fontsize=9,
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.65},
+        )
+        ax.legend(loc="lower right")
+
+        def interpolated_state(t_target):
+            x = np.interp(t_target, time_map, x_map)
+            y = np.interp(t_target, time_map, y_map)
+            angle = np.interp(t_target, time_map, angle_map)
+            phase = wrap_2pi(np.interp(t_target, time_map, phase_map))
+            rate_hz = np.interp(t_target, time_map, rate_map)
+            return x, y, angle, phase, rate_hz
+
+        def append_led_points(offsets, rgba, sample_idx, t_target):
+            sample_time = time_map[sample_idx]
+            age = max(0.0, t_target - sample_time)
+            alpha = max(0.0, 1.0 - (age / persistence_us))
+            if alpha <= 0.0:
+                return
+
+            x = x_map[sample_idx]
+            y = y_map[sample_idx]
+            strip_angle = angle_map[sample_idx] + M_PI_2
+            cos_a = math.cos(strip_angle)
+            sin_a = math.sin(strip_angle)
+            phase = wrap_2pi(phase_map[sample_idx])
+            colors = render_led_strip_colors(
+                mode,
+                phase,
+                rate_map[sample_idx],
+                rssi_map[sample_idx],
+                rssi_min,
+                rssi_max,
+            )
+
+            for led, color in enumerate(colors):
+                if color == (0, 0, 0):
+                    continue
+                radius = led_radii[led]
+                offsets.append((x + radius * cos_a, y + radius * sin_a))
+                rgba.append((color[0] / 255.0, color[1] / 255.0, color[2] / 255.0, alpha))
+
+        def update_led_trace(frame):
+            t_target = self.log_time[0] + frame * ts_step
+            if t_target > self.log_time[-1]:
+                t_target = self.log_time[-1]
+
+            x, y, angle, phase, rate_hz = interpolated_state(t_target)
+            ax.set_xlim(x - view_radius, x + view_radius)
+            ax.set_ylim(y - view_radius, y + view_radius)
+
+            disc_patch.center = (x, y)
+            heading_line.set_data(
+                [x, x + self.phys_config.disc_radius_m * math.cos(angle)],
+                [y, y + self.phys_config.disc_radius_m * math.sin(angle)],
+            )
+
+            strip_angle = angle + M_PI_2
+            strip_line.set_data(
+                [x, x + led_radii[-1] * math.cos(strip_angle)],
+                [y, y + led_radii[-1] * math.sin(strip_angle)],
+            )
+
+            start_time = max(self.log_time[0], t_target - persistence_us)
+            start_idx = int(np.searchsorted(time_map, start_time, side="left"))
+            end_idx = int(np.searchsorted(time_map, t_target, side="right")) - 1
+            end_idx = max(0, min(end_idx, len(time_map) - 1))
+
+            offsets = []
+            rgba = []
+            if end_idx >= start_idx:
+                indices = list(range(start_idx, end_idx + 1))
+                if end_idx not in indices:
+                    indices.append(end_idx)
+                for sample_idx in indices:
+                    append_led_points(offsets, rgba, sample_idx, t_target)
+
+            if offsets:
+                led_trace.set_offsets(np.array(offsets))
+                led_trace.set_facecolors(np.array(rgba))
+            else:
+                led_trace.set_offsets(np.empty((0, 2)))
+                led_trace.set_facecolors(np.empty((0, 4)))
+
+            status_text.set_text(
+                f"t={((t_target - self.log_time[0]) / 1e6):.3f}s  "
+                f"RPM={rate_hz * 60.0:.0f}  phase={phase:.2f} rad"
+            )
+            return [disc_patch, heading_line, strip_line, led_trace, status_text]
+
+        ani = animation.FuncAnimation(
+            fig,
+            update_led_trace,
+            frames=total_frames,
+            blit=False,
+        )
+        saved_filename = save_animation_with_available_writer(ani, filename, fps)
+        plt.close(fig)
+        print(f"{title} LED trace saved to {saved_filename}.")
+        return saved_filename
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python simulate_rotation.py <csv_file>")
-        return
-        
-    filename = sys.argv[1]
+    parser = argparse.ArgumentParser(description="Simulate receiver rotation control and POV LED output.")
+    parser.add_argument("csv_file", help="CSV dump to simulate")
+    parser.add_argument("--output-dir", default=".", help="directory for plots and videos")
+    parser.add_argument("--fps", type=int, default=60, help="video frames per second")
+    parser.add_argument("--physics-slowdown", type=float, default=100.0, help="slowdown factor for the physics overview video")
+    parser.add_argument("--led-slowdown", type=float, default=20.0, help="slowdown factor for LED POV trace videos")
+    parser.add_argument("--persistence-ms", type=float, default=120.0, help="POV trace persistence window in milliseconds")
+    parser.add_argument("--no-physics-video", action="store_true", help="skip the existing physics overview video")
+    parser.add_argument("--no-led-videos", action="store_true", help="skip the three LED POV trace videos")
+    args = parser.parse_args()
+
+    filename = args.csv_file
     if not os.path.exists(filename):
         print("File not found")
+        return
+
+    os.makedirs(args.output_dir, exist_ok=True)
     
     # Load Config if exists
     json_file = os.path.splitext(filename)[0] + ".json"
@@ -971,6 +1427,13 @@ def main():
     
     # Phase
     axes[2].plot(sim.log_time, sim.log_phase, label='Phase (rad)', color='purple', linewidth=0.5)
+    axes[2].plot(
+        sim.log_time,
+        sim.log_dead_reckoning_phase,
+        label='Dead Reckoning Phase (rad)',
+        color='green',
+        linewidth=0.5,
+    )
     axes[2].set_ylabel('Rad')
     axes[2].legend()
     
@@ -981,15 +1444,25 @@ def main():
     axes[3].legend()
     axes[3].set_xlabel('Time (us)')
     
-    out_png = f"sim_aligned_{os.path.basename(filename)}.png"
+    out_png = os.path.join(args.output_dir, f"sim_aligned_{os.path.basename(filename)}.png")
     plt.tight_layout()
     plt.savefig(out_png)
+    plt.close(fig)
     print(f"Saved plot to {out_png}")
     
-    # Render Video
     base = os.path.splitext(os.path.basename(filename))[0]
-    vid_name = f"sim_video_{base}.mp4"
-    sim.render_video(vid_name, slowdown=100)
+    if not args.no_physics_video:
+        vid_name = os.path.join(args.output_dir, f"sim_video_{base}.mp4")
+        sim.render_video(vid_name, fps=args.fps, slowdown=args.physics_slowdown)
+
+    if not args.no_led_videos:
+        sim.render_led_trace_videos(
+            base,
+            output_dir=args.output_dir,
+            fps=args.fps,
+            slowdown=args.led_slowdown,
+            persistence_ms=args.persistence_ms,
+        )
 
 if __name__ == "__main__":
     main()

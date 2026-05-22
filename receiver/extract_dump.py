@@ -19,21 +19,22 @@ PARTITION_OFFSET = 0x187000
 # typedef struct {
 #   int8_t rssi[RSSI_BUF_SIZE];              // 6000 bytes
 #   int64_t timestamp[RSSI_BUF_SIZE];        // 6000 * 8 = 48000 bytes
-#   control_packet_t control[RSSI_BUF_SIZE]; // 6000 * 11 = 66000 bytes
-#                                            // (packed: u8(1) + u16(2) + f(4) + f(4) = 11 bytes)
+#   control_packet_t control[RSSI_BUF_SIZE]; // 6000 * 12 = 72000 bytes
+#                                            // (packed: u8(1) + magic(1) + u16(2) + f(4) + f(4) = 12 bytes)
 #   int head;                                // 4 bytes
 #   int tail;                                // 4 bytes
 #   int64_t last_timestamp;                  // 8 bytes
 #   int8_t last_rssi;                        // 1 byte
-#   app_config_packet_t config;              // 26 bytes
+#   app_config_packet_t config;              // 28 bytes
 # } control_circular_buffer_t;
 
 # app_config_packet_t (packed):
 # uint8_t type; (1)
+# uint8_t magic; (1)
 # uint8_t dshot_pin_a; (1)
 # uint8_t dshot_pin_b; (1)
 # uint8_t led_pin; (1)
-# uint8_t rotation_source; (1)
+# uint8_t rotation_source; (0=CSI, 1=ESPNOW, 2=CSI_DR, 3=ESPNOW_DR)
 # uint16_t step_lag; (2)
 # uint16_t step_window; (2)
 # float throttle_multiplier; (4)
@@ -42,18 +43,19 @@ PARTITION_OFFSET = 0x187000
 # uint16_t smoothing_window; (2)
 # float phase_offset; (4)
 # uint8_t translation_method; (1)
-CONFIG_SIZE = 26
-CONFIG_FMT = "<BBBBBHHffHHfB"
+# uint8_t led_display_mode; (1)
+CONFIG_SIZE = 28
+CONFIG_FMT = "<BBBBBBHHffHHfBB"
 
-CONTROL_PKT_SIZE = 11 # 1 + 2 + 4 + 4
+CONTROL_PKT_SIZE = 12 # 1 + 1 + 2 + 4 + 4
 CONTROL_ARR_SIZE = RSSI_BUF_SIZE * CONTROL_PKT_SIZE
 
 STRUCT_FMT = f"<{RSSI_BUF_SIZE}b{RSSI_BUF_SIZE}q{CONTROL_ARR_SIZE}siiqb{CONFIG_SIZE}s"
 EXPECTED_SIZE = struct.calcsize(STRUCT_FMT)
 
 # Control Packet Unpacker
-# uint8_t type; uint16_t throttle; float vector_x; float vector_y;
-CONTROL_PKT_FMT = "<BHff"
+# uint8_t type; uint8_t magic; uint16_t throttle; float vector_x; float vector_y;
+CONTROL_PKT_FMT = "<BBHff"
 
 def run_esptool_read(port, baud, output_file):
     print(f"Reading full flash partition ({PARTITION_SIZE} bytes) from offset 0x{PARTITION_OFFSET:X}...")
@@ -112,18 +114,19 @@ def parse_slot(slot_index, data):
         # Parse Config
         cfg_unpacked = struct.unpack(CONFIG_FMT, config_bytes)
         config_dict = {
-            "dshot_pin_a": cfg_unpacked[1],
-            "dshot_pin_b": cfg_unpacked[2],
-            "led_pin": cfg_unpacked[3],
-            "rotation_source": cfg_unpacked[4],
-            "step_lag": cfg_unpacked[5],
-            "step_window": cfg_unpacked[6],
-            "throttle_multiplier": cfg_unpacked[7],
-            "translation_multiplier": cfg_unpacked[8],
-            "correlation_window": cfg_unpacked[9],
-            "smoothing_window": cfg_unpacked[10],
-            "phase_offset": cfg_unpacked[11],
-            "translation_method": cfg_unpacked[12]
+            "dshot_pin_a": cfg_unpacked[2],
+            "dshot_pin_b": cfg_unpacked[3],
+            "led_pin": cfg_unpacked[4],
+            "rotation_source": cfg_unpacked[5],
+            "step_lag": cfg_unpacked[6],
+            "step_window": cfg_unpacked[7],
+            "throttle_multiplier": cfg_unpacked[8],
+            "translation_multiplier": cfg_unpacked[9],
+            "correlation_window": cfg_unpacked[10],
+            "smoothing_window": cfg_unpacked[11],
+            "phase_offset": cfg_unpacked[12],
+            "translation_method": cfg_unpacked[13],
+            "led_display_mode": cfg_unpacked[14]
         }
 
         # Save Config JSON
@@ -150,9 +153,9 @@ def parse_slot(slot_index, data):
                     c_offset = current * CONTROL_PKT_SIZE
                     c_data = control_bytes[c_offset : c_offset + CONTROL_PKT_SIZE]
                     c_pkt = struct.unpack(CONTROL_PKT_FMT, c_data)
-                    # c_pkt = (type, throttle, vx, vy)
+                    # c_pkt = (type, magic, throttle, vx, vy)
                     
-                    writer.writerow([written, t, rssi_arr[current], c_pkt[1], c_pkt[2], c_pkt[3]])
+                    writer.writerow([written, t, rssi_arr[current], c_pkt[2], c_pkt[3], c_pkt[4]])
                     written += 1
                 
                 current = (current + 1) % RSSI_BUF_SIZE

@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader
-/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader.rule
-/home/t/esp/rotation_sensing/sender/build/CMakeFiles/bootloader-complete.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/home/t/esp/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader
+/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader.rule
+/Users/t/rotation_sensing/sender/build/CMakeFiles/bootloader-complete.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/Users/t/rotation_sensing/sender/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
